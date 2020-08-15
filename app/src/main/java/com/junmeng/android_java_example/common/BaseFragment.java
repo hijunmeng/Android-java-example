@@ -15,10 +15,11 @@ import android.widget.Toast;
 
 import com.junmeng.android_java_example.R;
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements IBaseFragment {
     public final String TAG = this.getClass().getSimpleName();
-    public static final boolean isPrintLifecycle = true;
+    public static final boolean isPrintLifecycle = true;//是否打印生命周期log
 
+    private BaseFragmentDelegate mBaseFragmentDelegate = new BaseFragmentDelegate(this);
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -128,6 +129,7 @@ public class BaseFragment extends Fragment {
 
     /**
      * 单个fragment不会回调此
+     *
      * @param hidden
      */
     @Override
@@ -138,14 +140,10 @@ public class BaseFragment extends Fragment {
         super.onHiddenChanged(hidden);
     }
 
-
+    ///////////////////////////////////扩展方法////////////////////////////////////////////
+    @Override
     public void showToast(String text) {
-        if (getActivity() == null) {
-            return;
-        }
-        getActivity().runOnUiThread(() -> {
-            Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
-        });
+        mBaseFragmentDelegate.showToast(text);
     }
 
 }

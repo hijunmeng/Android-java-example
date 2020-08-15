@@ -11,11 +11,12 @@ import android.widget.Toast;
 
 import com.junmeng.android_java_example.R;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements IBaseActivity{
     public  final String TAG = this.getClass().getSimpleName();
 
-    public static final boolean isPrintLifecycle = true;
+    public static final boolean isPrintLifecycle = true;//是否打印生命周期log
 
+    private BaseActivityDelegate mBaseActivityDelegate=new BaseActivityDelegate(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (isPrintLifecycle) {
@@ -111,10 +112,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
+    /////////////////////////////扩展方法/////////////////////////////////////////////
+
+    @Override
     public void showToast(String text) {
-        runOnUiThread(() -> {
-            Toast.makeText(BaseActivity.this, text, Toast.LENGTH_SHORT).show();
-        });
+        mBaseActivityDelegate.showToast(text);
     }
 
 }
