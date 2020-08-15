@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GestureActivity">
+
+    <com.junmeng.android_java_example.MySurfaceView
+        android:id="@+id/sv_one"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"></com.junmeng.android_java_example.MySurfaceView>
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
+
+    <FrameLayout
+        android:id="@+id/fl_video"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:background="#ff00ff">
+        <com.junmeng.android_java_example.MySurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimary"></com.junmeng.android_java_example.MySurfaceView>
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:src="@mipmap/ic_launcher"></ImageView>
+    </FrameLayout>
+
+</RelativeLayout>
