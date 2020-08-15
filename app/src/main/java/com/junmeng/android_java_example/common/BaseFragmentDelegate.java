@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class BaseFragmentDelegate extends Fragment implements IBaseFragment {
-    public final String TAG = this.getClass().getSimpleName();
+    public final String TAG = this.toString();
     public static final boolean isPrintLifecycle = true;//是否打印生命周期log
 
     private BaseFragmentSimple mBaseFragmentSimple = new BaseFragmentSimple(this);
@@ -125,7 +125,7 @@ public class BaseFragmentDelegate extends Fragment implements IBaseFragment {
     }
 
     /**
-     * 单个fragment不会回调此
+     * 当在事务中使用show或hide时，会回调此
      *
      * @param hidden
      */

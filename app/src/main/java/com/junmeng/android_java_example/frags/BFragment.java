@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.junmeng.android_java_example.R;
+import com.junmeng.android_java_example.common.BaseFragmentDelegate;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link BFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BFragment extends Fragment {
+public class BFragment extends BaseFragmentDelegate {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

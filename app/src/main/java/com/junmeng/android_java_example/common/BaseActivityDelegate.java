@@ -11,7 +11,7 @@ import android.util.Log;
 import com.junmeng.android_java_example.R;
 
 public class BaseActivityDelegate extends AppCompatActivity implements IBaseActivity{
-    public  final String TAG = this.getClass().getSimpleName();
+    public final String TAG = this.toString();
 
     public static final boolean isPrintLifecycle = true;//是否打印生命周期log
 
@@ -110,6 +110,13 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isPrintLifecycle) {
+            Log.i(TAG, "onBackPressed: ");
+        }
+        super.onBackPressed();
+    }
 
     /////////////////////////////扩展方法/////////////////////////////////////////////
 

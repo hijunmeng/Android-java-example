@@ -14,10 +14,10 @@ import com.junmeng.android_java_example.common.BaseFragmentDelegate;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AFragmentSimple#newInstance} factory method to
+ * Use the {@link AFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AFragmentSimple extends BaseFragmentDelegate {
+public class AFragment extends BaseFragmentDelegate {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +28,9 @@ public class AFragmentSimple extends BaseFragmentDelegate {
     private String mParam1;
     private String mParam2;
 
-    public AFragmentSimple() {
+    public AFragment() {
         // Required empty public constructor
-        Log.i(TAG, "AFragment: constructor");
+//        Log.i(TAG, "AFragment: constructor");
     }
 
     /**
@@ -41,9 +41,8 @@ public class AFragmentSimple extends BaseFragmentDelegate {
      * @param param2 Parameter 2.
      * @return A new instance of fragment AFragment.
      */
-    public static AFragmentSimple newInstance(String param1, String param2) {
-        Log.i("AFragment", "newInstance");
-        AFragmentSimple fragment = new AFragmentSimple();
+    public static AFragment newInstance(String param1, String param2) {
+        AFragment fragment = new AFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
