@@ -15,7 +15,6 @@
             android:name=".frags.FragContainerActivity"
             android:launchMode="standard"></activity>
         <activity android:name=".common.BaseActivityDelegate" />
-        <activity android:name=".GestureActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
