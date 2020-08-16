@@ -3,6 +3,7 @@ package com.junmeng.android_java_example.common;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
     }
 
     /**
@@ -115,7 +117,19 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
         if (isPrintLifecycle) {
             Log.i(TAG, "onBackPressed: ");
         }
+        //如果fragment没消费，则还给Activity
+        if(dispatchBackPressedEvent()){
+            return;
+        }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        if (isPrintLifecycle) {
+            Log.i(TAG, "onSaveInstanceState: ");
+        }
+        super.onSaveInstanceState(outState);
     }
 
     /////////////////////////////扩展方法/////////////////////////////////////////////
@@ -130,4 +144,8 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
         mBaseActivitySimple.sleep(ms);
     }
 
+    @Override
+    public boolean dispatchBackPressedEvent() {
+        return mBaseActivitySimple.dispatchBackPressedEvent();
+    }
 }

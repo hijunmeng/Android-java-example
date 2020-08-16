@@ -61,7 +61,7 @@ public class CFragment extends BaseFragmentDelegate {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        super.onCreateView(inflater,container,savedInstanceState);
         return inflater.inflate(R.layout.fragment_c, container, false);
     }
 }

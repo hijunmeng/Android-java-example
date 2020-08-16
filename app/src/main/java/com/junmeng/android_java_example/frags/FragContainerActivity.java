@@ -1,12 +1,15 @@
 package com.junmeng.android_java_example.frags;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
+
+import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
 
 /**
  * 本例演示了
@@ -18,6 +21,16 @@ import com.junmeng.android_java_example.common.BaseActivityDelegate;
  * addToBackStack被执行多少次，就需要回退多少次(不管是add,replace,show)
  *
  * 只要有addToBackStack，fragment就不会执行到onDestroy和onDetach
+ *
+ * commit不会立即执行，如果想立即执行可以使用commitNow或executePendingTransactions
+ * popBackStack不会立即执行，如果想立即执行可以使用popBackStackImmediate或executePendingTransactions
+ *
+ *
+ * popBackStack的flag参数为0表示将自身以上出栈，但保留自身在栈中，为POP_BACK_STACK_INCLUSIVE表示将自身及以上都出栈
+ * addToBackStack时可以指定名字，这个名字可以用来popBackStack，如果栈中有同名的，则popBackStack会以最接近栈底的那个开始出栈
+ *
+ *
+ *
  */
 public class FragContainerActivity extends BaseActivityDelegate {
 
@@ -30,11 +43,12 @@ public class FragContainerActivity extends BaseActivityDelegate {
         mFragmentManager = getSupportFragmentManager();
 
 
-//        testWhenSavedInstanceStateNotNull(savedInstanceState);
+        testWhenSavedInstanceStateNotNull(savedInstanceState);
 //        testReplaceSameMore();
 //        testAddMore();
 //        testShowHide();
-        testReplaceMore();
+//        testReplaceMore();
+//        test();
     }
 
 
@@ -54,7 +68,7 @@ public class FragContainerActivity extends BaseActivityDelegate {
         } else {
             mFragmentManager.beginTransaction()
                     .replace(R.id.frag_container, AFragment.newInstance("", ""), AFragment.class.getSimpleName())
-                    .addToBackStack("")//addToBackStack则在回退时会执行
+//                    .addToBackStack(AFragment.class.getSimpleName())//addToBackStack则在回退时会执行
                     .commit();//不会立即执行，因此可以有多个commit；要立即执行可以用commitNow
             //      .commitNow();//会立即执行，因此不能有多个commitNow
         }
@@ -160,6 +174,60 @@ public class FragContainerActivity extends BaseActivityDelegate {
 //                .show(b)
 //                .hide(a)
 //                .commit();
+    }
+
+    public void test(){
+        mFragmentManager.beginTransaction()
+                .add(R.id.frag_container, AFragment.newInstance("", ""), AFragment.class.getSimpleName())
+                .addToBackStack(AFragment.class.getSimpleName())
+                .commit();
+        sleep(200);
+
+        Fragment b=BFragment.newInstance("", "");
+        mFragmentManager.beginTransaction()
+                .add(R.id.frag_container, b, b.getClass().getSimpleName())
+                .addToBackStack(b.getClass().getSimpleName())
+                .commit();
+        sleep(200);
+        mFragmentManager.beginTransaction()
+                .add(R.id.frag_container, CFragment.newInstance("", ""), CFragment.class.getSimpleName())
+                .addToBackStack( CFragment.class.getSimpleName())
+                .commit();
+
+        mFragmentManager.beginTransaction()
+                .add(R.id.frag_container, DFragment.newInstance("", ""), DFragment.class.getSimpleName())
+                .addToBackStack( DFragment.class.getSimpleName())
+                .commit();
+
+        mFragmentManager.executePendingTransactions();//让commit的事务立即执行
+        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());//4,4
+
+
+//        mFragmentManager.popBackStack(b.getClass().getSimpleName(),0);//界面显示到fragment b
+//        mFragmentManager.executePendingTransactions();
+//        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());//2,2
+
+
+        //POP_BACK_STACK_INCLUSIVE设置此标记，那么自身也会被出栈，为0则保留自身在栈中
+//        mFragmentManager.popBackStack(b.getClass().getSimpleName(),POP_BACK_STACK_INCLUSIVE);//界面显示到fragment a
+//        mFragmentManager.executePendingTransactions();
+//        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());//1,1
+
+//        mFragmentManager.popBackStackImmediate(b.getClass().getSimpleName(),0);//界面显示到fragment b
+//        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());//2,2
+
+        mFragmentManager.popBackStackImmediate(b.getClass().getSimpleName(),POP_BACK_STACK_INCLUSIVE);//界面显示到fragment a
+        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());//1,1
+
+
+        //验证下出栈后再入栈会不会有null存在栈中
+        mFragmentManager.beginTransaction()
+                .add(R.id.frag_container, CFragment.newInstance("", ""), CFragment.class.getSimpleName())
+                .addToBackStack( CFragment.class.getSimpleName())
+                .commit();
+        mFragmentManager.executePendingTransactions();
+        Log.i(TAG, "getBackStackEntryCount(): "+mFragmentManager.getBackStackEntryCount()+",getFragments().size():"+mFragmentManager.getFragments().size());
+
     }
 
 

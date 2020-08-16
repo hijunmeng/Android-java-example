@@ -137,6 +137,14 @@ public class BaseFragmentDelegate extends Fragment implements IBaseFragment {
         super.onHiddenChanged(hidden);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (isPrintLifecycle) {
+            Log.i(TAG, "onSaveInstanceState: ");
+        }
+        super.onSaveInstanceState(outState);
+    }
+
     ///////////////////////////////////扩展方法////////////////////////////////////////////
     @Override
     public void showToast(String text) {

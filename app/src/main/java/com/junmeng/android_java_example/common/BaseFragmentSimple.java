@@ -15,7 +15,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 /**
  * BaseFragmentDelegate的真正实现者
  */
-public class BaseFragmentSimple implements IBaseActivity, LifecycleObserver {
+public class BaseFragmentSimple implements IBaseFragment, LifecycleObserver {
 
     private Fragment mHost;
 
