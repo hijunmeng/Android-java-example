@@ -148,4 +148,14 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
     public boolean dispatchBackPressedEvent() {
         return mBaseActivitySimple.dispatchBackPressedEvent();
     }
+
+    @Override
+    public void gotoActivity(Class<?> cls, boolean isFinishCurrent) {
+        mBaseActivitySimple.gotoActivity(cls,isFinishCurrent);
+    }
+
+    @Override
+    public void gotoActivity(Class<?> cls) {
+        mBaseActivitySimple.gotoActivity(cls);
+    }
 }

@@ -2,6 +2,7 @@ package com.junmeng.android_java_example.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -73,5 +74,18 @@ public class BaseActivitySimple implements IBaseActivity, LifecycleObserver {
             }
         }
         return false;
+    }
+    @Override
+    public void gotoActivity(Class<?> cls){
+        Intent intent=new Intent(mHost,cls);
+        mHost.startActivity(intent);
+    }
+    @Override
+    public void gotoActivity(Class<?> cls,boolean isFinishCurrent){
+        Intent intent=new Intent(mHost,cls);
+        mHost.startActivity(intent);
+        if(isFinishCurrent){
+            mHost.finish();
+        }
     }
 }
