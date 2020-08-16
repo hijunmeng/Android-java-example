@@ -1,4 +1,4 @@
-package com.junmeng.android_java_example.gesture;
+package com.junmeng.android_java_example.gesture.listener;
 
 import android.view.ScaleGestureDetector;
 import android.view.View;

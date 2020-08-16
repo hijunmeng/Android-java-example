@@ -1,13 +1,12 @@
 package com.junmeng.android_java_example;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
 import com.junmeng.android_java_example.livedata.LiveDataActivity;
+import com.junmeng.android_java_example.gesture.GestureActivity;
 
 public class MainActivity extends BaseActivityDelegate {
 
@@ -23,5 +22,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickLiveData(View view) {
         gotoActivity(LiveDataActivity.class);
+    }
+
+    public void onClickGesture(View view) {
+        gotoActivity(GestureActivity.class);
     }
 }

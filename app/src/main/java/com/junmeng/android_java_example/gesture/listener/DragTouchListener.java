@@ -1,4 +1,4 @@
-package com.junmeng.android_java_example.gesture;
+package com.junmeng.android_java_example.gesture.listener;
 
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -6,8 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * 对view实现拖拽移动、双指缩放效果（默认全开启）

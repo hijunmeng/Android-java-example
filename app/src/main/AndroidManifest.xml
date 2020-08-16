@@ -9,15 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".livedata.LiveDataActivity"></activity>
+        <activity android:name=".gesture.GestureActivity"></activity>
+        <activity android:name=".livedata.LiveDataActivity" />
         <activity
             android:name=".frags.FragContainerActivity"
-            android:launchMode="standard">
-
-        </activity>
+            android:launchMode="standard"></activity>
         <activity android:name=".common.BaseActivityDelegate" />
-        <activity android:name=".GestureActivity"></activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".GestureActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

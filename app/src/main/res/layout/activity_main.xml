@@ -22,6 +22,11 @@
             android:layout_height="wrap_content"
             android:text="livedata"
             android:onClick="onClickLiveData" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="gesture"
+            android:onClick="onClickGesture" />
     </LinearLayout>
 
 </ScrollView>

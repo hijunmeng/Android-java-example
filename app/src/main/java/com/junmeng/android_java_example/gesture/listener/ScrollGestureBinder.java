@@ -1,9 +1,7 @@
-package com.junmeng.android_java_example.gesture;
+package com.junmeng.android_java_example.gesture.listener;
 
 import android.content.Context;
 import android.view.GestureDetector;
-import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by JarvisLau on 2018/5/30.

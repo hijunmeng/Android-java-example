@@ -1,7 +1,5 @@
 package com.junmeng.android_java_example;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -12,9 +10,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.junmeng.android_java_example.gesture.DragTouchListener;
-import com.junmeng.android_java_example.gesture.GestureViewBinder;
-import com.junmeng.android_java_example.gesture.ScrollGestureListener;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.junmeng.android_java_example.gesture.listener.DragTouchListener;
 
 
 public class GestureActivity extends AppCompatActivity {

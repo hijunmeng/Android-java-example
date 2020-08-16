@@ -1,13 +1,14 @@
 package com.junmeng.android_java_example.livedata;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
+import com.junmeng.android_java_example.livedata.object.TestObject;
 import com.junmeng.android_java_example.livedata.single.EventObserver;
 
 public class LiveDataActivity extends BaseActivityDelegate {
@@ -48,6 +49,12 @@ public class LiveDataActivity extends BaseActivityDelegate {
             @Override
             public void onChanged(String s) {
                 showToast(s);
+            }
+        });
+        mLiveDataViewModel.objectLiveData.observe(this, new Observer<TestObject>() {
+            @Override
+            public void onChanged(TestObject testObject) {
+                showToast(testObject.toString());
             }
         });
 
