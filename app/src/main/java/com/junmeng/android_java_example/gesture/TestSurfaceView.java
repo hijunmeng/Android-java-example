@@ -47,6 +47,7 @@ public class TestSurfaceView extends BaseSurfaceView {
         c.drawColor(color);
     }
 
+
     public void release(){
         if(timer!=null){
             timer.cancel();

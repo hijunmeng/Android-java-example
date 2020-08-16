@@ -21,9 +21,10 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
     private static final int ANIM_DURATION_MS = 300;//动画时间
     private static final int FLOAT_TIMES = 10000;//浮点型精度，10000表示小数点4位
 
-    //todo 待实现
-    private float maxScale = 5.0f;
-    private float minScale = 1.0f;
+    private float doubleClickScale = 2.0f;//双击放大的倍数
+
+    private float maxScale = 3.0f;//最大缩放比例，不能小于doubleClickScale
+    private float minScale = 1.0f;//最小缩放比例
 
     private ViewGroup mParentView;
     private View mTargetView;
@@ -48,12 +49,14 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
     private boolean isFitCenter = true;//是否还原原位置大小
     private boolean isAnimEnd = true;//动画是否结束
 
-    private float tempDistanceX;
-    private float tempDistanceY;
+    private float tempDistanceX;//相对于原始view的位置
+    private float tempDistanceY;//相对于原始view的位置
 
 
-    private float scale = 1.0f;
-    private float scaleTemp = 1.0f;
+    private float scale = 1.0f;//相对于当前view的尺寸的缩放比例
+    private float scaleTemp = 1.0f;//相对于当前view的尺寸的缩放比例
+
+    private float absoluteScale = 1.0f;//相对于原始view的尺寸的缩放比例
 
 
     @SuppressLint("RestrictedApi")
@@ -125,10 +128,19 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
     }
 
     private void requestLayoutWithScale() {
+
+        if (absoluteScale * scaleTemp > maxScale) {//大于最大比例，
+            scaleTemp = maxScale / absoluteScale;
+        }
+        if (absoluteScale * scaleTemp < minScale) {
+            scaleTemp = minScale / absoluteScale;
+        }
+        absoluteScale *= scaleTemp;
         mTargetViewCurrentWidth = (int) (scaleTemp * mTargetViewCurrentWidth);
         mTargetViewCurrentHeight = (int) (scaleTemp * mTargetViewCurrentHeight);
 
         scale = scaleTemp = 1.0f;
+
         mTargetView.setScaleX(scale);
         mTargetView.setScaleY(scale);
 
@@ -171,8 +183,8 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
             return false;
         }
         if (isFitCenter) {
-//            scale(2.0f);
-            scaleWithAnim2(2.0f);
+//            scale(doubleClickScale);
+            scaleWithAnim2(doubleClickScale);
         } else {
 //            fitCenter();
             fitCenterWithAnim2();
@@ -209,7 +221,7 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
         mTargetViewCurrentWidth = mTargetViewSourceWidth;
         mTargetViewCurrentHeight = mTargetViewSourceHeight;
 
-        scale = scaleTemp = 1.0f;
+        absoluteScale=scale = scaleTemp = 1.0f;
         mTargetView.setScaleX(scale);
         mTargetView.setScaleY(scale);
         tempDistanceX = 0;
@@ -262,7 +274,7 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
                     mTargetViewCurrentWidth = mTargetViewSourceWidth;
                     mTargetViewCurrentHeight = mTargetViewSourceHeight;
 
-                    scale = scaleTemp = 1.0f;
+                    absoluteScale=  scale = scaleTemp = 1.0f;
                     mTargetView.setScaleX(scale);
                     mTargetView.setScaleY(scale);
 
@@ -327,7 +339,7 @@ public class GestureTouchListener extends GestureDetector.SimpleOnGestureListene
                     mTargetViewCurrentWidth = mTargetViewSourceWidth;
                     mTargetViewCurrentHeight = mTargetViewSourceHeight;
 
-                    scale = scaleTemp = 1.0f;
+                    absoluteScale = scale = scaleTemp = 1.0f;
                     mTargetView.setScaleX(scale);
                     mTargetView.setScaleY(scale);
 
