@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.util.TypedValue;
 
+/**
+ * 计算工具
+ */
 public class CalculateUtil {
 
     /**
