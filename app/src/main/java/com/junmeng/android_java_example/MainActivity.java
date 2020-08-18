@@ -3,6 +3,7 @@ package com.junmeng.android_java_example;
 import android.os.Bundle;
 import android.view.View;
 
+import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
 import com.junmeng.android_java_example.livedata.LiveDataActivity;
@@ -26,5 +27,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickGesture(View view) {
         gotoActivity(GestureActivity.class);
+    }
+
+    public void onClickAnim(View view) {
+        gotoActivity(AnimListActivity.class);
     }
 }
