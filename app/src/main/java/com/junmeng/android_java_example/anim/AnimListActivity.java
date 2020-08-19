@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.anim.animatelayout.AnimateLayoutActivity;
+import com.junmeng.android_java_example.anim.animatelayout.PropertyAnimatorActivity;
+import com.junmeng.android_java_example.anim.animatelayout.ViewAnimatorActivity;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 public class AnimListActivity extends BaseActivityDelegate {
@@ -17,5 +19,13 @@ public class AnimListActivity extends BaseActivityDelegate {
 
     public void onCLickLayout(View view) {
         gotoActivity(AnimateLayoutActivity.class);
+    }
+
+    public void onCLickProperty(View view) {
+        gotoActivity(PropertyAnimatorActivity.class);
+    }
+
+    public void onCLickView(View view) {
+        gotoActivity(ViewAnimatorActivity.class);
     }
 }

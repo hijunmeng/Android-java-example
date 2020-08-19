@@ -6,6 +6,7 @@ import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,13 @@ import static android.animation.LayoutTransition.CHANGE_APPEARING;
 
 /**
  * LayoutTransition可作用子view下的子view，因此直接在xml的根view设置android:animateLayoutChanges="true"即可
- * [布局动画--LayoutTransition - 简书](https://www.jianshu.com/p/60d632fe8f71)
+ * <p>
+ * APPEARING —— 元素在容器中出现时所定义的动画。
+ * DISAPPEARING —— 元素在容器中消失时所定义的动画。
+ * CHANGE_APPEARING —— 由于容器中要显现一个新的元素，其它需要变化的元素所应用的动画
+ * CHANGE_DISAPPEARING —— 当容器中某个元素消失，其它需要变化的元素所应用的动画
+ * <p>
+ * 如果想自定义动画，可以通过LayoutTransition实现，但LayoutTransition有坑，慎用
  */
 public class AnimateLayoutActivity extends AppCompatActivity {
 
@@ -44,11 +51,21 @@ public class AnimateLayoutActivity extends AppCompatActivity {
 
     public LayoutTransition getCustomLayoutTransition() {
         LayoutTransition lt = new LayoutTransition();
-        //动画时间
+
+        //设置所有动画完成所需要的时长
         lt.setDuration(2000);
 
-        //动画延时
-        lt.setStartDelay(CHANGE_APPEARING, 1000);
+        //针对单个type，设置动画时长
+        lt.setDuration(CHANGE_APPEARING, 2500);
+
+        //针对单个type设置插值器
+        lt.setInterpolator(CHANGE_APPEARING, new LinearInterpolator());
+
+        //针对单个type设置动画延时
+        lt.setStartDelay(CHANGE_APPEARING, 100);
+
+        //针对单个type设置每个子item动画的时间间隔
+        lt.setStagger(CHANGE_APPEARING, 100);
 
         //添加View时过渡动画效果
         ObjectAnimator addAnimator = ObjectAnimator.ofFloat(null, "rotationY", 0, 90, 0).
@@ -60,14 +77,9 @@ public class AnimateLayoutActivity extends AppCompatActivity {
                 setDuration(lt.getDuration(LayoutTransition.DISAPPEARING));
         lt.setAnimator(LayoutTransition.DISAPPEARING, removeAnimator);
 
-        /**
-         *LayoutTransition.CHANGE_APPEARING和LayoutTransition.CHANGE_DISAPPEARING的过渡动画效果
-         * 必须使用PropertyValuesHolder所构造的动画才会有效果，不然无效！使用ObjectAnimator是行不通的,
-         * 发现这点时真特么恶心,但没想到更恶心的在后面,在测试效果时发现在构造动画时，”left”、”top”、”bottom”、”right”属性的
-         * 变动是必须设置的,至少设置两个,不然动画无效,问题是我们即使这些属性不想变动!!!也得设置!!!
-         * 我就问您恶不恶心!,因为这里不想变动,所以设置为(0,0)
-         *
-         */
+        //LayoutTransition.CHANGE_APPEARING和LayoutTransition.CHANGE_DISAPPEARING的过渡动画效果必须使用PropertyValuesHolder所构造的动画才会有效果，不然无效！
+        //”left”、”top”、”bottom”、”right”属性的变动是必须设置的,至少设置两个,不然动画无效
+        //PropertyValuesHolder的首尾值必须相同，否则动画无效，例如PropertyValuesHolder.ofInt("left", 100, 0)中由于100和0不同，则动画无效
         PropertyValuesHolder pvhLeft =
                 PropertyValuesHolder.ofInt("left", 0, 0);
         PropertyValuesHolder pvhTop =
@@ -78,33 +90,22 @@ public class AnimateLayoutActivity extends AppCompatActivity {
                 PropertyValuesHolder.ofInt("bottom", 0, 0);
 
 
-        /**
-         * view被添加时,其他子View的过渡动画效果
-         */
+        //view被添加时,其他子View的过渡动画效果
         PropertyValuesHolder animator = PropertyValuesHolder.ofFloat("scaleX", 1, 1.5f, 1);
         final ObjectAnimator changeIn = ObjectAnimator.ofPropertyValuesHolder(
-                this, pvhLeft,  pvhBottom, animator).
+                this, pvhLeft, pvhBottom, animator).
                 setDuration(lt.getDuration(LayoutTransition.CHANGE_APPEARING));
-
         lt.setAnimator(LayoutTransition.CHANGE_APPEARING, changeIn);
 
 
-        /**
-         * view移除时，其他子View的过渡动画
-         */
+        //view移除时，其他子View的过渡动画
         PropertyValuesHolder pvhRotation =
                 PropertyValuesHolder.ofFloat("scaleX", 1, 1.5f, 1);
         final ObjectAnimator changeOut = ObjectAnimator.ofPropertyValuesHolder(
                 this, pvhLeft, pvhBottom, pvhRotation).
                 setDuration(lt.getDuration(LayoutTransition.CHANGE_DISAPPEARING));
-
         lt.setAnimator(LayoutTransition.CHANGE_DISAPPEARING, changeOut);
 
-
-
-       //view 动画改变时，布局中的每个子view动画的时间间隔
-        lt.setStagger(LayoutTransition.CHANGE_APPEARING, 30);
-        lt.setStagger(LayoutTransition.CHANGE_DISAPPEARING, 30);
         return lt;
     }
 
@@ -117,7 +118,6 @@ public class AnimateLayoutActivity extends AppCompatActivity {
         tv.setText(Math.random() + "");
         rootView.addView(tv);
         views.add(tv);
-
 
 
     }
@@ -149,6 +149,7 @@ public class AnimateLayoutActivity extends AppCompatActivity {
     }
 
     public void onClickMoveImage(View view) {
-        imageView.setTranslationX(100);
+        //我们可以发现，这种方式改变位置和大小，是不会应用系统默认动画的
+        imageView.layout(-50, -50, 500, 500);
     }
 }

@@ -5,15 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".anim.AnimListActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onCLickLayout"
-            android:text="layout anim"/>
+            android:text="layout anim" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCLickProperty"
+            android:text="property anim" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCLickView"
+            android:text="view anim" />
 
     </LinearLayout>
 

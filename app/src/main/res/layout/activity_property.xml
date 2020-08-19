@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".anim.animatelayout.PropertyAnimatorActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickValue"
+            android:text="ValueAnimator"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickCustomTypeEvaluator"
+            android:text="CustomTypeEvaluator"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickObject"
+            android:text="ObjectAnimator"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickAnimSet"
+            android:text="anim set"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickStateList"
+            android:text="StateListAnimator"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickKeyFrame"
+            android:text="KeyFrame"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickPropertyValuesHolder"
+            android:text="PropertyValuesHolder"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:onClick="onClickViewPropertyAnimator"
+            android:text="ViewPropertyAnimator"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/ll_btns"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:stateListAnimator="@xml/animate_scale"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
