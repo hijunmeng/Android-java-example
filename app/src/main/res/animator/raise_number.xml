@@ -1,20 +1,47 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:ordering="sequentially">
+<!--    数字上升变大透明度变化-->
     <set>
         <objectAnimator
-            android:duration="500"
-            android:propertyName="x"
-            android:valueTo="400"
-            android:valueType="intType" />
+            android:duration="800"
+            android:propertyName="scaleX"
+            android:valueFrom="1.0"
+            android:valueTo="1.5"
+            android:repeatMode="reverse"
+            android:repeatCount="1"
+            android:valueType="floatType" />
         <objectAnimator
-            android:duration="500"
-            android:propertyName="y"
-            android:valueTo="300"
-            android:valueType="intType" />
+            android:duration="800"
+            android:propertyName="scaleY"
+            android:valueFrom="1.0"
+            android:valueTo="1.5"
+            android:repeatMode="reverse"
+            android:repeatCount="1"
+            android:valueType="floatType" />
+        <objectAnimator
+            android:duration="800"
+            android:propertyName="alpha"
+            android:valueFrom="0.5"
+            android:valueTo="1.0"
+            android:repeatMode="reverse"
+            android:repeatCount="1"
+            android:valueType="floatType" />
+        <objectAnimator
+            android:duration="1000"
+            android:propertyName="translationX"
+            android:valueFrom="0"
+            android:valueTo="10"
+            android:repeatMode="reverse"
+            android:repeatCount="1"
+            android:valueType="floatType" />
+        <objectAnimator
+            android:duration="800"
+            android:propertyName="translationY"
+            android:valueFrom="0"
+            android:valueTo="-30"
+            android:repeatMode="reverse"
+            android:repeatCount="1"
+            android:valueType="floatType" />
     </set>
-    <objectAnimator
-        android:duration="500"
-        android:propertyName="alpha"
-        android:valueTo="1f" />
 </set>
 

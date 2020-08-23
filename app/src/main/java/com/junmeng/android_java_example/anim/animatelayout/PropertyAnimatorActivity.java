@@ -14,7 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.anim.MyTypeEvaluator;
@@ -26,12 +28,14 @@ import com.junmeng.android_java_example.common.BaseActivityDelegate;
 public class PropertyAnimatorActivity extends BaseActivityDelegate {
     private static final String TAG = "PropertyActivity";
     ImageView imageView;
+    TextView numberView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property);
         imageView = findViewById(R.id.image);
+        numberView = findViewById(R.id.number);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,12 +130,39 @@ public class PropertyAnimatorActivity extends BaseActivityDelegate {
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("x", 100f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", 50);
         ObjectAnimator.ofPropertyValuesHolder(imageView, pvhX, pvhY).start();
-
-
     }
     public void onClickViewPropertyAnimator(View v) {
         //推荐此种方式，高效又简洁
         imageView.animate().x(50f).y(100f);
+
+    }
+
+    public void onClickXmlAnimator(View v) {
+        Animator a=AnimatorInflater.loadAnimator(this,R.animator.raise_number);
+        a.setTarget(numberView);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                numberView.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                numberView.setTextColor(Color.GRAY);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        a.start();
 
     }
 

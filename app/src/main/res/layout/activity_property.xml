@@ -11,71 +11,94 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickValue"
-            android:text="ValueAnimator"/>
+            android:text="ValueAnimator"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickCustomTypeEvaluator"
-            android:text="CustomTypeEvaluator"/>
+            android:text="CustomTypeEvaluator"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickObject"
-            android:text="ObjectAnimator"/>
+            android:text="ObjectAnimator"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickAnimSet"
-            android:text="anim set"/>
+            android:text="anim set"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickStateList"
-            android:text="StateListAnimator"/>
+            android:text="StateListAnimator"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickKeyFrame"
-            android:text="KeyFrame"/>
+            android:text="KeyFrame"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickPropertyValuesHolder"
-            android:text="PropertyValuesHolder"/>
+            android:text="PropertyValuesHolder"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
             android:onClick="onClickViewPropertyAnimator"
-            android:text="ViewPropertyAnimator"/>
+            android:text="ViewPropertyAnimator"
+            android:textAllCaps="false" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickXmlAnimator"
+            android:text="XmlAnimator"
+            android:textAllCaps="false" />
 
 
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_below="@+id/ll_btns"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_btns">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_centerInParent="true"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:stateListAnimator="@xml/animate_scale"/>
+            android:padding="10dp"
+            android:stateListAnimator="@xml/animate_scale"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 
