@@ -6,11 +6,10 @@ import android.view.View;
 import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
-import com.junmeng.android_java_example.livedata.LiveDataActivity;
 import com.junmeng.android_java_example.gesture.GestureActivity;
+import com.junmeng.android_java_example.livedata.LiveDataActivity;
 
 public class MainActivity extends BaseActivityDelegate {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

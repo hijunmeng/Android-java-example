@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('G:\\workspace\\code_workspace\\android\\keystore\\myandroidkeystore-hwj-hwj123456.jks')
+            storePassword 'hwj123456'
+            keyAlias 'hwj'
+            keyPassword 'hwj123456'
+        }
+    }
     compileSdkVersion 29
 
     defaultConfig {
@@ -11,12 +19,21 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
+        debug {}
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
         }
     }
     compileOptions {
@@ -30,10 +47,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-//    implementation 'com.github.GeniusLiu:GestureViewBinder:1.0.1'
+//    implementation(name:"mylibrary-release",ext:"aar")
+    implementation project(path: ':mylibrary')
 
 }

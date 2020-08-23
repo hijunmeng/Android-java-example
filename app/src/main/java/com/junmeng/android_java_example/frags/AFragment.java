@@ -1,13 +1,11 @@
 package com.junmeng.android_java_example.frags;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.common.BaseFragmentDelegate;
