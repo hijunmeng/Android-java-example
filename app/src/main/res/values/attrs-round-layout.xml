@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundLayout">
+    <attr name="junmeng_topLeftRadius" format="dimension"></attr>
+    <attr name="junmeng_topRightRadius" format="dimension"></attr>
+    <attr name="junmeng_bottomRightRadius" format="dimension"></attr>
+    <attr name="junmeng_bottomLeftRadius" format="dimension"></attr>
+    <attr name="junmeng_radius" format="dimension"></attr>
+    </declare-styleable>
+</resources>

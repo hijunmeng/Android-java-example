@@ -15,7 +15,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false //特别要注意这里为false,不能为true,否则那些没有keep的类通通都会被删除
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

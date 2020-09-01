@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".anim.animatelayout.ViewAnimatorActivity"></activity>
+        <activity android:name=".statusbar.StatusBarActivity"></activity>
+        <activity android:name=".round_layout.RoundLayoutActivity" />
+        <activity android:name=".anim.animatelayout.ViewAnimatorActivity" />
         <activity android:name=".anim.animatelayout.PropertyAnimatorActivity" />
         <activity android:name=".anim.AnimListActivity" />
         <activity android:name=".anim.animatelayout.AnimateLayoutActivity" />

@@ -32,6 +32,18 @@
             android:layout_height="wrap_content"
             android:text="animation"
             android:onClick="onClickAnim" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="带有圆角的布局"
+            android:onClick="onClickRoundLayout" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="系统栏（状态栏和导航栏）"
+            android:onClick="onClickStatusBar" />
     </LinearLayout>
 
 </ScrollView>
