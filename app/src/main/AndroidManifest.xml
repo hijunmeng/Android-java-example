@@ -8,12 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-        <meta-data android:value="true" android:name="android.notch_support"/>
+        android:theme="@style/AppTheme">
+        <!--        <meta-data android:value="true" android:name="android.notch_support"/>-->
 
-        <activity android:name=".statusbar.StatusBarActivity"
-            ></activity>
+        <activity android:name=".statusbar.StatusBarActivity">
+            <!-- 允许绘制到小米刘海屏机型的刘海区域 -->
+            <meta-data android:name="notch.config" android:value="portrait" />
+            <!--允许绘制到oppo、vivo刘海屏机型的刘海区域 -->
+            <meta-data android:name="android.max_aspect" android:value="2.2" />
+
+            <!-- 允许绘制到华为刘海屏机型的刘海区域 -->
+            <meta-data android:name="android.notch_support" android:value="true" />
+        </activity>
         <activity android:name=".round_layout.RoundLayoutActivity" />
         <activity android:name=".anim.animatelayout.ViewAnimatorActivity" />
         <activity android:name=".anim.animatelayout.PropertyAnimatorActivity" />
