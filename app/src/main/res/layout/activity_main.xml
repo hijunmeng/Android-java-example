@@ -20,30 +20,40 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="livedata"
-            android:onClick="onClickLiveData" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="gesture"
-            android:onClick="onClickGesture" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="animation"
-            android:onClick="onClickAnim" />
+            android:onClick="onClickLiveData"
+            android:text="livedata" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="带有圆角的布局"
-            android:onClick="onClickRoundLayout" />
+            android:onClick="onClickGesture"
+            android:text="gesture" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="系统栏（状态栏和导航栏）"
-            android:onClick="onClickStatusBar" />
+            android:onClick="onClickAnim"
+            android:text="animation" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickRoundLayout"
+            android:text="带有圆角的布局" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickStatusBar"
+            android:text="系统栏（状态栏和导航栏）" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickDrag"
+            android:text="ViewDragHelper" />
+
+
     </LinearLayout>
 
 </ScrollView>

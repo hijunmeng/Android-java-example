@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
+import com.junmeng.android_java_example.gesture.DragActivity;
 import com.junmeng.android_java_example.gesture.GestureActivity;
 import com.junmeng.android_java_example.livedata.LiveDataActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
@@ -64,5 +65,8 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickStatusBar(View view) {
         gotoActivity(StatusBarActivity.class);
+    }
+    public void onClickDrag(View view) {
+        gotoActivity(DragActivity.class);
     }
 }
