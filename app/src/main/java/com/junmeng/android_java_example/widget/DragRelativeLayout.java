@@ -37,8 +37,15 @@ public class DragRelativeLayout extends RelativeLayout {
     }
 
     private void init() {
-        //第二个参数为敏感度
+        //第二个参数为敏感度,值越大越敏感，1.0表示正常
         mViewDragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
+            /**
+             * 是否捕获view
+             * 在这里可以对要进行拖拽的view进行判断，返回true则表示要对此view进行拖拽
+             * @param child
+             * @param pointerId
+             * @return
+             */
             @Override
             public boolean tryCaptureView(@NonNull View child, int pointerId) {
                 mCaptureViewPoint = new Point(child.getLeft(), child.getTop());
@@ -57,8 +64,8 @@ public class DragRelativeLayout extends RelativeLayout {
             public int clampViewPositionHorizontal(View child, int left, int dx) {
 //                Log.i(TAG, "clampViewPositionHorizontal: left=" + left + ",dx=" + dx);
 
-                if(child instanceof FrameLayout){
-                    return dx<0?child.getLeft():left;//不能向左拖动
+                if (child instanceof FrameLayout) {
+                    return dx < 0 ? child.getLeft() : left;//不能向左拖动
                 }
 
                 //直接返回left则控件可以拖出父view范围
@@ -75,22 +82,20 @@ public class DragRelativeLayout extends RelativeLayout {
 
 
                 //让控件在水平方向上无法拖出父view范围,包含父view padding及child的margin
-                MarginLayoutParams lp= (MarginLayoutParams) child.getLayoutParams();
-                int leftMargin=0;
-                int rightMargin=0;
-                if(lp!=null){
-                    leftMargin=lp.leftMargin;
-                    rightMargin=lp.rightMargin;
+                MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+                int leftMargin = 0;
+                int rightMargin = 0;
+                if (lp != null) {
+                    leftMargin = lp.leftMargin;
+                    rightMargin = lp.rightMargin;
                 }
-                final int leftPadding=getPaddingLeft();
-                final int rightPadding=getPaddingRight();
+                final int leftPadding = getPaddingLeft();
+                final int rightPadding = getPaddingRight();
 
-                final int leftBound = leftPadding+leftMargin;
-                final int rightBound = getWidth() - child.getWidth() - rightPadding-rightMargin;
+                final int leftBound = leftPadding + leftMargin;
+                final int rightBound = getWidth() - child.getWidth() - rightPadding - rightMargin;
                 final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
                 return newLeft;
-
-
 
 
 //                //让控件只能垂直上下移动
@@ -120,19 +125,19 @@ public class DragRelativeLayout extends RelativeLayout {
 //                return newTop;
 
                 //让控件在垂直方向上无法拖出父view范围,包含父view padding及child的margin
-                MarginLayoutParams lp= (MarginLayoutParams) child.getLayoutParams();
-                int topMargin=0;
-                int bottomMargin=0;
-                if(lp!=null){
-                    topMargin=lp.topMargin;
-                    bottomMargin=lp.bottomMargin;
+                MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+                int topMargin = 0;
+                int bottomMargin = 0;
+                if (lp != null) {
+                    topMargin = lp.topMargin;
+                    bottomMargin = lp.bottomMargin;
                 }
 
                 final int bottomPadding = getPaddingBottom();
                 final int topPadding = getPaddingTop();
 
-                final int topBound =topPadding+topMargin;
-                final int bottomBound = getHeight() - child.getHeight() -bottomPadding-bottomMargin;
+                final int topBound = topPadding + topMargin;
+                final int bottomBound = getHeight() - child.getHeight() - bottomPadding - bottomMargin;
                 final int newTop = Math.min(Math.max(top, topBound), bottomBound);
                 return newTop;
 
@@ -143,21 +148,21 @@ public class DragRelativeLayout extends RelativeLayout {
             /**
              * 手指释放的时候回调
              * @param releasedChild
-             * @param xvel
-             * @param yvel
+             * @param xvel x轴的速率
+             * @param yvel y轴的速率
              */
             @Override
             public void onViewReleased(View releasedChild, float xvel, float yvel) {
                 Log.i(TAG, "onViewReleased: xvel=" + xvel + ",yvel=" + yvel);
 
-                if(releasedChild instanceof FrameLayout){
-                    int fatherWidth=getMeasuredWidth();
-                    if(releasedChild.getLeft()>fatherWidth/2){
+                if (releasedChild instanceof FrameLayout) {
+                    int fatherWidth = getMeasuredWidth();
+                    if (releasedChild.getLeft() > fatherWidth / 2) {
                         Log.i(TAG, "onViewReleased: 超过一半了");
                         //向右拖动超过一半则松手后全部向右滑出
                         mViewDragHelper.settleCapturedViewAt(fatherWidth, releasedChild.getTop());////需要复写computeScroll让view可以回到指定位置
                         postInvalidate();
-                        return ;
+                        return;
                     }
 
                 }
@@ -190,14 +195,27 @@ public class DragRelativeLayout extends RelativeLayout {
             public int getViewVerticalDragRange(View child) {
                 return getMeasuredHeight() - child.getMeasuredHeight();
             }
+
+            /**
+             * 边界检测，需要开启ViewDragHelper.setEdgeTrackingEnabled
+             * @param edgeFlags 见ViewDragHelper.EDGE_
+             * @param pointerId
+             */
+            @Override
+            public void onEdgeDragStarted(int edgeFlags, int pointerId) {
+                Log.i(TAG, "onEdgeDragStarted: edgeFlags="+edgeFlags+",pointerId="+pointerId);
+                //此处只是演示了在右边缘拖拽第二个子view
+                mViewDragHelper.captureChildView(getChildAt(1), pointerId);
+            }
         });
 
-        //mViewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
+        //开启边界检测
+        mViewDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_RIGHT);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-//        Log.i(TAG, "onInterceptTouchEvent: ");
+        Log.i(TAG, "onInterceptTouchEvent: ");
         return mViewDragHelper.shouldInterceptTouchEvent(event);
     }
 

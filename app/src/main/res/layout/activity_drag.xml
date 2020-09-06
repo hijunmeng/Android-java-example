@@ -8,10 +8,11 @@
     android:paddingBottom="30dp"
     android:paddingLeft="10dp"
     android:paddingRight="30dp"
+    android:background="#00ffff"
     tools:context=".gesture.DragActivity">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:background="#ff00ff">
 
     </FrameLayout>
