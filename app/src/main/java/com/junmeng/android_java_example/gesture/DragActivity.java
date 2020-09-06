@@ -15,10 +15,10 @@ public class DragActivity extends BaseActivityDelegate {
     }
 
     public void onClickImage(View view) {
-        showToast("image");
+        showToast("click image");
     }
 
     public void onClickLL(View view) {
-        showToast("ll");
+        showToast("click linearlayout");
     }
 }

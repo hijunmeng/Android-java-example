@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -55,15 +56,42 @@ public class DragRelativeLayout extends RelativeLayout {
             @Override
             public int clampViewPositionHorizontal(View child, int left, int dx) {
 //                Log.i(TAG, "clampViewPositionHorizontal: left=" + left + ",dx=" + dx);
+
+                if(child instanceof FrameLayout){
+                    return dx<0?child.getLeft():left;//不能向左拖动
+                }
+
                 //直接返回left则控件可以拖出父view范围
                 //return left;
 
 
-//                让控件在水平方向上无法拖出父view范围
-                final int leftBound = getPaddingLeft();
-                final int rightBound = getWidth() - child.getWidth() - leftBound;
+//                让控件在水平方向上无法拖出父view范围,包含父view padding
+//                final int leftPadding=getPaddingLeft();
+//                final int rightPadding=getPaddingRight();
+//                final int leftBound = leftPadding;
+//                final int rightBound = getWidth() - child.getWidth() - rightPadding;
+//                final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
+//                return newLeft;
+
+
+                //让控件在水平方向上无法拖出父view范围,包含父view padding及child的margin
+                MarginLayoutParams lp= (MarginLayoutParams) child.getLayoutParams();
+                int leftMargin=0;
+                int rightMargin=0;
+                if(lp!=null){
+                    leftMargin=lp.leftMargin;
+                    rightMargin=lp.rightMargin;
+                }
+                final int leftPadding=getPaddingLeft();
+                final int rightPadding=getPaddingRight();
+
+                final int leftBound = leftPadding+leftMargin;
+                final int rightBound = getWidth() - child.getWidth() - rightPadding-rightMargin;
                 final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
                 return newLeft;
+
+
+
 
 //                //让控件只能垂直上下移动
 //                return child.getLeft();
@@ -83,13 +111,32 @@ public class DragRelativeLayout extends RelativeLayout {
                 //return top;
 
 
-                //让控件在垂直方向上无法拖出父view范围
-                final int topBound = getPaddingTop();
-                final int bottomBound = getHeight() - child.getHeight() - topBound;
+                //让控件在垂直方向上无法拖出父view范围,包含父view padding
+//                final int topPadding = getPaddingTop();
+//                final int bottomPadding = getPaddingBottom();
+//                final int topBound=topPadding;
+//                final int bottomBound = getHeight() - child.getHeight() - bottomPadding;
+//                final int newTop = Math.min(Math.max(top, topBound), bottomBound);
+//                return newTop;
+
+                //让控件在垂直方向上无法拖出父view范围,包含父view padding及child的margin
+                MarginLayoutParams lp= (MarginLayoutParams) child.getLayoutParams();
+                int topMargin=0;
+                int bottomMargin=0;
+                if(lp!=null){
+                    topMargin=lp.topMargin;
+                    bottomMargin=lp.bottomMargin;
+                }
+
+                final int bottomPadding = getPaddingBottom();
+                final int topPadding = getPaddingTop();
+
+                final int topBound =topPadding+topMargin;
+                final int bottomBound = getHeight() - child.getHeight() -bottomPadding-bottomMargin;
                 final int newTop = Math.min(Math.max(top, topBound), bottomBound);
                 return newTop;
 
-//                //让控件只能水平左右移动
+                //让控件只能水平左右移动
 //                return child.getTop();
             }
 
@@ -102,6 +149,20 @@ public class DragRelativeLayout extends RelativeLayout {
             @Override
             public void onViewReleased(View releasedChild, float xvel, float yvel) {
                 Log.i(TAG, "onViewReleased: xvel=" + xvel + ",yvel=" + yvel);
+
+                if(releasedChild instanceof FrameLayout){
+                    int fatherWidth=getMeasuredWidth();
+                    if(releasedChild.getLeft()>fatherWidth/2){
+                        Log.i(TAG, "onViewReleased: 超过一半了");
+                        //向右拖动超过一半则松手后全部向右滑出
+                        mViewDragHelper.settleCapturedViewAt(fatherWidth, releasedChild.getTop());////需要复写computeScroll让view可以回到指定位置
+                        postInvalidate();
+                        return ;
+                    }
+
+                }
+
+
                 if (mCaptureViewPoint != null) {
                     //设置view被拖拽后y不变，x变为被拖拽前的
                     mViewDragHelper.settleCapturedViewAt(mCaptureViewPoint.x, releasedChild.getTop());////需要复写computeScroll让view可以回到指定位置
