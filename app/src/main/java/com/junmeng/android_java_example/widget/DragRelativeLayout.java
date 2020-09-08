@@ -222,6 +222,9 @@ public class DragRelativeLayout extends RelativeLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        Log.i(TAG, "onTouchEvent: ");
+        if(mViewDragHelper.getCapturedView()==null){//没有拖拽view时不应该消费事件，否则会导致父布局无法响应点击事件
+            return super.onTouchEvent(event);
+        }
         mViewDragHelper.processTouchEvent(event);
         return true;
     }

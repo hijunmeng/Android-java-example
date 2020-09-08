@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gesture.DragActivity"></activity>
-        <!-- <meta-data android:value="true" android:name="android.notch_support"/> -->
+        <activity android:name=".recycler.RecyclerViewActivity"></activity>
+        <activity android:name=".gesture.DragActivity" /> <!-- <meta-data android:value="true" android:name="android.notch_support"/> -->
         <activity android:name=".statusbar.StatusBarActivity">
 
             <!-- 允许绘制到小米刘海屏机型的刘海区域 -->
