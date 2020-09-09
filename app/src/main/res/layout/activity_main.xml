@@ -58,18 +58,6 @@
             android:onClick="onClickRecycler"
             android:text="Recycler view" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加载中"/>
-            <com.junmeng.android_java_example.widget.LoadingTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加载中"/>
-        </LinearLayout>
 
 
 

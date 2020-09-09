@@ -1,6 +1,5 @@
 package com.junmeng.android_java_example.common;
 
-import androidx.fragment.app.FragmentManager;
 
 public interface IBaseActivity extends IBase {
     /**

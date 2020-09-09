@@ -19,17 +19,14 @@ public class LoadingTextView extends androidx.appcompat.widget.AppCompatTextView
 
     public LoadingTextView(Context context) {
         super(context);
-        init();
     }
 
     public LoadingTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public LoadingTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
 
@@ -45,9 +42,6 @@ public class LoadingTextView extends androidx.appcompat.widget.AppCompatTextView
         startAnim();
     }
 
-    private void init() {
-        startAnim();
-    }
 
     private void startAnim() {
         if (valueAnimator != null) {
@@ -68,6 +62,11 @@ public class LoadingTextView extends androidx.appcompat.widget.AppCompatTextView
         valueAnimator.start();
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        startAnim();
+        super.onAttachedToWindow();
+    }
 
     @Override
     protected void onDetachedFromWindow() {

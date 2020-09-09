@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.junmeng.android_java_example.recycler.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00ff00">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="bean1"/>
+
+    <com.junmeng.android_java_example.widget.LoadingTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"/>
+</com.junmeng.android_java_example.recycler.SquareRelativeLayout>
