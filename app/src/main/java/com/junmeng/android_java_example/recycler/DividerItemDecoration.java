@@ -18,17 +18,26 @@ public class DividerItemDecoration extends YDividerItemDecoration {
         switch (itemPosition % 2) {
             case 0:
                 //每一行第一个显示rignt和bottom
-                divider = new YDividerBuilder()
-                        .setRightSideLine(true, 0xffffffff, 10, 0, 0)
-                        .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
-                        .create();
+
+//                if(itemPosition==8){
+//                    divider = new YDividerBuilder()
+//                            .setRightSideLine(true, 0xffffffff, 10, 0, 0)
+//                            .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
+//                            .create();
+//                }else{
+                    divider = new YDividerBuilder()
+                            .setRightSideLine(true, 0xffffffff, 10, 0, 0)
+                            .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
+                            .create();
+//                }
                 break;
             case 1:
                 //第二个显示Left和bottom
                 divider = new YDividerBuilder()
-                        .setLeftSideLine(false, 0xffffffff, 5, 0, 0)
+                        .setLeftSideLine(false, 0xffffffff, 1, 0, 0)
                         .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
                         .create();
+
                 break;
             default:
                 break;
