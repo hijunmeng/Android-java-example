@@ -1,8 +1,13 @@
 package com.junmeng.android_java_example.recycler;
 
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -11,6 +16,7 @@ import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.common.recycler.IRecyclerItemType;
 import com.junmeng.android_java_example.recycler.bean.Bean1;
 import com.junmeng.android_java_example.recycler.bean.Bean2;
+import com.junmeng.android_java_example.recycler.section.PinnedSectionDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +43,46 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 
         testRecyclerAdapter=new TestRecyclerAdapter();
         recyclerView.setAdapter(testRecyclerAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        initGridRecyclerView();
+//        initSectionRecyclerView();
+
+
+    }
+
+    public void initGridRecyclerView(){
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        recyclerView.addItemDecoration(new MyItemDecoration(this));
+
+        List<IRecyclerItemType> list=new ArrayList<>();
+        list.add(new Bean1());
+        list.add(new Bean2());
+        list.add(new Bean1());
+        list.add(new Bean2());
+        list.add(new Bean1());
+        list.add(new Bean2());
+        list.add(new Bean1());
+        list.add(new Bean2());
+        list.add(new Bean1());
+
+        testRecyclerAdapter.addAllData(list);
+        testRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public void initSectionRecyclerView(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new PinnedSectionDecoration(this, new PinnedSectionDecoration.DecorationCallback() {
+            @Override
+            public long getGroupId(int position) {
+                return position%2;
+            }
+
+            @Override
+            public String getGroupFirstLine(int position) {
+                return ""+position;
+            }
+        }));
 
         List<IRecyclerItemType> list=new ArrayList<>();
         list.add(new Bean1());

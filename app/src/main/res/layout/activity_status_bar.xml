@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickHideStatusBar"
-            android:text="隐藏状态栏\n(在导航栏处滑动会出现半透明导航栏，几秒后消失)" />
+            android:text="隐藏状态栏\n(在状态栏处滑动会出现半透明状态栏，几秒后消失)" />
 
 
         <Button

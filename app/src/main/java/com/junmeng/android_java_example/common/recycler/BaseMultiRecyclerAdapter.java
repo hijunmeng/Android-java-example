@@ -212,7 +212,7 @@ public abstract class BaseMultiRecyclerAdapter extends RecyclerView.Adapter<Recy
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mList.get(position);
+        return null;
     }
 
 

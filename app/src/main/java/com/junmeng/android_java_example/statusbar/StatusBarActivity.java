@@ -35,6 +35,19 @@ public class StatusBarActivity extends BaseActivityDelegate {
 
         View decorView = getWindow().getDecorView();
 
+        //setOnApplyWindowInsetsListener会导致状态栏背景变白色
+//        ViewCompat.setOnApplyWindowInsetsListener(decorView, new OnApplyWindowInsetsListener() {
+//            @Override
+//            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+//                //获得状态栏高度和导航栏高度,首次进入activity会回调此
+//                Log.i(TAG, "onApplyWindowInsets: getStableInsetTop="+insets.getStableInsetTop());
+//                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetTop="+insets.getSystemWindowInsetTop());
+//                Log.i(TAG, "onApplyWindowInsets: getStableInsetBottom="+insets.getStableInsetBottom());
+//                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetBottom="+insets.getSystemWindowInsetBottom());
+//                return insets;
+//            }
+//        });
+
         Log.i(TAG, "onCreate:SystemUiVisibility= " + decorView.getSystemUiVisibility());
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override

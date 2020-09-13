@@ -26,16 +26,16 @@ public class DividerItemDecoration extends YDividerItemDecoration {
 //                            .create();
 //                }else{
                     divider = new YDividerBuilder()
-                            .setRightSideLine(true, 0xffffffff, 10, 0, 0)
-                            .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
+                            .setRightSideLine(true, 0xffffffff, 2, 0, 0)
+                            .setBottomSideLine(true, 0xffffffff, 2, 0, 0)
                             .create();
 //                }
                 break;
             case 1:
                 //第二个显示Left和bottom
                 divider = new YDividerBuilder()
-                        .setLeftSideLine(false, 0xffffffff, 1, 0, 0)
-                        .setBottomSideLine(true, 0xffffffff, 10, 0, 0)
+                        .setRightSideLine(true, 0x00ffffff, 1, 0, 0)
+                        .setBottomSideLine(true, 0xffffffff, 2, 0, 0)
                         .create();
 
                 break;
