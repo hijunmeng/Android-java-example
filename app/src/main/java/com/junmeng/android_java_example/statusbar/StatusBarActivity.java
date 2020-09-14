@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
@@ -35,18 +38,18 @@ public class StatusBarActivity extends BaseActivityDelegate {
 
         View decorView = getWindow().getDecorView();
 
-        //setOnApplyWindowInsetsListener会导致状态栏背景变白色
-//        ViewCompat.setOnApplyWindowInsetsListener(decorView, new OnApplyWindowInsetsListener() {
-//            @Override
-//            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
-//                //获得状态栏高度和导航栏高度,首次进入activity会回调此
-//                Log.i(TAG, "onApplyWindowInsets: getStableInsetTop="+insets.getStableInsetTop());
-//                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetTop="+insets.getSystemWindowInsetTop());
-//                Log.i(TAG, "onApplyWindowInsets: getStableInsetBottom="+insets.getStableInsetBottom());
-//                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetBottom="+insets.getSystemWindowInsetBottom());
-//                return insets;
-//            }
-//        });
+        //setOnApplyWindowInsetsListener的第一个参数为decorView时会导致状态栏背景变白色,而且背景色无法设置成其他
+        ViewCompat.setOnApplyWindowInsetsListener(vRoot, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                //获得状态栏高度和导航栏高度,首次进入activity会回调此
+                Log.i(TAG, "onApplyWindowInsets: getStableInsetTop="+insets.getStableInsetTop());//可为0
+                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetTop="+insets.getSystemWindowInsetTop());//状态栏高度
+                Log.i(TAG, "onApplyWindowInsets: getStableInsetBottom="+insets.getStableInsetBottom());//可为0
+                Log.i(TAG, "onApplyWindowInsets: getSystemWindowInsetBottom="+insets.getSystemWindowInsetBottom());//导航栏高度，当系统设置导航栏不可见时为0
+                return insets;
+            }
+        });
 
         Log.i(TAG, "onCreate:SystemUiVisibility= " + decorView.getSystemUiVisibility());
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
@@ -119,6 +122,9 @@ public class StatusBarActivity extends BaseActivityDelegate {
     public void onClickTransparentNavigationBar(View view) {
         SystemUiUtil.transparentNavigationBar(this);
     }
+
+
+
 
     public void onClickFullScreen(View view) {
         View decorView = getWindow().getDecorView();
