@@ -23,8 +23,25 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onClickGetStatusBarHeightWithVisibility"
+            android:text="获得状态栏高度（根据可见性）" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="onClickGetNavigationBarHeight"
             android:text="获得导航栏高度" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickGetNavigationBarHeightWithVisibility"
+            android:text="获得导航栏高度（根据可见性）" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickGetScreenWidth"
+            android:text="获得屏幕宽度" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +52,12 @@
             android:layout_height="wrap_content"
             android:onClick="onClickGetContentHeight"
             android:text="获得内容区高度" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickCheckNotchScreen"
+            android:text="是否刘海屏或挖孔屏" />
 
         <Button
             android:layout_width="match_parent"

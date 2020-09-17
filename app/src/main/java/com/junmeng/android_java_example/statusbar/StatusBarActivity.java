@@ -147,6 +147,10 @@ public class StatusBarActivity extends BaseActivityDelegate {
         showToast("statusbar height = " + SystemUiUtil.getStatusBarHeight(this));
 
     }
+    public void onClickGetNavigationBarHeightWithVisibility(View view) {
+        showToast("navigationbar height = " + SystemUiUtil.getNavigationBarHeightWithVisibility(this));
+
+    }
 
     public void onClickGetNavigationBarHeight(View view) {
         showToast("navigationbar height = " + SystemUiUtil.getNavigationBarHeight(this));
@@ -194,5 +198,17 @@ public class StatusBarActivity extends BaseActivityDelegate {
 
     public void onClickGetContentHeight(View view) {
         showToast("content height = " + SystemUiUtil.getContentHeight(this));
+    }
+
+    public void onClickCheckNotchScreen(View view) {
+        showToast("是否挖孔屏？ " + SystemUiUtil.isNotchScreen(this));
+    }
+
+    public void onClickGetScreenWidth(View view) {
+        showToast("screen width = " + SystemUiUtil.getScreenWidth(this));
+    }
+
+    public void onClickGetStatusBarHeightWithVisibility(View view) {
+        showToast("statusbar height = " + SystemUiUtil.getStatusBarHeightWithVisibility(this));
     }
 }

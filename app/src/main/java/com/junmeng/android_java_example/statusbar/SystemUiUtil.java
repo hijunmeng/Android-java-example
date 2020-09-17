@@ -8,13 +8,18 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.Log;
+import android.view.DisplayCutout;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import java.lang.reflect.Method;
+import java.util.List;
 
 import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
@@ -27,21 +32,21 @@ import static android.view.View.SYSTEM_UI_FLAG_VISIBLE;
  * 华为手机在设置SYSTEM_UI_FLAG_FULLSCREEN时刘海屏会变为黑条，如果想内容显示到刘海屏处，
  * 需要在所在的activity的清单文件中增加 <meta-data android:name="android.notch_support" android:value="true" />
  * 如果想全局生效，可在清单文件中的application元素下增加 <meta-data android:name="android.notch_support" android:value="true" />
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * 如果想知道导航栏是否可见，可以在DecoderView设置监听
  * decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
- *             @Override
- *             public void onSystemUiVisibilityChange(int visibility) {
- *                 Log.i(TAG, "onSystemUiVisibilityChange:visibility=" + visibility);
- *                 if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
- *                     showToast("导航栏可见");
- *                 } else {
- *                     showToast("导航栏隐藏");
- *                 }
- *             }
- *         });
+ *
+ * @Override public void onSystemUiVisibilityChange(int visibility) {
+ * Log.i(TAG, "onSystemUiVisibilityChange:visibility=" + visibility);
+ * if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+ * showToast("导航栏可见");
+ * } else {
+ * showToast("导航栏隐藏");
+ * }
+ * }
+ * });
  */
 public class SystemUiUtil {
 
@@ -180,7 +185,7 @@ public class SystemUiUtil {
     }
 
     /**
-     * 获得状态栏高度
+     * 获得状态栏高度(不管当前状态栏是否可见)
      *
      * @param context
      * @return
@@ -195,20 +200,32 @@ public class SystemUiUtil {
     }
 
     /**
-     * 获得状态栏高度
+     * 获得状态栏高度(如果当前状态栏不可见则为0)
      *
      * @param activity
      * @return
      */
-    public static int getStatusBarHeight(@NonNull Activity activity) {
+    public static int getStatusBarHeightWithVisibility(@NonNull Activity activity) {
         Rect outRect = new Rect();
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect);
         return outRect.top;
     }
 
+    /**
+     * 获得导航栏高度(如果当前导航栏不可见则为0)
+     *
+     * @param activity
+     * @return
+     */
+    public static int getNavigationBarHeightWithVisibility(@NonNull Activity activity) {
+        Rect outRect = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect);
+        return getScreenHeight(activity) - outRect.bottom;
+    }
+
 
     /**
-     * 获得导航栏高度
+     * 获得导航栏高度(不管当前导航栏是否可见)
      *
      * @param context
      * @return
@@ -222,7 +239,8 @@ public class SystemUiUtil {
 
     /**
      * 判断状态栏是否可见
-     *（背景透明的状态栏也算可见）
+     * （背景透明的状态栏也算可见）
+     *
      * @param activity
      * @return
      */
@@ -241,6 +259,7 @@ public class SystemUiUtil {
     /**
      * 判断导航栏是否可见
      * （背景透明的导航栏也算可见）
+     *
      * @param activity
      * @return
      */
@@ -249,7 +268,7 @@ public class SystemUiUtil {
         Rect outRect = new Rect();
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect);
         Log.i("123456", "right=" + outRect.right + ",bottom=" + outRect.bottom);
-        int screenHeight=getScreenHeight(activity);
+        int screenHeight = getScreenHeight(activity);
         if (outRect.bottom == screenHeight) {
             return false;
         }
@@ -276,13 +295,13 @@ public class SystemUiUtil {
      * @param dark     true--文字白色 false--文字黑色
      */
     public static void onClickSetStatusBarMode(@NonNull Activity activity, boolean dark) {
-        View decorView=activity.getWindow().getDecorView();
+        View decorView = activity.getWindow().getDecorView();
         if (dark) {
             //去除View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR标记
-            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility()&(~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
+            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & (~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR));
         } else {
             //增加View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR标记
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|decorView.getSystemUiVisibility());
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | decorView.getSystemUiVisibility());
 
 
         }
@@ -304,7 +323,7 @@ public class SystemUiUtil {
     }
 
     /**
-     * 获得应用区高度
+     * 获得当前应用区高度（会随着系统UI的可见性而变化）
      *
      * @param activity
      * @return
@@ -317,7 +336,7 @@ public class SystemUiUtil {
     }
 
     /**
-     * 获得屏幕高度
+     * 获得手机屏幕高度
      *
      * @param context
      * @return
@@ -332,6 +351,132 @@ public class SystemUiUtil {
             wm.getDefaultDisplay().getSize(point);
         }
         return point.y;
+    }
+
+    /**
+     * 获得手机屏幕宽度
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager)
+                context.getSystemService(Context.WINDOW_SERVICE);
+        Point point = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            wm.getDefaultDisplay().getRealSize(point);
+        } else {
+            wm.getDefaultDisplay().getSize(point);
+        }
+        return point.x;
+    }
+
+
+    /**
+     * 判断是否是刘海屏
+     *
+     * @return
+     */
+    public static boolean isNotchScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowInsets wi = activity.getWindow().getDecorView().getRootWindowInsets();
+            if (wi != null) {
+                DisplayCutout displayCutout = wi.getDisplayCutout();
+                if (displayCutout != null) {
+                    List<Rect> rects = displayCutout.getBoundingRects();
+                    //通过判断是否存在rects来确定是否刘海屏手机
+                    if (rects != null && rects.size() > 0) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        if (isHuaweiNotchScreen(activity)
+                || isOppoNotchScreen(activity) || isVivoNotchScreen(activity) || isXiaomiNotchScreen(activity)) { //TODO 各种品牌
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 华为刘海屏判断
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isHuaweiNotchScreen(Context context) {
+        boolean ret = false;
+        try {
+            ClassLoader cl = context.getClassLoader();
+            Class HwNotchSizeUtil = cl.loadClass("com.huawei.android.util.HwNotchSizeUtil");
+            Method get = HwNotchSizeUtil.getMethod("hasNotchInScreen");
+            ret = (boolean) get.invoke(HwNotchSizeUtil);
+        } catch (Exception e) {
+        } finally {
+            return ret;
+        }
+    }
+
+    /**
+     * OPPO刘海屏判断
+     * [OPPO开放平台](https://open.oppomobile.com/wiki/doc#id=10159)
+     *
+     * @return
+     */
+    public static boolean isOppoNotchScreen(Context context) {
+        return context.getPackageManager().hasSystemFeature("com.oppo.feature.screen.heteromorphism");
+    }
+
+
+    /**
+     * VIVO刘海屏判断
+     * [OPPO开放平台](https://open.oppomobile.com/wiki/doc#id=10159)
+     *
+     * @return
+     */
+    public static boolean isVivoNotchScreen(Context context) {
+        int VIVO_NOTCH = 0x00000020;//是否有刘海
+        boolean ret = false;
+        try {
+            ClassLoader classLoader = context.getClassLoader();
+            Class FtFeature = classLoader.loadClass("android.util.FtFeature");
+            Method method = FtFeature.getMethod("isFeatureSupport", int.class);
+            ret = (boolean) method.invoke(FtFeature, VIVO_NOTCH);
+        } catch (Exception e) {
+        } finally {
+            return ret;
+        }
+    }
+
+    /**
+     * 小米刘海屏判断
+     * [文档中心](https://dev.mi.com/console/doc/detail?pId=1293)
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isXiaomiNotchScreen(Context context) {
+        int result = 0;
+        try {
+            ClassLoader classLoader = context.getClassLoader();
+            @SuppressWarnings("rawtypes")
+            Class SystemProperties = classLoader.loadClass("android.os.SystemProperties");
+            //参数类型
+            @SuppressWarnings("rawtypes")
+            Class[] paramTypes = new Class[2];
+            paramTypes[0] = String.class;
+            paramTypes[1] = int.class;
+            Method getInt = SystemProperties.getMethod("getInt", paramTypes);
+            //参数
+            Object[] params = new Object[2];
+            params[0] = new String("ro.miui.notch");
+            params[1] = new Integer(0);
+            result = (Integer) getInt.invoke(SystemProperties, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result == 1;
     }
 
 
