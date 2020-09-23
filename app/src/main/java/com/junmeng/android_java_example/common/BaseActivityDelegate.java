@@ -1,13 +1,12 @@
 package com.junmeng.android_java_example.common;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.junmeng.android_java_example.R;
 
@@ -137,6 +136,11 @@ public class BaseActivityDelegate extends AppCompatActivity implements IBaseActi
     @Override
     public void showToast(String text) {
         mBaseActivitySimple.showToast(text);
+    }
+
+    @Override
+    public void showDebugToast(String text) {
+        mBaseActivitySimple.showDebugToast(text);
     }
 
     @Override

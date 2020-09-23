@@ -2,15 +2,14 @@ package com.junmeng.android_java_example.common;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 public class BaseFragmentDelegate extends Fragment implements IBaseFragment {
     public final String TAG = this.toString();
@@ -149,6 +148,11 @@ public class BaseFragmentDelegate extends Fragment implements IBaseFragment {
     @Override
     public void showToast(String text) {
         mBaseFragmentSimple.showToast(text);
+    }
+
+    @Override
+    public void showDebugToast(String text) {
+        mBaseFragmentSimple.showDebugToast(text);
     }
 
     @Override

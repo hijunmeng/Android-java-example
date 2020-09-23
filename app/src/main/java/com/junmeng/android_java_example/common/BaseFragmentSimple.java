@@ -1,16 +1,16 @@
 package com.junmeng.android_java_example.common;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Preconditions;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
+
+import com.junmeng.android_java_example.BuildConfig;
 
 /**
  * BaseFragmentDelegate的真正实现者
@@ -33,8 +33,18 @@ public class BaseFragmentSimple implements IBaseFragment, LifecycleObserver {
 
 
     @Override
-    public void showToast(String text) {
+    public void showToast(final String text) {
         if (mHost.getActivity() == null) {
+            return;
+        }
+        mHost.getActivity().runOnUiThread(() -> {
+            Toast.makeText(mHost.getActivity(), text, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    @Override
+    public void showDebugToast(final String text) {
+        if (mHost.getActivity() == null|| !BuildConfig.DEBUG) {
             return;
         }
         mHost.getActivity().runOnUiThread(() -> {

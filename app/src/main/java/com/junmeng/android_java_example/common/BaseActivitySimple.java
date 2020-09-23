@@ -15,6 +15,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.junmeng.android_java_example.BuildConfig;
+
 /**
  * BaseActivityDelegate的真正实现者
  */
@@ -33,15 +35,26 @@ public class BaseActivitySimple implements IBaseActivity, LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
         //todo 释放资源
-        mHost=null;
+        mHost = null;
     }
 
 
     @Override
-    public void showToast(String text) {
+    public void showToast(final String text) {
         this.mHost.runOnUiThread(() -> {
             Toast.makeText(mHost, text, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    @Override
+    public void showDebugToast(final String text) {
+        if (!BuildConfig.DEBUG) {
+            return;
+        }
+        this.mHost.runOnUiThread(() -> {
+            Toast.makeText(mHost, text, Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     @Override
@@ -56,47 +69,49 @@ public class BaseActivitySimple implements IBaseActivity, LifecycleObserver {
     @Override
     public boolean dispatchBackPressedEvent() {
 
-        if(mHost instanceof FragmentActivity){
-            FragmentManager fm=(( FragmentActivity)mHost).getSupportFragmentManager();
-            if(fm==null){
+        if (mHost instanceof FragmentActivity) {
+            FragmentManager fm = ((FragmentActivity) mHost).getSupportFragmentManager();
+            if (fm == null) {
                 return false;
             }
-            int count=fm.getBackStackEntryCount();
-            if(count>=1){
-               FragmentManager.BackStackEntry entry= fm.getBackStackEntryAt(count-1);
-               Fragment it=fm.findFragmentByTag(entry.getName());
-                if(it!=null&& it instanceof IFragmentBackPressed&&it.isVisible()){//事件分发给当前可见的实现了IFragmentBackPressed接口的fragment
-                    return ((IFragmentBackPressed)it).onFragmentBackPressed();
+            int count = fm.getBackStackEntryCount();
+            if (count >= 1) {
+                FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt(count - 1);
+                Fragment it = fm.findFragmentByTag(entry.getName());
+                if (it != null && it instanceof IFragmentBackPressed && it.isVisible()) {//事件分发给当前可见的实现了IFragmentBackPressed接口的fragment
+                    return ((IFragmentBackPressed) it).onFragmentBackPressed();
                 }
             }
 
-        }else {//普通Activity
-            android.app.FragmentManager fm=mHost.getFragmentManager();
-            if(fm==null){
+        } else {//普通Activity
+            android.app.FragmentManager fm = mHost.getFragmentManager();
+            if (fm == null) {
                 return false;
             }
-            int count=fm.getBackStackEntryCount();
-            if(count>=1){
-                android.app.FragmentManager.BackStackEntry entry= fm.getBackStackEntryAt(count-1);
-                android.app.Fragment it=fm.findFragmentByTag(entry.getName());
-                if(it!=null&& it instanceof IFragmentBackPressed&&it.isVisible()){//事件分发给当前可见的实现了IFragmentBackPressed接口的fragment
-                    return ((IFragmentBackPressed)it).onFragmentBackPressed();
+            int count = fm.getBackStackEntryCount();
+            if (count >= 1) {
+                android.app.FragmentManager.BackStackEntry entry = fm.getBackStackEntryAt(count - 1);
+                android.app.Fragment it = fm.findFragmentByTag(entry.getName());
+                if (it != null && it instanceof IFragmentBackPressed && it.isVisible()) {//事件分发给当前可见的实现了IFragmentBackPressed接口的fragment
+                    return ((IFragmentBackPressed) it).onFragmentBackPressed();
                 }
             }
         }
 
         return false;
     }
+
     @Override
-    public void gotoActivity(Class<?> cls){
-        Intent intent=new Intent(mHost,cls);
+    public void gotoActivity(Class<?> cls) {
+        Intent intent = new Intent(mHost, cls);
         mHost.startActivity(intent);
     }
+
     @Override
-    public void gotoActivity(Class<?> cls,boolean isFinishCurrent){
-        Intent intent=new Intent(mHost,cls);
+    public void gotoActivity(Class<?> cls, boolean isFinishCurrent) {
+        Intent intent = new Intent(mHost, cls);
         mHost.startActivity(intent);
-        if(isFinishCurrent){
+        if (isFinishCurrent) {
             mHost.finish();
         }
     }
