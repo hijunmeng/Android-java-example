@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.junmeng.android_java_example"
-    >
+    package="com.junmeng.android_java_example">
+
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recycler.RecyclerViewActivity"></activity>
+        <activity android:name=".audio.AudioActivity"></activity>
+        <activity android:name=".recycler.RecyclerViewActivity" />
         <activity android:name=".gesture.DragActivity" /> <!-- <meta-data android:value="true" android:name="android.notch_support"/> -->
         <activity android:name=".statusbar.StatusBarActivity">
 
