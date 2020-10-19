@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- 悬浮窗权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +17,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".audio.AudioActivity"></activity>
+        <activity
+            android:name=".alertwindow.AlertWindowActivity"
+            android:launchMode="singleInstance"></activity>
+        <activity android:name=".notification.NotificationActivity" />
+
+        <service
+            android:name=".mediaprojection.MediaProjectionService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <activity android:name=".mediaprojection.MediaProjectionActivity" />
+        <activity
+            android:name=".audio.AudioActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".recycler.RecyclerViewActivity" />
         <activity android:name=".gesture.DragActivity" /> <!-- <meta-data android:value="true" android:name="android.notch_support"/> -->
         <activity android:name=".statusbar.StatusBarActivity">

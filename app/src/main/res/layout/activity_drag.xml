@@ -63,4 +63,18 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/fl_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88888888"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示隐藏mask"
+        android:onClick="onClickMask"
+        android:layout_alignParentBottom="true"/>
+
 </com.junmeng.android_java_example.widget.DragRelativeLayout>

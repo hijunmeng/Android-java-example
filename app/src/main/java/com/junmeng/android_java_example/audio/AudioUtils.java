@@ -118,11 +118,16 @@ public class AudioUtils {
      *
      * @param context
      */
-    public static void toggleToBTHeadset(Context context) {
+    public static void toggleToBluetooth(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//        audioManager.startBluetoothSco();
+//        audioManager.setBluetoothScoOn(true);
+//        audioManager.setSpeakerphoneOn(false);
         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        audioManager.startBluetoothSco();
+        audioManager.setSpeakerphoneOn(false);
         audioManager.setBluetoothScoOn(true);
+
     }
 
     /**
@@ -132,12 +137,15 @@ public class AudioUtils {
      */
     public static void toggleToWiredHeadset(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//        if (audioManager.isBluetoothScoOn()) {
+//            audioManager.setBluetoothScoOn(false);
+//            audioManager.stopBluetoothSco();
+//        }
+//        audioManager.setSpeakerphoneOn(false);
         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        if (audioManager.isBluetoothScoOn()) {
-            audioManager.setBluetoothScoOn(false);
-            audioManager.stopBluetoothSco();
-        }
         audioManager.setSpeakerphoneOn(false);
+        audioManager.setBluetoothScoOn(false);
     }
 
     /**
@@ -148,12 +156,15 @@ public class AudioUtils {
     public static void toggleToSpeaker(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
+//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//        if (audioManager.isBluetoothScoOn()) {
+//            audioManager.setBluetoothScoOn(false);
+//            audioManager.stopBluetoothSco();
+//        }
+//        audioManager.setSpeakerphoneOn(true);
         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        if (audioManager.isBluetoothScoOn()) {
-            audioManager.setBluetoothScoOn(false);
-            audioManager.stopBluetoothSco();
-        }
         audioManager.setSpeakerphoneOn(true);
+        audioManager.setBluetoothScoOn(false);
     }
 
     /**
@@ -161,18 +172,23 @@ public class AudioUtils {
      * 在有有线耳机和蓝牙耳机或只有有线耳机的情况下，调用此方法会切换到有线耳机
      * 在只有蓝牙耳机的情况下，调用此方法能正常切换到听筒
      */
-    public static void toggleToReceiver(Context context) {
+    public static void toggleToEarpiece(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        } else {
-            audioManager.setMode(AudioManager.MODE_IN_CALL);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//        } else {
+//            audioManager.setMode(AudioManager.MODE_IN_CALL);
+//        }
+//        audioManager.setSpeakerphoneOn(false);
+//        audioManager.setBluetoothScoOn(false);
+
+        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
         audioManager.setSpeakerphoneOn(false);
+        audioManager.setBluetoothScoOn(false);
     }
 
     /**
-     * 判断是否有有线耳机
+     * 判断是否有有线耳机连接着
      *
      * @param context
      * @return
@@ -225,6 +241,7 @@ public class AudioUtils {
      * 判断是否有蓝牙耳机
      * 与isBluetoothHeadsetOn的区别是此方法是通过BluetoothAdapter进行判断，需要声明蓝牙权限
      * <uses-permission android:name="android.permission.BLUETOOTH" />
+     *
      * @return
      */
     public static boolean isBluetoothHeadsetConnected() {
@@ -246,22 +263,21 @@ public class AudioUtils {
     /**
      * 获得当前选择的音频路由
      * 经测试此接口返回并不准确，勿用
+     *
      * @param context
      * @return
      */
     @Deprecated
-    public static MediaRouter.RouteInfo getSelectedRoute(Context context ){
+    public static MediaRouter.RouteInfo getSelectedRoute(Context context) {
         final MediaRouter mr = (MediaRouter) context.getSystemService(Context.MEDIA_ROUTER_SERVICE);
-        final MediaRouter.RouteInfo ri = mr.getSelectedRoute(MediaRouter.ROUTE_TYPE_LIVE_AUDIO );
+        final MediaRouter.RouteInfo ri = mr.getSelectedRoute(MediaRouter.ROUTE_TYPE_LIVE_AUDIO);
         return ri;
     }
 
-    public static AudioManager getAudioManager(Context context){
+    public static AudioManager getAudioManager(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         return audioManager;
     }
-
-
 
 
 }

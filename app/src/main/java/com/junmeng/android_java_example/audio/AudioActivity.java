@@ -150,7 +150,7 @@ public class AudioActivity extends BaseActivityDelegate {
     }
 
     public void onClickReceiver(View view) {
-        AudioUtils.toggleToReceiver(this);
+        AudioUtils.toggleToEarpiece(this);
     }
 
     public void onClickSpeaker(View view) {
@@ -158,7 +158,7 @@ public class AudioActivity extends BaseActivityDelegate {
     }
 
     public void onClickBTHeadset(View view) {
-        AudioUtils.toggleToBTHeadset(this);
+        AudioUtils.toggleToBluetooth(this);
     }
 
     public void onClickWiredHeadset(View view) {

@@ -11,7 +11,9 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.customview.widget.ViewDragHelper;
+
+import com.junmeng.android_java_example.gesture.ViewDragHelper;
+
 
 /**
  * 一个可以让任意子view进行拖拽的RelativeLayout
@@ -48,6 +50,9 @@ public class DragRelativeLayout extends RelativeLayout {
              */
             @Override
             public boolean tryCaptureView(@NonNull View child, int pointerId) {
+                if(!child.isShown()){
+                    return false;
+                }
                 mCaptureViewPoint = new Point(child.getLeft(), child.getTop());
                 Log.i(TAG, "tryCaptureView: pointerId=" + pointerId + ",child.getId()=" + child.getId());
                 return true;
@@ -216,6 +221,7 @@ public class DragRelativeLayout extends RelativeLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         Log.i(TAG, "onInterceptTouchEvent: ");
+//        return super.onInterceptTouchEvent(event);
         return mViewDragHelper.shouldInterceptTouchEvent(event);
     }
 
