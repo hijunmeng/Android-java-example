@@ -78,6 +78,11 @@
             android:layout_height="wrap_content"
             android:onClick="onClickAlertWindow"
             android:text="悬浮窗" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSetting"
+            android:text="系统设置页" />
 
 
     </LinearLayout>

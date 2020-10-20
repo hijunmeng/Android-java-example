@@ -1,8 +1,13 @@
 package com.junmeng.android_java_example;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
+
+import androidx.annotation.RequiresApi;
 
 import com.junmeng.android_java_example.alertwindow.AlertWindowActivity;
 import com.junmeng.android_java_example.anim.AnimListActivity;
@@ -16,18 +21,20 @@ import com.junmeng.android_java_example.mediaprojection.MediaProjectionActivity;
 import com.junmeng.android_java_example.notification.NotificationActivity;
 import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
+import com.junmeng.android_java_example.setting.SettingActivity;
 import com.junmeng.android_java_example.statusbar.StatusBarActivity;
 
 public class MainActivity extends BaseActivityDelegate {
     private static final String TAG = "MainActivity";
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().getDecorView().setBackgroundColor(Color.RED);
 
-
+//
     }
 
 
@@ -78,5 +85,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickAlertWindow(View view) {
         gotoActivity(AlertWindowActivity.class);
+    }
+
+    public void onClickSetting(View view) {
+        gotoActivity(SettingActivity.class);
     }
 }
