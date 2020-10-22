@@ -17,8 +17,12 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
     }
 
+    /**
+     * 跳到投屏页
+     * @param view
+     */
     public void onClickCast(View view) {
-//        Settings.Global.putInt(getContentResolver(),Settings.Global.di, flag);
+//        Settings.Global.putInt(getContentResolver(),Settings.Global., flag);
         Intent intent = new Intent(Settings.ACTION_CAST_SETTINGS);
         startActivity(intent);
     }
@@ -28,8 +32,8 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickWireless(View view) {
-        Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+    public void onClickSetting(View view) {
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
         startActivity(intent);
     }
 

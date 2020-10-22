@@ -1,11 +1,13 @@
 package com.junmeng.android_java_example.mediaprojection;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.display.VirtualDisplay;
+import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.IBinder;
@@ -19,6 +21,7 @@ import com.junmeng.android_java_example.R;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MediaProjectionService extends Service {
+    public static final String CHANNEL_ID = "20000";
     private static final String TAG = "MediaProjectionService";
     private MediaProjectionManager mpm;
     private VirtualDisplay virtualDisplay;
@@ -28,6 +31,7 @@ public class MediaProjectionService extends Service {
     private IBinder binder;
 
     public MediaProjectionService() {
+
     }
 
     @Override
@@ -37,14 +41,35 @@ public class MediaProjectionService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        mResultCode = intent.getIntExtra("code", -1);
-//        mResultData = intent.getParcelableExtra("data");
-//        mpm = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
-//        MediaProjection mediaProjection = mpm.getMediaProjection(mResultCode, mResultData);
-
+        createNotificationChannel();
         startForegroundService();
+
+        mResultCode = intent.getIntExtra("code", -1);
+        mResultData = intent.getParcelableExtra("data");
+        mpm = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
+        MediaProjection mediaProjection = mpm.getMediaProjection(mResultCode, mResultData);
+
+
         return super.onStartCommand(intent, flags, startId);
 
+    }
+
+
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "普通渠道";//在系统设置里的通知里会展示为类别
+            String description = "屏幕共享服务通知渠道";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void startForegroundService() {
@@ -56,7 +81,7 @@ public class MediaProjectionService extends Service {
             // Create notification builder.
             Intent notificationIntent = new Intent();
             PendingIntent pendingIntent = PendingIntent.getService(this, 1212, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationManager.EXTRA_NOTIFICATION_CHANNEL_ID);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
             builder.setSmallIcon(R.mipmap.ic_launcher);
             builder.setColor(ContextCompat.getColor(this, android.R.color.white));
             builder.setContentTitle("这是一个前台服务");

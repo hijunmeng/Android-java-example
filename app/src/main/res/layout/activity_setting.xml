@@ -15,25 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCast"
-            android:text="cast" />
+            android:text="跳到投屏页（cast）" />
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickDisplay"
-            android:text="display" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickWireless"
-            android:text="wireless" />
+            android:onClick="onClickSetting"
+            android:text="跳到设置页（setting）" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickWifi"
-            android:text="wifi" />
+            android:text="跳到WiFi页（wifi）" />
 
         <Button
             android:layout_width="match_parent"
