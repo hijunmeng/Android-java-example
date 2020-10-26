@@ -30,91 +30,97 @@ import androidx.core.content.ContextCompat;
 
 import com.junmeng.android_java_example.R;
 
-import java.nio.ByteBuffer;
-
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MediaProjectionService extends Service {
     public static final String CHANNEL_ID = "20000";
     private static final String TAG = "MediaProjectionService";
-    private MediaProjectionManager mpm;
-    private VirtualDisplay virtualDisplay;
+    private MediaProjectionManager mMediaProjectionManager;
+    private VirtualDisplay mVirtualDisplay;
     private int mResultCode;
     private Intent mResultData;
 
-    private IBinder binder;
 
-    private HandlerThread handlerThread;
-    private Handler threadHandler;
-    private Handler mainHandler;
+    private HandlerThread mHandlerThread;
+    private Handler mThreadHandler;
+    private Handler mMainHandler;
 
-    ImageReader imageReader;
+    private ImageReader mImageReader;
 
-    int width = 1080;
-    int height = 2172;
+    private MediaProjectionBinder mMediaProjectionBinder;
+
+    private int mScreenWidth = 0;
+    private int mScreenHeight = 0;
 
     public MediaProjectionService() {
         initHandler();
-
     }
-    private void initHandler(){
-        handlerThread=new HandlerThread("media projection thread");
-        handlerThread.start();
-        threadHandler=new Handler(handlerThread.getLooper()){
+
+    private void initHandler() {
+        mHandlerThread = new HandlerThread("media projection thread");
+        mHandlerThread.start();
+        mThreadHandler = new Handler(mHandlerThread.getLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
             }
         };
-        mainHandler=new Handler();
+        mMainHandler = new Handler();
     }
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        return new MediaProjectionBinder();
+        startForegroundService();
+        initMediaProjection(intent);
+        return mMediaProjectionBinder = new MediaProjectionBinder();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        createNotificationChannel();
+
         startForegroundService();
 
+        initMediaProjection(intent);
+
+
+        return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    private void initMediaProjection(Intent intent) {
         mResultCode = intent.getIntExtra("code", -1);
         mResultData = intent.getParcelableExtra("data");
-        mpm = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
-        MediaProjection mediaProjection = mpm.getMediaProjection(mResultCode, mResultData);
+        mMediaProjectionManager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
+        MediaProjection mediaProjection = mMediaProjectionManager.getMediaProjection(mResultCode, mResultData);
         WindowManager mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         mWindowManager.getDefaultDisplay().getMetrics(outMetrics);
-        width = outMetrics.widthPixels;
-        height = outMetrics.heightPixels;
+        mScreenWidth = outMetrics.widthPixels;
+        mScreenHeight = outMetrics.heightPixels;
 
         //目前测试只能输出PixelFormat.RGBA_8888
-        imageReader =  ImageReader.newInstance(width,height, PixelFormat.RGBA_8888,2);
-        imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
+        mImageReader = ImageReader.newInstance(mScreenWidth, mScreenHeight, PixelFormat.RGBA_8888, 2);
+        mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
             @Override
             public void onImageAvailable(ImageReader reader) {
-                Log.i(TAG, "onImageAvailable: reader==null? "+(reader==null));
+                Log.i(TAG, "onImageAvailable: reader==null? " + (reader == null));
                 //获取最新的一帧的Image
                 Image image = reader.acquireLatestImage();
-                if(image==null){
+                if (image == null) {
 
                     return;
                 }
-//因为是ImageFormat.JPEG格式，所以 image.getPlanes()返回的数组只有一个，也就是第0个。
-                ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
-                byte[] bytes = new byte[byteBuffer.remaining()];
-                byteBuffer.get(bytes);
-                Log.i(TAG, "onImageAvailable: len="+bytes.length);
+                if (mMediaProjectionBinder != null && mMediaProjectionBinder.getDataCallback() != null) {
+                    mMediaProjectionBinder.getDataCallback().onData(image);
+                }
 
-//                Image.Plane[] planes = image.getPlanes();
-//                ByteBuffer buffer = planes[0].getBuffer();
-//                int pixelStride = planes[0].getPixelStride();
-//                int rowStride = planes[0].getRowStride();
-//                int rowPadding = rowStride - pixelStride * width;
-//                Bitmap bitmap = Bitmap.createBitmap(width + rowPadding / pixelStride,
-//                        height, Bitmap.Config.ARGB_8888);
-//                bitmap.copyPixelsFromBuffer(buffer);
+                image.close();
+//因为是ImageFormat.JPEG格式，所以 image.getPlanes()返回的数组只有一个，也就是第0个。
+//                ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
+//                byte[] bytes = new byte[byteBuffer.remaining()];
+//                byteBuffer.get(bytes);
+//                Log.i(TAG, "onImageAvailable: len="+bytes.length);
+
 //                String fileName = null;
 //                try {
 //                    Date currentDate = new Date();
@@ -127,12 +133,12 @@ public class MediaProjectionService extends Service {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-                image.close();
+
 
             }
-        },threadHandler);
-        mediaProjection.createVirtualDisplay("media projection", imageReader.getWidth(),imageReader.getHeight() , outMetrics.densityDpi,
-                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), new VirtualDisplay.Callback() {
+        }, mThreadHandler);
+        mVirtualDisplay = mediaProjection.createVirtualDisplay("media projection", mImageReader.getWidth(), mImageReader.getHeight(), outMetrics.densityDpi,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), new VirtualDisplay.Callback() {
                     @Override
                     public void onPaused() {
                         Log.i(TAG, "onPaused: ");
@@ -146,14 +152,21 @@ public class MediaProjectionService extends Service {
                     @Override
                     public void onStopped() {
                         Log.i(TAG, "onStopped: ");
+                        if (mImageReader != null) {
+                            mImageReader.setOnImageAvailableListener(null, null);
+                            mImageReader.close();
+                        }
                     }
                 }, null);
-
-
-        return super.onStartCommand(intent, flags, startId);
-
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mVirtualDisplay != null) {
+            mVirtualDisplay.release();
+        }
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -173,7 +186,7 @@ public class MediaProjectionService extends Service {
 
     private void startForegroundService() {
 
-
+        createNotificationChannel();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // create notification channel
 //            NotificationManager notificationManager=new NotificationManager(this,null);
