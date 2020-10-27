@@ -107,7 +107,6 @@ public class MediaProjectionService extends Service {
                 //获取最新的一帧的Image
                 Image image = reader.acquireLatestImage();
                 if (image == null) {
-
                     return;
                 }
                 if (mMediaProjectionBinder != null && mMediaProjectionBinder.getDataCallback() != null) {

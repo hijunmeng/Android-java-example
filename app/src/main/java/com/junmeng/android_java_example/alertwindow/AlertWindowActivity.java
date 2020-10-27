@@ -76,6 +76,7 @@ public class AlertWindowActivity extends AppCompatActivity {
             }
         });
         windowManager.addView(contentView, layoutParams);
+        contentView.getRootView().setOnTouchListener(new OEdOverLayMoveListener(windowManager, contentView));
         moveTaskToBack(true);//模式为singleInstance
     }
 
