@@ -30,11 +30,18 @@
             android:onClick="onClickWifi"
             android:text="跳到WiFi页（wifi）" />
 
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickWifiIP"
-            android:text="wifi ip" />
+            android:onClick="onClickNotification"
+            android:text="跳到应用通知页" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickOverlay"
+            android:text="跳到悬浮窗设置页" />
 
     </LinearLayout>
 </ScrollView>

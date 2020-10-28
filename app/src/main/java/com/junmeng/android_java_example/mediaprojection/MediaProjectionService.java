@@ -3,7 +3,6 @@ package com.junmeng.android_java_example.mediaprojection;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -26,13 +25,12 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
 import com.junmeng.android_java_example.R;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MediaProjectionService extends Service {
-    public static final String CHANNEL_ID = "20000";
+    public static final String CHANNEL_ID = "2222";
     private static final String TAG = "MediaProjectionService";
     private MediaProjectionManager mMediaProjectionManager;
     private VirtualDisplay mVirtualDisplay;
@@ -186,24 +184,18 @@ public class MediaProjectionService extends Service {
     private void startForegroundService() {
 
         createNotificationChannel();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // create notification channel
-//            NotificationManager notificationManager=new NotificationManager(this,null);
-            // Create notification builder.
-            Intent notificationIntent = new Intent();
-            PendingIntent pendingIntent = PendingIntent.getService(this, 1212, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
             builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setColor(ContextCompat.getColor(this, android.R.color.white));
-            builder.setContentTitle("这是一个前台服务");
-            builder.setContentIntent(pendingIntent);
+            builder.setContentTitle("正在共享屏幕");
             Notification notification = builder.build();
             startForeground(100000, notification);
             Log.d(TAG, "Start foreground service");
         } else {
             // 在API16之后，可以使用build()来进行Notification的构建 Notification
             Notification notification = new Notification.Builder(this.getApplicationContext())
-                    .setContentText("这是一个前台服务")
+                    .setContentText("正在共享屏幕")
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setWhen(System.currentTimeMillis())
                     .build();
