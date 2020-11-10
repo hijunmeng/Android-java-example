@@ -1,3 +1,4 @@
+include ':paging3'
 include ':mylibrary'
 include ':app'
 rootProject.name = "Android-java-example"

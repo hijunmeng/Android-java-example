@@ -56,4 +56,6 @@ dependencies {
 //    implementation(name:"mylibrary-release",ext:"aar")
     implementation project(path: ':mylibrary')
 
+    implementation project(path: ':paging3')
+
 }
