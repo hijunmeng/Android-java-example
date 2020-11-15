@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ExampleAdapter extends PagingDataAdapter<String, ExampleAdapter.ExampleViewHolder> {
-    public ExampleAdapter(@NotNull DiffUtil.ItemCallback<String> diffCallback) {
+public class GridAdapter extends PagingDataAdapter<String, GridAdapter.ExampleViewHolder> {
+    public GridAdapter(@NotNull DiffUtil.ItemCallback<String> diffCallback) {
         super(diffCallback);
     }
 
@@ -21,7 +21,7 @@ public class ExampleAdapter extends PagingDataAdapter<String, ExampleAdapter.Exa
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vertical, null, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gird, null, false);
         return new ExampleViewHolder(v);
     }
 
@@ -44,7 +44,7 @@ public class ExampleAdapter extends PagingDataAdapter<String, ExampleAdapter.Exa
         }
     }
 
-    public static class Diff extends DiffUtil.ItemCallback<String> {
+    static class Diff extends DiffUtil.ItemCallback<String> {
         @Override
         public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
             return oldItem.equals(newItem);

@@ -1,10 +1,8 @@
 package com.junmeng.android_java_example;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -23,6 +21,7 @@ import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
 import com.junmeng.android_java_example.setting.SettingActivity;
 import com.junmeng.android_java_example.statusbar.StatusBarActivity;
+import com.junmeng.paging3.Paging3Activity;
 
 public class MainActivity extends BaseActivityDelegate {
     private static final String TAG = "MainActivity";
@@ -89,5 +88,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickSetting(View view) {
         gotoActivity(SettingActivity.class);
+    }
+
+    public void onClickPaging3(View view) {
+        gotoActivity(Paging3Activity.class);
     }
 }

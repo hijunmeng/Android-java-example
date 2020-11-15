@@ -84,6 +84,12 @@
             android:onClick="onClickSetting"
             android:text="系统设置页" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickPaging3"
+            android:text="paging3" />
+
 
     </LinearLayout>
 

@@ -16,14 +16,19 @@ import kotlinx.coroutines.CoroutineScope;
 public class ExampleViewModel extends AndroidViewModel {
     public ExampleViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public Flowable<PagingData<String>> getFlowable() {
         // CoroutineScope helper provided by the lifecycle-viewmodel-ktx artifact.
         CoroutineScope viewModelScope = ViewModelKt.getViewModelScope(this);
         Pager<Integer, String> pager = new Pager<>(
-                new PagingConfig(/* pageSize = */ 20),
+                new PagingConfig(/* pageSize = */ 20,20),//预取阈值不能为0
                 () -> new ExamplePagingSource());
 
         Flowable<PagingData<String>> flowable = PagingRx.getFlowable(pager);
-        PagingRx.cachedIn(flowable, viewModelScope);
+        return PagingRx.cachedIn(flowable, viewModelScope);
 
     }
+
+
 }
