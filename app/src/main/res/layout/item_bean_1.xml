@@ -14,6 +14,12 @@
         android:layout_alignParentBottom="true"
         android:text="bean1"/>
 
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="click me"/>
+
     <com.junmeng.android_java_example.widget.LoadingTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 /**
- *
+ * 每种数据类型对应的BindView基类
  * @param <T> 与视图对应的实体类
  */
 public abstract class BaseBindView<T> {

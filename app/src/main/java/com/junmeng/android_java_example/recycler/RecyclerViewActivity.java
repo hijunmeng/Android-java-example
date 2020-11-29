@@ -3,9 +3,6 @@ package com.junmeng.android_java_example.recycler;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.core.view.OnApplyWindowInsetsListener;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.common.recycler.IRecyclerItemType;
+import com.junmeng.android_java_example.common.recycler.RecyclerItemClickListener;
 import com.junmeng.android_java_example.recycler.bean.Bean1;
 import com.junmeng.android_java_example.recycler.bean.Bean2;
 import com.junmeng.android_java_example.recycler.section.PinnedSectionDecoration;
@@ -27,12 +25,13 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TestRecyclerAdapter testRecyclerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
-        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
-        recyclerView=findViewById(R.id.recyclerView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        recyclerView = findViewById(R.id.recyclerView);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -41,7 +40,7 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
             }
         });
 
-        testRecyclerAdapter=new TestRecyclerAdapter();
+        testRecyclerAdapter = new TestRecyclerAdapter();
         recyclerView.setAdapter(testRecyclerAdapter);
 
         initGridRecyclerView();
@@ -50,12 +49,23 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 
     }
 
-    public void initGridRecyclerView(){
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+    public void initGridRecyclerView() {
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this));
         recyclerView.addItemDecoration(new MyItemDecoration(this));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                showToast("onItemClick position" + position);
+            }
 
-        List<IRecyclerItemType> list=new ArrayList<>();
+            @Override
+            public void onItemLongClick(View view, int position) {
+                showToast("onItemLongClick position" + position);
+            }
+        }, true));
+
+        List<IRecyclerItemType> list = new ArrayList<>();
         list.add(new Bean1());
         list.add(new Bean2());
         list.add(new Bean1());
@@ -70,21 +80,21 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
         testRecyclerAdapter.notifyDataSetChanged();
     }
 
-    public void initSectionRecyclerView(){
+    public void initSectionRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new PinnedSectionDecoration(this, new PinnedSectionDecoration.DecorationCallback() {
             @Override
             public long getGroupId(int position) {
-                return position%2;
+                return position % 2;
             }
 
             @Override
             public String getGroupFirstLine(int position) {
-                return ""+position;
+                return "" + position;
             }
         }));
 
-        List<IRecyclerItemType> list=new ArrayList<>();
+        List<IRecyclerItemType> list = new ArrayList<>();
         list.add(new Bean1());
         list.add(new Bean2());
         list.add(new Bean1());
