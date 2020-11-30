@@ -4,39 +4,42 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * recyclerview item点击事件监听器
+ * recyclerview adapter必须是BaseRecyclerAdapter的子类
  * 示例：
  * recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(recyclerView, new RecyclerItemClickListener.OnItemClickListener() {...})
  */
-public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
+public class RecyclerItemClickListenerExt<T> extends RecyclerView.SimpleOnItemTouchListener {
 
     private OnItemClickListener clickListener;
     private GestureDetectorCompat gestureDetector;
 
-    public interface OnItemClickListener {
 
-        void onItemClick(View view, int position);
+    public interface OnItemClickListener<T> {
 
-        void onItemLongClick(View view, int position);
+        void onItemClick(View view, int position, T item);
+
+        void onItemLongClick(View view, int position, T item);
     }
 
-    public static class SimpleOnItemClickListener implements OnItemClickListener {
+    public static class SimpleOnItemClickListener<T> implements OnItemClickListener<T> {
 
         @Override
-        public void onItemClick(View view, int position) {
+        public void onItemClick(View view, int position, @Nullable T item) {
         }
 
         @Override
-        public void onItemLongClick(View view, int position) {
+        public void onItemLongClick(View view, int position, @Nullable T item) {
         }
     }
 
-    public RecyclerItemClickListener(final RecyclerView recyclerView,
-                                     OnItemClickListener listener) {
+    public RecyclerItemClickListenerExt(final RecyclerView recyclerView,
+                                        OnItemClickListener<T> listener) {
         this.clickListener = listener;
         gestureDetector = new GestureDetectorCompat(recyclerView.getContext(),
                 new GestureDetector.SimpleOnGestureListener() {
@@ -47,7 +50,13 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
                         if (childView != null && clickListener != null) {
                             int pos = recyclerView.getChildAdapterPosition(childView);
                             if (pos >= 0) {
-                                clickListener.onItemClick(childView, pos);
+                                T t = null;
+                                if (recyclerView.getAdapter() instanceof BaseRecyclerAdapter) {
+                                    BaseRecyclerAdapter baseRecyclerAdapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+                                    t = (T) baseRecyclerAdapter.getItem(pos);
+                                }
+                                clickListener.onItemClick(childView, pos, t);
+
                             }
 
                         }
@@ -60,7 +69,13 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
                         if (childView != null && clickListener != null) {
                             int pos = recyclerView.getChildAdapterPosition(childView);
                             if (pos >= 0) {
-                                clickListener.onItemLongClick(childView, pos);
+                                T t = null;
+                                if (recyclerView.getAdapter() instanceof BaseRecyclerAdapter) {
+                                    BaseRecyclerAdapter baseRecyclerAdapter = (BaseRecyclerAdapter) recyclerView.getAdapter();
+
+                                    t = (T) baseRecyclerAdapter.getItem(pos);
+                                }
+                                clickListener.onItemLongClick(childView, pos, t);
                             }
 
                         }
@@ -71,6 +86,6 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         gestureDetector.onTouchEvent(e);
-        return false;//必须返回false
+        return false;
     }
 }

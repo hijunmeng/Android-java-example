@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
+    public static final String FLAG_LOCAL_REFRESH = "FLAG_LOCAL_REFRESH";//局部刷新的标记，例如notifyItemChanged(1,BaseRecyclerAdapter.FLAG_LOCAL_REFRESH)
+
     @Deprecated
     public interface OnItemClickListener<T> {
         void onItemClick(View v, int position, T t);
@@ -25,7 +27,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private BaseMultiRecyclerAdapter.OnItemClickListener<T> mOnItemClickLitener;
     private BaseMultiRecyclerAdapter.OnItemLongClickListener<T> mOnItemLongClickLitener;
     protected List<T> mList = new ArrayList();
-    protected IRecyclerItemType mSelectedItem;//当前选中项，如无选中则为null
+    protected T mSelectedItem;//当前选中项，如无选中则为null
 
     /**
      * 在此处根据类型返回item布局id
@@ -107,7 +109,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      *
      * @param item
      */
-    public void setSelectedItem(IRecyclerItemType item) {
+    public void setSelectedItem(T item) {
         this.mSelectedItem = item;
     }
 
@@ -117,7 +119,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      * @return
      */
     @Nullable
-    public IRecyclerItemType getSelectedItem() {
+    public T getSelectedItem() {
         return this.mSelectedItem;
     }
 
@@ -130,7 +132,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         if (mList == null) {
             return -1;
         }
-        IRecyclerItemType item = getSelectedItem();
+        T item = getSelectedItem();
         if (item == null) {
             return -1;
         }
@@ -151,6 +153,16 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 获得item项在列表中的位置
+     *
+     * @param item
+     * @return
+     */
+    public int getItemPosition(T item) {
+        return mList.indexOf(item);
     }
 
 
