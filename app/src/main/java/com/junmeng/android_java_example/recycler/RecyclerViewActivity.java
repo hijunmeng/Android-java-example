@@ -76,7 +76,7 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 //                showToast("onItemLongClick item" + item.getItemType());
 //            }
 //        }));
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListenerExt<IRecyclerItemType>(recyclerView, new RecyclerItemClickListenerExt.SimpleOnItemClickListener<IRecyclerItemType>(){
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListenerExt<IRecyclerItemType>(recyclerView, new RecyclerItemClickListenerExt.SimpleOnItemClickListener<IRecyclerItemType>() {
             @Override
             public void onItemClick(View view, int position, IRecyclerItemType item) {
                 showToast("onItemClick item123" + item.getItemType());
@@ -134,5 +134,9 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 
         testRecyclerAdapter.addAllData(list);
         testRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public void onClickList(View view) {
+        gotoActivity(ListTestActivity.class);
     }
 }

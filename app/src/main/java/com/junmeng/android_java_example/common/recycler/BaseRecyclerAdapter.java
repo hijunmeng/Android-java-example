@@ -215,7 +215,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         if (isNotifyDataSetChanged) {
             notifyDataSetChanged();
         }
-
     }
 
     /**
@@ -225,7 +224,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      */
     public void addData(@NonNull T t) {
         this.mList.add(t);
-        notifyDataSetChanged();
+        notifyItemInserted(getItemCount() - 1);
     }
 
     /**

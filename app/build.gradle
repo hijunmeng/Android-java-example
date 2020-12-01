@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+    viewBinding {
+        enabled = true
+    }
     signingConfigs {
         release {
             storeFile file('G:\\workspace\\code_workspace\\android\\keystore\\myandroidkeystore-hwj-hwj123456.jks')
