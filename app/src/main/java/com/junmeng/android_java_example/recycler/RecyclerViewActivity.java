@@ -139,4 +139,8 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
     public void onClickList(View view) {
         gotoActivity(ListTestActivity.class);
     }
+
+    public void onClickChatList(View view) {
+        gotoActivity(ChatListActivity.class);
+    }
 }

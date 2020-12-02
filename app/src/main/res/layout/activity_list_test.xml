@@ -30,34 +30,188 @@
             android:text="remove item" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_wrap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#88ffff00"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/funs"
-        tools:itemCount="3"
-        tools:listitem="@layout/item_simple" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_match"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#88ffff00"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/funs">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="false-true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_wrap_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#88ffff00"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintTop_toBottomOf="@+id/funs">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_match_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#88ff0000"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="false-false" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_wrap_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#88ff0000"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_match_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#88ff00ff"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="true-true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_wrap_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#88ff00ff"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_h_7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_5">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_match_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#8800ffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_7">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="true-false" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_wrap_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#8800ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/funs"
-        tools:itemCount="3"
-        tools:listitem="@layout/item_simple" />
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_5"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_h_7">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_match_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_simple" />
+    </RelativeLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guideline_vertical_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27010623" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_h_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.77" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

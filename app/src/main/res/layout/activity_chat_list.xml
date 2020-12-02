@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
-    android:padding="10dp"
-    tools:context=".recycler.RecyclerViewActivity">
+    tools:context=".recycler.ChatListActivity">
 
     <LinearLayout
         android:id="@+id/funs"
@@ -14,33 +12,39 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickList"
-            android:text="list" />
+            android:onClick="onClickAdd"
+            android:text="add item" />
+
         <Button
+            android:id="@+id/removeItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickChatList"
-            android:text="chat list" />
+            android:onClick="onClickRemove"
+            android:text="remove item" />
+        <Button
+            android:id="@+id/changeItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickChange"
+            android:text="change item height" />
     </LinearLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#88ffff00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/funs">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintTop_toBottomOf="@+id/funs"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_simple_large" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

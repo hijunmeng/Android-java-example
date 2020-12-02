@@ -182,6 +182,20 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     /**
+     * 滑动到底部
+     * @param recyclerView
+     */
+    public void smoothScrollToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) {
+            return;
+        }
+        int position = getItemCount()-1;
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position);
+        }
+    }
+
+    /**
      * 添加数据（不清空旧数据）同时自动刷新
      *
      * @param list

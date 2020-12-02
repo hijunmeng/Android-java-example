@@ -30,15 +30,58 @@ public class ListTestActivity extends AppCompatActivity {
 
     private void initListView() {
         adapter = new MyAdapter();
+        initListView1();
+        initListView2();
+        initListView3();
+        initListView4();
+    }
+
+    private void initListView1() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         linearLayoutManager.setStackFromEnd(true);
-        binding.listWrap.setLayoutManager(linearLayoutManager);
-        binding.listWrap.setAdapter(adapter);
+        binding.listWrap1.setLayoutManager(linearLayoutManager);
+        binding.listWrap1.setAdapter(adapter);
 
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         linearLayoutManager2.setStackFromEnd(true);
-        binding.listMatch.setLayoutManager(linearLayoutManager2);
-        binding.listMatch.setAdapter(adapter);
+        binding.listMatch1.setLayoutManager(linearLayoutManager2);
+        binding.listMatch1.setAdapter(adapter);
+    }
+
+    private void initListView2() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        linearLayoutManager.setStackFromEnd(false);
+        binding.listWrap2.setLayoutManager(linearLayoutManager);
+        binding.listWrap2.setAdapter(adapter);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        linearLayoutManager2.setStackFromEnd(false);
+        binding.listMatch2.setLayoutManager(linearLayoutManager2);
+        binding.listMatch2.setAdapter(adapter);
+    }
+
+    private void initListView3() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);
+        linearLayoutManager.setStackFromEnd(true);
+        binding.listWrap3.setLayoutManager(linearLayoutManager);
+        binding.listWrap3.setAdapter(adapter);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);
+        linearLayoutManager2.setStackFromEnd(true);
+        binding.listMatch3.setLayoutManager(linearLayoutManager2);
+        binding.listMatch3.setAdapter(adapter);
+    }
+
+    private void initListView4() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);
+        linearLayoutManager.setStackFromEnd(false);
+        binding.listWrap4.setLayoutManager(linearLayoutManager);
+        binding.listWrap4.setAdapter(adapter);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, RecyclerView.VERTICAL, true);
+        linearLayoutManager2.setStackFromEnd(false);
+        binding.listMatch4.setLayoutManager(linearLayoutManager2);
+        binding.listMatch4.setAdapter(adapter);
     }
 
     public void onClickRemove(View view) {
