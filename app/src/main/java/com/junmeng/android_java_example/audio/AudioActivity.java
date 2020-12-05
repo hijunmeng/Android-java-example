@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 import java.util.List;
 

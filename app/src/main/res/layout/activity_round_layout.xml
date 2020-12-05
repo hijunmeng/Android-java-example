@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".round_layout.RoundLayoutActivity">
 
-    <com.junmeng.android_java_example.widget.RoundRectLayout
+    <com.example.ui.widget.RoundRectLayout
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,6 +21,6 @@
             android:src="@mipmap/ic_launcher"
             android:scaleType="fitXY"/>
 
-    </com.junmeng.android_java_example.widget.RoundRectLayout>
+    </com.example.ui.widget.RoundRectLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

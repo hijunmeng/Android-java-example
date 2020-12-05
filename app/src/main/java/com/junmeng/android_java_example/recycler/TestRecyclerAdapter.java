@@ -2,8 +2,8 @@ package com.junmeng.android_java_example.recycler;
 
 import androidx.annotation.NonNull;
 
-import com.junmeng.android_java_example.common.recycler.BaseMultiRecyclerAdapter;
-import com.junmeng.android_java_example.common.recycler.IRecyclerTypeManager;
+import com.example.common.recycler.BaseMultiRecyclerAdapter;
+import com.example.common.recycler.IRecyclerTypeManager;
 
 public class TestRecyclerAdapter extends BaseMultiRecyclerAdapter {
 

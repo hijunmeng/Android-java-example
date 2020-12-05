@@ -7,10 +7,11 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.alertwindow.AlertWindowActivity;
 import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.audio.AudioActivity;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
+import com.junmeng.android_java_example.constraintlayout.ConstraintActivity;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
 import com.junmeng.android_java_example.gesture.DragActivity;
 import com.junmeng.android_java_example.gesture.GestureActivity;
@@ -92,5 +93,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickPaging3(View view) {
         gotoActivity(Paging3Activity.class);
+    }
+
+    public void onClickConstraint(View view) {
+        gotoActivity(ConstraintActivity.class);
     }
 }

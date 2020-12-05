@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.utils.NotificationUtil;
+import com.example.common.utils.NotificationUtil;
 
 public class SettingActivity extends AppCompatActivity {
 

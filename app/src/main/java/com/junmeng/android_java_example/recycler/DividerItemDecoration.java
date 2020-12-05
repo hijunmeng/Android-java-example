@@ -2,9 +2,9 @@ package com.junmeng.android_java_example.recycler;
 
 import android.content.Context;
 
-import com.junmeng.android_java_example.recycler.decoration.YDivider;
-import com.junmeng.android_java_example.recycler.decoration.YDividerBuilder;
-import com.junmeng.android_java_example.recycler.decoration.YDividerItemDecoration;
+import com.example.ui.decoration.YDivider;
+import com.example.ui.decoration.YDividerBuilder;
+import com.example.ui.decoration.YDividerItemDecoration;
 
 public class DividerItemDecoration extends YDividerItemDecoration {
 

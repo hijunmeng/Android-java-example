@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.common.base.BaseActivityDelegate;
+import com.example.common.recycler.IRecyclerItemType;
+import com.example.common.recycler.RecyclerItemClickListenerExt;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
-import com.junmeng.android_java_example.common.recycler.IRecyclerItemType;
-import com.junmeng.android_java_example.common.recycler.RecyclerItemClickListenerExt;
 import com.junmeng.android_java_example.recycler.bean.Bean1;
 import com.junmeng.android_java_example.recycler.bean.Bean2;
 import com.junmeng.android_java_example.recycler.section.PinnedSectionDecoration;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewActivity extends BaseActivityDelegate {
-
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;

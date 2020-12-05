@@ -12,8 +12,9 @@ import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.common.base.BaseActivityDelegate;
+import com.example.common.utils.SystemUiUtil;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 import java.util.Random;
 

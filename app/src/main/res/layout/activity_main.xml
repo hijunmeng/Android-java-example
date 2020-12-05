@@ -15,24 +15,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickFrags"
+            android:textAllCaps="false"
             android:text="fragments" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickLiveData"
+            android:textAllCaps="false"
             android:text="livedata" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickGesture"
+            android:textAllCaps="false"
             android:text="gesture" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickAnim"
+            android:textAllCaps="false"
             android:text="animation" />
 
         <Button
@@ -51,33 +55,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickDrag"
+            android:textAllCaps="false"
             android:text="ViewDragHelper" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickRecycler"
+            android:textAllCaps="false"
             android:text="Recycler view" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickAudio"
+            android:textAllCaps="false"
             android:text="audio" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickMediaProjection"
             android:text="录屏" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickNotification"
             android:text="消息通知" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickAlertWindow"
             android:text="悬浮窗" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +100,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickPaging3"
+            android:textAllCaps="false"
             android:text="paging3" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickConstraint"
+            android:textAllCaps="false"
+            android:text="ConstarintLayout" />
 
 
     </LinearLayout>

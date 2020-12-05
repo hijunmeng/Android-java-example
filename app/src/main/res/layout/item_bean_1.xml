@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.junmeng.android_java_example.recycler.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.ui.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00ff00">
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:text="click me"/>
 
-    <com.junmeng.android_java_example.widget.LoadingTextView
+    <com.example.ui.widget.LoadingTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"/>
-</com.junmeng.android_java_example.recycler.SquareRelativeLayout>
+</com.example.ui.widget.SquareRelativeLayout>

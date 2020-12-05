@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 /**
  * 视图动画（又称补间动画）的一大特点就是变化后的视图点击事件实际上还是在原来的区域

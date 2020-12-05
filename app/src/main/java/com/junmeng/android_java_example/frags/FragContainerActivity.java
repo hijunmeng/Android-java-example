@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
 

@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.recycler.BaseSingleRecyclerAdapter;
-import com.junmeng.android_java_example.common.recycler.RecyclerViewHolder;
+import com.example.common.recycler.BaseSingleRecyclerAdapter;
+import com.example.common.recycler.RecyclerViewHolder;
 import com.junmeng.android_java_example.databinding.ActivityListTestBinding;
 
 import java.util.List;
 
+/**
+ * 演示LinearLayoutManager.setReverseLayout()和LinearLayoutManager.setStackFromEnd不同组合在wrap_content和match_parent中的效果
+ */
 public class ListTestActivity extends AppCompatActivity {
 
     private ActivityListTestBinding binding;

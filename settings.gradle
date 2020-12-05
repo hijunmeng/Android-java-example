@@ -1,3 +1,5 @@
+include ':ui'
+include ':common'
 include ':paging3'
 include ':mylibrary'
 include ':app'

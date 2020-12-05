@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 
 import com.junmeng.android_java_example.surfaceview.BaseSurfaceView;
-import com.junmeng.android_java_example.utils.ColorUtil;
+import com.example.common.utils.ColorUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;

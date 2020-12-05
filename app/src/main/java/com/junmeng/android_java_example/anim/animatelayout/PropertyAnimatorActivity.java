@@ -18,9 +18,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.anim.MyTypeEvaluator;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 /**
  * 属性动画演示

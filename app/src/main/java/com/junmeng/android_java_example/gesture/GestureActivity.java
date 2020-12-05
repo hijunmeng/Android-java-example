@@ -3,8 +3,8 @@ package com.junmeng.android_java_example.gesture;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 import com.junmeng.android_java_example.gesture.listener.GestureTouchListener;
 
 public class GestureActivity extends BaseActivityDelegate {

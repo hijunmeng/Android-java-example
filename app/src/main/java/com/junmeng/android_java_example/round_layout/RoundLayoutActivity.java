@@ -2,8 +2,8 @@ package com.junmeng.android_java_example.round_layout;
 
 import android.os.Bundle;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
 
 public class RoundLayoutActivity extends BaseActivityDelegate {
 

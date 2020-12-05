@@ -1,0 +1,52 @@
+package com.example.common.utils;
+
+import android.content.Context;
+import android.graphics.PointF;
+import android.util.TypedValue;
+
+/**
+ * 计算工具
+ */
+public class CalculateUtil {
+
+    /**
+     * 求a点绕o点旋转rotate度后的点的坐标
+     *
+     * @param a      原始点
+     * @param o      圆点，即围绕的中心点
+     * @param rotate 旋转度数，正为顺时针，负为逆时针
+     * @return 旋转后的点的坐标
+     */
+    public static PointF getPointAfterRotate(PointF a, PointF o, float rotate) {
+        PointF b = new PointF();
+        if (a == null || o == null) {
+            return b;
+        }
+        double angle = Math.toRadians(rotate);//将角度转为弧度
+        b.x = (float) ((a.x - o.x) * Math.cos(angle) - (a.y - o.y) * Math.sin(angle) + o.x);
+        b.y = (float) ((a.x - o.x) * Math.sin(angle) + (a.y - o.y) * Math.cos(angle) + o.y);
+        return b;
+    }
+
+    /**
+     * dp换算成px
+     *
+     * @param context
+     * @param dpVal
+     * @return
+     */
+    public static int dp2px(Context context, float dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics());
+    }
+
+    /**
+     * sp换算成px
+     *
+     * @param context
+     * @param spVal
+     * @return
+     */
+    public static int sp2px(Context context, float spVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, context.getResources().getDisplayMetrics());
+    }
+}

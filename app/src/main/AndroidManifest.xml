@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recycler.ChatListActivity"></activity>
+        <activity android:name=".constraintlayout.ConstraintActivity"></activity>
+        <activity android:name=".recycler.ChatListActivity" />
         <activity android:name=".recycler.ListTestActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity
@@ -62,7 +63,6 @@
         <activity
             android:name=".frags.FragContainerActivity"
             android:launchMode="standard" />
-        <activity android:name=".common.BaseActivityDelegate" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

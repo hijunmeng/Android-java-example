@@ -1,6 +1,6 @@
 package com.junmeng.android_java_example.recycler;
 
-import com.junmeng.android_java_example.common.recycler.SimpleRecyclerTypeManager;
+import com.example.common.recycler.SimpleRecyclerTypeManager;
 import com.junmeng.android_java_example.recycler.bindview.Bean1BindView;
 import com.junmeng.android_java_example.recycler.bindview.Bean2BindView;
 

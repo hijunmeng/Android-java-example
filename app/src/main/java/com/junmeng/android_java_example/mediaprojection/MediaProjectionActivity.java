@@ -20,9 +20,9 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.BaseActivityDelegate;
-import com.junmeng.android_java_example.utils.NotificationUtil;
+import com.example.common.utils.NotificationUtil;
 
 import java.nio.ByteBuffer;
 

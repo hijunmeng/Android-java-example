@@ -1,0 +1,18 @@
+// 全局的版本控制
+ext {
+    minSdkVersion = 21
+    targetSdkVersion = 30
+    compileSdkVersion = 30
+    buildToolsVersion = "30.0.2"
+
+    // App dependencies
+    junitVersion = '4.12'
+    junitExtVersion = '1.1.1'
+    espressoVersion = '3.2.0'
+
+    constraintlayoutVersion = '2.0.4'
+    recyclerviewVersion = '1.1.0'
+    appcompatVersion = '1.1.0'
+    materialVersion = "1.2.1"
+}
+

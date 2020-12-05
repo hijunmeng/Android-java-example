@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.junmeng.android_java_example.R;
-import com.junmeng.android_java_example.common.recycler.BaseSingleRecyclerAdapter;
-import com.junmeng.android_java_example.common.recycler.RecyclerViewHolder;
+import com.example.common.recycler.BaseSingleRecyclerAdapter;
+import com.example.common.recycler.RecyclerViewHolder;
 import com.junmeng.android_java_example.databinding.ActivityChatListBinding;
 
 import java.util.List;
