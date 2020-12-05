@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
 
 //    implementation(name:"mylibrary-release",ext:"aar")
-    implementation project(path: ':mylibrary')
+    implementation project(path: ':proguard-test')
 
     implementation project(path: ':paging3')
     implementation project(path: ':common')

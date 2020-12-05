@@ -1,6 +1,6 @@
 include ':ui'
 include ':common'
 include ':paging3'
-include ':mylibrary'
+include ':proguard-test'
 include ':app'
 rootProject.name = "Android-java-example"
