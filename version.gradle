@@ -7,12 +7,16 @@ ext {
 
     // App dependencies
     junitVersion = '4.12'
-    junitExtVersion = '1.1.1'
-    espressoVersion = '3.2.0'
-
-    constraintlayoutVersion = '2.0.4'
-    recyclerviewVersion = '1.1.0'
-    appcompatVersion = '1.1.0'
     materialVersion = "1.2.1"
 }
+
+
+def androidx = [:]
+androidx.junitExtVersion = '1.1.1'
+androidx.espressoVersion = '3.2.0'
+androidx.constraintlayoutVersion = '2.0.4'
+androidx.recyclerviewVersion = '1.1.0'
+androidx.appcompatVersion = '1.1.0'
+
+ext.androidx = androidx
 

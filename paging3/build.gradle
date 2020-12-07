@@ -29,12 +29,12 @@ android {
 
 dependencies {
 
-    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "androidx.appcompat:appcompat:$androidx.appcompatVersion"
+    implementation "com.google.android.material:material:$androidx.materialVersion"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExtVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidx.junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx.espressoVersion"
 
     //https://github.com/ReactiveX/RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.4"
