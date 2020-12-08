@@ -3,6 +3,9 @@ package com.example.common.utils;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.security.InvalidParameterException;
 import java.security.spec.AlgorithmParameterSpec;
 
@@ -17,7 +20,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 结果可以在线验证：http://tool.chacuo.net/cryptaes
  * <p>
  * 1. key's length >= 16
- * 2. iv's length > 16
+ * 2. iv's length >= 16
  * 3. "transformation": AES/CBC/PKCS5Padding
  * 4. iv=16(bytes) length=128(bits)
  * 5. iv=24(bytes) length=192(bits)
@@ -44,14 +47,14 @@ public class AESUtil {
     /**
      * 加密并返回base64字符串
      *
-     * @param data
-     * @param key
-     * @param iv
-     * @param transformation
+     * @param data           待加密的数据
+     * @param key            加密秘钥,长度大于等于16
+     * @param iv             偏移量，长度大于等于16
+     * @param transformation 见TRANSFORMATION_开头
      * @return
      * @throws Exception
      */
-    public static String encryptAndBase64Encode(String data, String key, String iv, String transformation) throws Exception {
+    public static String encryptAndBase64Encode(@NonNull String data, @NonNull String key, @Nullable String iv, @NonNull String transformation) throws Exception {
         if (TextUtils.isEmpty(data)) {
             throw (new InvalidParameterException("data is empty"));
         }
@@ -75,7 +78,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static String encryptAndHexEncode(String data, String key, String iv, String transformation) throws Exception {
+    public static String encryptAndHexEncode(@NonNull String data, @NonNull String key, @Nullable String iv, @NonNull String transformation) throws Exception {
         if (TextUtils.isEmpty(data)) {
             throw (new InvalidParameterException("data is empty"));
         }
@@ -100,7 +103,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptCore(byte[] data, byte[] key, byte[] iv, String transformation) throws Exception {
+    public static byte[] encryptCore(byte[] data, byte[] key, byte[] iv, @NonNull String transformation) throws Exception {
         if (data == null || data.length == 0) {
             throw (new InvalidParameterException("data is empty"));
         }
@@ -137,7 +140,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static String decryptBase64EncodeData(String data, String key, String iv, String transformation) throws Exception {
+    public static String decryptBase64EncodeData(@NonNull String data, @NonNull String key, @Nullable String iv, @NonNull String transformation) throws Exception {
         if (TextUtils.isEmpty(data)) {
             throw (new InvalidParameterException("data is empty"));
         }
@@ -162,7 +165,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static String decryptHexEncodeData(String data, String key, String iv, String transformation) throws Exception {
+    public static String decryptHexEncodeData(@NonNull String data, @NonNull String key, @Nullable String iv, @NonNull String transformation) throws Exception {
         if (TextUtils.isEmpty(data)) {
             throw (new InvalidParameterException("data is empty"));
         }
@@ -187,7 +190,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptCore(byte[] data, byte[] key, byte[] iv, String transformation) throws Exception {
+    public static byte[] decryptCore(byte[] data, byte[] key, byte[] iv, @NonNull String transformation) throws Exception {
 
         if (data == null || data.length == 0) {
             throw (new InvalidParameterException("data is empty"));
@@ -241,7 +244,7 @@ public class AESUtil {
      * @param inputString
      * @return
      */
-    public static byte[] hex2byte(String inputString) {
+    public static byte[] hex2byte(@NonNull String inputString) {
         if (inputString == null || inputString.length() < 2) {
             return new byte[0];
         }

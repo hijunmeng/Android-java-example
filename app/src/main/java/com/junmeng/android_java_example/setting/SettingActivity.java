@@ -1,7 +1,6 @@
 package com.junmeng.android_java_example.setting;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,8 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.junmeng.android_java_example.R;
 import com.example.common.utils.NotificationUtil;
+import com.example.common.utils.SystemSettingPageUtil;
+import com.junmeng.android_java_example.R;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -28,8 +28,7 @@ public class SettingActivity extends AppCompatActivity {
      */
     public void onClickCast(View view) {
 //        Settings.Global.putInt(getContentResolver(),Settings.Global., flag);
-        Intent intent = new Intent(Settings.ACTION_CAST_SETTINGS);
-        startActivity(intent);
+        SystemSettingPageUtil.gotoCastSettingPage(this);
     }
 
 
@@ -69,10 +68,17 @@ public class SettingActivity extends AppCompatActivity {
      */
     public void onClickOverlay(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
+            SystemSettingPageUtil.gotoAppOverlayPermissionSettingPage(this);
         } else {
             Toast.makeText(this, "api 小于26", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * 跳转到应用设置页
+     * @param view
+     */
+    public void onClickAppDetails(View view) {
+            SystemSettingPageUtil.gotoAppDetailsSettingPage(this);
     }
 }

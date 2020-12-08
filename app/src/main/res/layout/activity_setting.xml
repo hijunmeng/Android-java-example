@@ -43,5 +43,12 @@
             android:onClick="onClickOverlay"
             android:text="跳到悬浮窗设置页" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickAppDetails"
+            android:text="跳到应用设置页" />
+
+
     </LinearLayout>
 </ScrollView>

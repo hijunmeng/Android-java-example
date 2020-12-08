@@ -30,8 +30,8 @@ android {
 dependencies {
 
     implementation "androidx.appcompat:appcompat:$androidx.appcompatVersion"
-    implementation "com.google.android.material:material:$androidx.materialVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx.constraintlayoutVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidx.junitExtVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx.espressoVersion"
