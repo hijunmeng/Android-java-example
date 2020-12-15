@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LineWaveVoiceView">
+        <attr name="voiceLineColor" format="color" />
+        <attr name="voiceLineWidth" format="dimension" />
+        <attr name="lineSpaceWidth" format="dimension" />
+        <attr name="minLineHeight" format="dimension" />
+        <attr name="maxLineHeight" format="dimension" />
+        <!--        线条的一半-->
+        <attr name="lineHalfCount" format="integer" />
+        <attr name="updateSpeed" format="integer" />
+
+    </declare-styleable>
+</resources>
