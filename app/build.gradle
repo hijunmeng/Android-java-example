@@ -46,6 +46,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "androidx.core:core:$androidx.core"
     implementation "androidx.appcompat:appcompat:$androidx.appcompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$androidx.constraintlayoutVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -61,5 +62,6 @@ dependencies {
     implementation project(path: ':paging3')
     implementation project(path: ':common')
     implementation project(path: ':ui')
+
 
 }
