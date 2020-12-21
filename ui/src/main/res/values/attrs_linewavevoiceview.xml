@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LineWaveVoiceView">
-        <attr name="voiceLineColor" format="color" />
-        <attr name="voiceLineWidth" format="dimension" />
-        <attr name="lineSpaceWidth" format="dimension" />
-        <attr name="minLineHeight" format="dimension" />
-        <attr name="maxLineHeight" format="dimension" />
+        <attr name="junmeng_voiceLineColor" format="color" />
+        <attr name="junmeng_voiceLineWidth" format="dimension" />
+        <attr name="junmeng_lineSpaceWidth" format="dimension" />
+        <attr name="junmeng_minLineHeight" format="dimension" />
+        <attr name="junmeng_maxLineHeight" format="dimension" />
         <!--        线条的一半-->
-        <attr name="lineHalfCount" format="integer" />
-        <attr name="updateSpeed" format="integer" />
+        <attr name="junmeng_lineHalfCount" format="integer" />
+        <attr name="junmeng_updateSpeed" format="integer" />
+        <attr name="junmeng_mode" format="integer" />
+        <attr name="junmeng_lineRound" format="integer" />
 
     </declare-styleable>
 </resources>

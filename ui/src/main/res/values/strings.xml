@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="junmeng_positive">确定</string>
+    <string name="junmeng_nagative">取消</string>
+    <string name="junmeng_neutral">中间</string>
+</resources>
