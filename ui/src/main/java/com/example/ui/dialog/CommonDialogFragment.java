@@ -239,14 +239,20 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         } else if (id == R.id.negative) {
             if (mBuilder.negativeClickListener != null) {
                 mBuilder.negativeClickListener.onClick(this, DialogInterface.BUTTON_NEGATIVE);
+            } else if (mBuilder.onClickListener != null) {
+                mBuilder.onClickListener.onClick(this, DialogInterface.BUTTON_NEGATIVE);
             }
         } else if (id == R.id.positive) {
             if (mBuilder.positiveClickListener != null) {
                 mBuilder.positiveClickListener.onClick(this, DialogInterface.BUTTON_POSITIVE);
+            } else if (mBuilder.onClickListener != null) {
+                mBuilder.onClickListener.onClick(this, DialogInterface.BUTTON_POSITIVE);
             }
         } else if (id == R.id.neutral) {
             if (mBuilder.neutralClickListener != null) {
                 mBuilder.neutralClickListener.onClick(this, DialogInterface.BUTTON_NEUTRAL);
+            } else if (mBuilder.onClickListener != null) {
+                mBuilder.onClickListener.onClick(this, DialogInterface.BUTTON_NEUTRAL);
             }
         }
     }
@@ -292,6 +298,8 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         private int layoutResId = R.layout.junmeng_dialog_simple;
         private boolean isShowCloseButton = false;
         private int closeIcon = -1;
+
+        private DialogInterface.OnClickListener onClickListener;
 
 
         @Override
@@ -403,6 +411,12 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         @Override
         public Builder setLayout(int layoutResId) {
             this.layoutResId = layoutResId;
+            return this;
+        }
+
+        @Override
+        public Builder setOnClickListener(OnClickListener onClickListener) {
+            this.onClickListener = onClickListener;
             return this;
         }
 
@@ -522,5 +536,13 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
          * @return
          */
         Builder setLayout(@LayoutRes int layoutResId);
+
+        /**
+         * 设置监听器，优先级低于setPositiveButton，setNeutralButton，setNegativeButton
+         *
+         * @param onClickListener
+         * @return
+         */
+        Builder setOnClickListener(DialogInterface.OnClickListener onClickListener);
     }
 }
