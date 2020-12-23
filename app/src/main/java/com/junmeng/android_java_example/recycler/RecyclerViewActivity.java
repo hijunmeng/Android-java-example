@@ -51,7 +51,8 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
     public void initGridRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this));
-        recyclerView.addItemDecoration(new MyItemDecoration(this));
+//        recyclerView.addItemDecoration(new MyItemDecoration(this));
+        recyclerView.addItemDecoration(new ViewItemDecoration(this));
 //        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {

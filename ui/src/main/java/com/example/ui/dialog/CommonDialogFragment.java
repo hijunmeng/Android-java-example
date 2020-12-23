@@ -3,7 +3,6 @@ package com.example.ui.dialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.ui.R;
 
 /**
- * 通用对话框（必含内容和一个按钮）
+ * 通用对话框
  * 支持自定义布局，保持id一致即可
  * 支持三种类型按钮
  * 支持标题
@@ -30,16 +29,18 @@ import com.example.ui.R;
  */
 public class CommonDialogFragment extends DialogFragment implements View.OnClickListener, DialogInterface {
     private static final String TAG = "CommonDialogFragment";
+    @NonNull
     private Builder mBuilder;
 
-    //contentView和positiveView不能为空
     @Nullable
     private TextView titleView;
+    @Nullable
     private TextView contentView;
     @Nullable
     private TextView negativeView;
     @Nullable
     private TextView neutralView;
+    @Nullable
     private TextView positiveView;
     @Nullable
     private ImageView closeView;
@@ -84,6 +85,9 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
     }
 
     private void handleContentView() {
+        if (contentView == null) {
+            return;
+        }
         if (mBuilder.isContentCenter) {
             contentView.setGravity(Gravity.CENTER);
         }
@@ -187,6 +191,9 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
     }
 
     private void handlePositiveButton() {
+        if (positiveView == null) {
+            return;
+        }
         if (mBuilder.isShowPositive) {
             positiveView.setOnClickListener(this);
             positiveView.setVisibility(View.VISIBLE);
@@ -290,7 +297,7 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         private String positiveButtonText = null;
         private int positiveButtonColor = -1;
         private DialogInterface.OnClickListener positiveClickListener;
-        private boolean isShowPositive = true;
+        private boolean isShowPositive = false;
 
         private boolean isCancelable = true;
 
@@ -386,13 +393,8 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
 
         @Override
         public Builder setCloseIcon(@DrawableRes int iconResId) {
+            this.isShowCloseButton = true;
             this.closeIcon = iconResId;
-            return this;
-        }
-
-        @Override
-        public Builder isShowCloseButton(boolean isShowCloseButton) {
-            this.isShowCloseButton = isShowCloseButton;
             return this;
         }
 
@@ -421,9 +423,6 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         }
 
         public CommonDialogFragment create() {
-            if (TextUtils.isEmpty(content)) {
-                throw new RuntimeException("必须调用setContent");
-            }
             CommonDialogFragment dialog = new CommonDialogFragment(this);
             dialog.setCancelable(isCancelable);
             return dialog;
@@ -500,18 +499,11 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         /**
          * 设置关闭图标
          *
-         * @param iconResId
+         * @param iconResId -1表示默认
          * @return
          */
         Builder setCloseIcon(@DrawableRes int iconResId);
 
-        /**
-         * 是否展示关闭按钮
-         *
-         * @param isShowCloseButton
-         * @return
-         */
-        Builder isShowCloseButton(boolean isShowCloseButton);
 
         /**
          * 在点击时对话框是否自动消失，默认true
