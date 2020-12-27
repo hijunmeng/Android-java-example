@@ -12,14 +12,17 @@ import com.junmeng.android_java_example.alertwindow.AlertWindowActivity;
 import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.audio.AudioActivity;
 import com.junmeng.android_java_example.constraintlayout.ConstraintActivity;
+import com.junmeng.android_java_example.dialog.DialogShowActivity;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
 import com.junmeng.android_java_example.gesture.DragActivity;
 import com.junmeng.android_java_example.gesture.GestureActivity;
 import com.junmeng.android_java_example.livedata.LiveDataActivity;
+import com.junmeng.android_java_example.media.MediaTestActivity;
 import com.junmeng.android_java_example.mediaprojection.MediaProjectionActivity;
 import com.junmeng.android_java_example.notification.NotificationActivity;
 import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
+import com.junmeng.android_java_example.sensor.SensorTestActivity;
 import com.junmeng.android_java_example.setting.SettingActivity;
 import com.junmeng.android_java_example.statusbar.StatusBarActivity;
 import com.junmeng.paging3.Paging3Activity;
@@ -97,5 +100,17 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickConstraint(View view) {
         gotoActivity(ConstraintActivity.class);
+    }
+
+    public void onClickDialog(View view) {
+        gotoActivity(DialogShowActivity.class);
+    }
+
+    public void onClickSensor(View view) {
+        gotoActivity(SensorTestActivity.class);
+    }
+
+    public void onClickMedia(View view) {
+        gotoActivity(MediaTestActivity.class);
     }
 }

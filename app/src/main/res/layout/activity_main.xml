@@ -110,6 +110,26 @@
             android:textAllCaps="false"
             android:text="ConstarintLayout" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickDialog"
+            android:textAllCaps="false"
+            android:text="dialog" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSensor"
+            android:textAllCaps="false"
+            android:text="sensor" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickMedia"
+            android:textAllCaps="false"
+            android:text="media" />
 
     </LinearLayout>
 

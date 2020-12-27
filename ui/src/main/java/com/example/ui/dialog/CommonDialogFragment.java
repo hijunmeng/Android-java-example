@@ -1,13 +1,17 @@
 package com.example.ui.dialog;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,9 +30,24 @@ import com.example.ui.R;
  * 支持三种类型按钮
  * 支持标题
  * 支持关闭按钮
+ * 支持背景透明
+ * 用法示例：
+ * new CommonDialogFragment.Builder()
+ * .setTitle("标题")
+ * .setTitleBold(true)
+ * .isContentCenter(false)
+ * .setContent("这是content")
+ * .setCloseIcon(-1)
+ * .setPositiveButton("确定", -1, null)
+ * .setNegativeButton("取消", -1, null)
+ * .create()
+ * .show(getSupportFragmentManager(), "")
+ * ;
  */
 public class CommonDialogFragment extends DialogFragment implements View.OnClickListener, DialogInterface {
     private static final String TAG = "CommonDialogFragment";
+    private static final int DEFAULT_DIALOG_LAYOUT_RESID = R.layout.junmeng_dialog_simple;
+
     @NonNull
     private Builder mBuilder;
 
@@ -49,14 +68,34 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
     @Nullable
     private View splite2View;
 
-    public CommonDialogFragment(@NonNull Builder builder) {
+    private CommonDialogFragment(@NonNull Builder builder) {
         mBuilder = builder;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //设置对话框内部背景透明
+        }
         return inflater.inflate(mBuilder.layoutResId, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (mBuilder.backgroundTransparent) {
+            //背景透明
+            if (getDialog() == null || getDialog().getWindow() == null) {
+                return;
+            }
+            Window window = getDialog().getWindow();
+            WindowManager.LayoutParams windowParams = window.getAttributes();
+            windowParams.dimAmount = 0.0f;
+            window.setAttributes(windowParams);
+        }
+
     }
 
     @Override
@@ -300,14 +339,14 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         private boolean isShowPositive = false;
 
         private boolean isCancelable = true;
+        private boolean backgroundTransparent = false;
 
 
-        private int layoutResId = R.layout.junmeng_dialog_simple;
+        private int layoutResId = DEFAULT_DIALOG_LAYOUT_RESID;
         private boolean isShowCloseButton = false;
         private int closeIcon = -1;
 
         private DialogInterface.OnClickListener onClickListener;
-
 
         @Override
         public Builder setTitle(String title) {
@@ -419,6 +458,12 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
         @Override
         public Builder setOnClickListener(OnClickListener onClickListener) {
             this.onClickListener = onClickListener;
+            return this;
+        }
+
+        @Override
+        public Builder backgroundTransparent(boolean isTransparent) {
+            this.backgroundTransparent = isTransparent;
             return this;
         }
 
@@ -536,5 +581,13 @@ public class CommonDialogFragment extends DialogFragment implements View.OnClick
          * @return
          */
         Builder setOnClickListener(DialogInterface.OnClickListener onClickListener);
+
+        /**
+         * 设置背景是否透明
+         *
+         * @param isTransparent
+         * @return
+         */
+        Builder backgroundTransparent(boolean isTransparent);
     }
 }

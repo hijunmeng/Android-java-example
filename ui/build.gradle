@@ -30,11 +30,11 @@ android {
 
 dependencies {
 
-
-    implementation "androidx.appcompat:appcompat:$androidx.appcompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$androidx.constraintlayoutVersion"
-    implementation "androidx.recyclerview:recyclerview:$androidx.recyclerviewVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation project(path: ':common')
+    api "androidx.appcompat:appcompat:$androidx.appcompatVersion"
+    api "androidx.constraintlayout:constraintlayout:$androidx.constraintlayoutVersion"
+    api "androidx.recyclerview:recyclerview:$androidx.recyclerviewVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidx.junitExtVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx.espressoVersion"

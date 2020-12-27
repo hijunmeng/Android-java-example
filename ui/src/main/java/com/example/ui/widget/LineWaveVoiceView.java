@@ -207,8 +207,12 @@ public class LineWaveVoiceView extends View {
         }
     }
 
-    public synchronized void refreshElement(@IntRange(from = 0, to = 6) int dbLevel) {
-        int waveH = (int) (minLineHeight + Math.round(dbLevel / 6.0f * (maxLineHeight - minLineHeight)));
+    /**
+     * 根据音量分贝级别更新视图
+     * @param dbLevel
+     */
+    public synchronized void refreshElement(@IntRange(from = 0, to = 8) int dbLevel) {
+        int waveH = (int) (minLineHeight + Math.round(dbLevel / 8.0f * (maxLineHeight - minLineHeight)));
 //        Log.i(TAG, "db=" + dbLevel + ",waveH=" + waveH);
         mWaveList.add(0, waveH);
         mWaveList.removeLast();
