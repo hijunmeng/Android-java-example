@@ -9,6 +9,8 @@
         android:id="@+id/logTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
         android:hint="日志输出"
         android:padding="5dp"
         app:layout_constraintDimensionRatio="h,1:1"
@@ -18,12 +20,20 @@
 
 
     <Button
+        android:id="@+id/aaa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClickMediaCodecInfo"
         android:text="MediaCodecInfo"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logTextView" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ddd"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/aaa"
         app:layout_constraintTop_toBottomOf="@+id/logTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

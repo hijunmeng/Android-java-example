@@ -1,6 +1,5 @@
 package com.example.common.recycler;
 
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -41,7 +40,7 @@ public class RecyclerItemClickListenerExt<T> extends RecyclerView.SimpleOnItemTo
                                         OnItemClickListener<T> listener) {
         this.clickListener = listener;
         gestureDetector = new GestureDetectorCompat(recyclerView.getContext(),
-                new GestureDetector.SimpleOnGestureListener() {
+                new RecyclerItemClickListener.SimpleOnGestureListener() {//使用GestureDetector.SimpleOnGestureListener的话会导致响应双击事件
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
 

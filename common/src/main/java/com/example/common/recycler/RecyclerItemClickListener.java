@@ -39,7 +39,7 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
                                      OnItemClickListener listener) {
         this.clickListener = listener;
         gestureDetector = new GestureDetectorCompat(recyclerView.getContext(),
-                new GestureDetector.SimpleOnGestureListener() {
+                new SimpleOnGestureListener() {//使用GestureDetector.SimpleOnGestureListener的话会导致响应双击事件
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
 
@@ -72,5 +72,32 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         gestureDetector.onTouchEvent(e);
         return false;//必须返回false
+    }
+
+    public static class SimpleOnGestureListener implements GestureDetector.OnGestureListener{
+
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        public void onLongPress(MotionEvent e) {
+        }
+
+        public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                                float distanceX, float distanceY) {
+            return false;
+        }
+
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+            return false;
+        }
+
+        public void onShowPress(MotionEvent e) {
+        }
+
+        public boolean onDown(MotionEvent e) {
+            return false;
+        }
     }
 }

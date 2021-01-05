@@ -24,12 +24,8 @@ public class MediaTestActivity extends BaseActivityDelegate {
     }
 
 
-//    private int in;
-
     public void onClickMediaCodecInfo(View view) {
-//        binding.logTextView.appendLine(""+in++);
 
-        showToast("" + binding.logTextView.isScrollBottom());
         MediaCodecList mediaCodecList = new MediaCodecList(MediaCodecList.REGULAR_CODECS);
 //        new MediaCodecList(MediaCodecList.ALL_CODECS);
         MediaCodecInfo[] medias = mediaCodecList.getCodecInfos();

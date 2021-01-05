@@ -3,6 +3,7 @@ package com.example.ui.widget;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,12 +44,14 @@ public class LogTextView extends androidx.appcompat.widget.AppCompatTextView {
         post(new Runnable() {
             @Override
             public void run() {
-                append(text);
-                append("\n");
-                if(isScrollBottom()){
+                if (isScrollBottom()) {
+                    append(text);
+                    append("\n");
                     scrollBottom();
+                } else {
+                    append(text);
+                    append("\n");
                 }
-
 
             }
         });
@@ -70,7 +73,10 @@ public class LogTextView extends androidx.appcompat.widget.AppCompatTextView {
     }
 
     private void scrollBottom() {
-        int offset = getLineCount() * getLineHeight();
+        int padding = getPaddingTop() + getPaddingBottom();
+        int countPage = (getHeight() - padding) / getLineHeight();//一页最多显示多少行
+//        int dd = getHeight() - padding - countPage * getLineHeight();
+        int offset = getLineCount() * getLineHeight() + padding;
         if (offset > getHeight()) {
             scrollTo(0, offset - getHeight());
         }
@@ -80,9 +86,13 @@ public class LogTextView extends androidx.appcompat.widget.AppCompatTextView {
         post(new Runnable() {
             @Override
             public void run() {
-                append(text);
-                if(isScrollBottom()){
+
+                if (isScrollBottom()) {
+                    append(text);
                     scrollBottom();
+                } else {
+                    append(text);
+
                 }
             }
         });
@@ -94,7 +104,15 @@ public class LogTextView extends androidx.appcompat.widget.AppCompatTextView {
     }
 
     public boolean isScrollBottom() {
-        //todo
-        return true;
+        int h1 = getScrollY() + getHeight();
+        int padding = getPaddingTop() + getPaddingBottom();
+        int h2 = (getLineCount()) * getLineHeight() + padding;
+        Log.i(TAG, "getScrollY()=" + getScrollY() + ",h1=" + h1 + ",h2=" + h2 + ",padding=" + padding);
+        if (Math.abs(h1 - h2) < getLineHeight()) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
