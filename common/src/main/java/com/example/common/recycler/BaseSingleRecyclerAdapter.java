@@ -11,7 +11,7 @@ import java.util.List;
  * <p>
  * 增加选中item的保存与获取
  *
- * @param <T>
+ * @param <T> item对应的bean类
  */
 public abstract class BaseSingleRecyclerAdapter<T> extends BaseRecyclerAdapter<T> {
     private static final String TAG = "BaseSingleRecyclerAdapter";

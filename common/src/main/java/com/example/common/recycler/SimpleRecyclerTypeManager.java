@@ -2,22 +2,17 @@ package com.example.common.recycler;
 
 import android.util.SparseArray;
 
-public class SimpleRecyclerTypeManager implements IRecyclerTypeManager {
-    private SparseArray<BaseBindView> mBindViewMap = new SparseArray();
-    /**
-     *
-     * @param itemType item类型
-     * @param bindView itemType对应的数据视图绑定对象
-     */
-    public void put(int itemType, BaseBindView bindView) {
-        mBindViewMap.put(itemType, bindView);
-    }
+import androidx.annotation.NonNull;
 
+/**
+ * IRecyclerTypeManager接口的默认实现类
+ */
+public class SimpleRecyclerTypeManager implements IRecyclerTypeManager {
+    private SparseArray<BaseBindView> mBindViewMap = new SparseArray<>();
 
     @Override
     public BaseBindView getBindView(int type) {
         return mBindViewMap.get(type);
-
     }
 
     @Override
@@ -26,5 +21,10 @@ public class SimpleRecyclerTypeManager implements IRecyclerTypeManager {
             return 0;
         }
         return mBindViewMap.get(type).getItemLayoutResId();
+    }
+
+    @Override
+    public void putBindView(@NonNull int type, @NonNull BaseBindView bindView) {
+        mBindViewMap.put(type, bindView);
     }
 }

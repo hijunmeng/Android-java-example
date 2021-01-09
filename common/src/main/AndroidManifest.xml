@@ -3,4 +3,9 @@
     package="com.example.common">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+        <activity android:name=".base.BaseContainerActivity"></activity>
+    </application>
+
 </manifest>

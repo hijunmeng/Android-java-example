@@ -14,9 +14,8 @@ import android.widget.ToggleButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
 /**
- * 与BaseRecyclerAdapter配合使用
+ * 通用型RecyclerViewHolder，使用它则可以不用每种类型都写相对应的ViewHolder类了，减少重复的样本代码
  */
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 

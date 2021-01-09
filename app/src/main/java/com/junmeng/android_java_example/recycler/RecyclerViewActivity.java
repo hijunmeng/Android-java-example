@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.common.base.BaseActivityDelegate;
-import com.example.common.recycler.IRecyclerItemType;
 import com.example.common.recycler.RecyclerItemClickListenerExt;
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.recycler.bean.Bean1;
 import com.junmeng.android_java_example.recycler.bean.Bean2;
+import com.junmeng.android_java_example.recycler.bindview.Bean1BindView;
+import com.junmeng.android_java_example.recycler.bindview.Bean2BindView;
+import com.junmeng.android_java_example.recycler.bindview.Bean3BindView;
 import com.junmeng.android_java_example.recycler.section.PinnedSectionDecoration;
 
 import java.util.ArrayList;
@@ -40,6 +42,11 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
         });
 
         testRecyclerAdapter = new TestRecyclerAdapter();
+        testRecyclerAdapter.register(new Bean1BindView());
+        testRecyclerAdapter.register( new Bean2BindView());
+        testRecyclerAdapter.register( new Bean3BindView());
+//        testRecyclerAdapter.register(Bean1.class, new Bean1BindView());
+//        testRecyclerAdapter.register(Bean2.class, new Bean2BindView());
         recyclerView.setAdapter(testRecyclerAdapter);
 
         initGridRecyclerView();
@@ -76,10 +83,10 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 //                showToast("onItemLongClick item" + item.getItemType());
 //            }
 //        }));
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListenerExt<IRecyclerItemType>(recyclerView, new RecyclerItemClickListenerExt.SimpleOnItemClickListener<IRecyclerItemType>() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListenerExt(recyclerView, new RecyclerItemClickListenerExt.SimpleOnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, IRecyclerItemType item) {
-                showToast("onItemClick item123" + item.getItemType());
+            public void onItemClick(View view, int position, Object item) {
+                showToast("onItemClick item123:" + item);
             }
         }));
 
@@ -90,7 +97,7 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
 //            }
 //        }));
 
-        List<IRecyclerItemType> list = new ArrayList<>();
+        List list = new ArrayList<>();
         list.add(new Bean1());
         list.add(new Bean2());
         list.add(new Bean1());
@@ -102,6 +109,8 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
         list.add(new Bean1());
         list.add(new Bean2());
         list.add(new Bean1());
+        list.add(new Object());
+        list.add(new Object());
 
         testRecyclerAdapter.addAllData(list);
         testRecyclerAdapter.notifyDataSetChanged();
@@ -121,7 +130,7 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
             }
         }));
 
-        List<IRecyclerItemType> list = new ArrayList<>();
+        List list = new ArrayList<>();
         list.add(new Bean1());
         list.add(new Bean2());
         list.add(new Bean1());

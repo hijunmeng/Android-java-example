@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * recyclerview item点击事件监听器
  * recyclerview adapter必须是BaseRecyclerAdapter的子类
  * 示例：
- * recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(recyclerView, new RecyclerItemClickListener.OnItemClickListener() {...})
+ * recyclerView.addOnItemTouchListener(new RecyclerItemClickListenerExt(recyclerView, new RecyclerItemClickListenerExt.OnItemClickListener() {...})
+ *
+ * @param <T> item的类型
  */
 public class RecyclerItemClickListenerExt<T> extends RecyclerView.SimpleOnItemTouchListener {
 

@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @param <T> item对应的bean类
+ */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
     public static final String FLAG_LOCAL_REFRESH = "FLAG_LOCAL_REFRESH";//局部刷新的标记，例如notifyItemChanged(1,BaseRecyclerAdapter.FLAG_LOCAL_REFRESH)
 
@@ -42,8 +46,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        int layoutResId = getItemLayoutResId(viewType);
+        if (layoutResId == 0) {
+            throw new IllegalArgumentException("layout res id can not be zero,you must set it correctly");
+        }
         RecyclerViewHolder holder = new RecyclerViewHolder(LayoutInflater.from(
-                parent.getContext()).inflate(getItemLayoutResId(viewType), parent,
+                parent.getContext()).inflate(layoutResId, parent,
                 false));
         return holder;
     }
@@ -52,7 +60,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         //ignore
     }
-
 
     @Override
     public int getItemCount() {
@@ -183,13 +190,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     /**
      * 滑动到底部
+     *
      * @param recyclerView
      */
     public void smoothScrollToBottom(RecyclerView recyclerView) {
         if (recyclerView == null) {
             return;
         }
-        int position = getItemCount()-1;
+        int position = getItemCount() - 1;
         if (position != -1) {
             recyclerView.smoothScrollToPosition(position);
         }
