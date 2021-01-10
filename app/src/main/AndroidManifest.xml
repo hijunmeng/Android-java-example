@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".media.MediaTestActivity"></activity>
+        <activity android:name=".drawable.DrawableActivity"></activity>
+        <activity android:name=".media.MediaTestActivity" />
         <activity android:name=".sensor.SensorTestActivity" />
         <activity android:name=".dialog.DialogShowActivity" />
         <activity android:name=".constraintlayout.ConstraintActivity" />

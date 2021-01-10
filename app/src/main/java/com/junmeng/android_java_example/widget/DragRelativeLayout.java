@@ -50,7 +50,7 @@ public class DragRelativeLayout extends RelativeLayout {
              */
             @Override
             public boolean tryCaptureView(@NonNull View child, int pointerId) {
-                if(!child.isShown()){
+                if (!child.isShown()) {
                     return false;
                 }
                 mCaptureViewPoint = new Point(child.getLeft(), child.getTop());
@@ -208,7 +208,7 @@ public class DragRelativeLayout extends RelativeLayout {
              */
             @Override
             public void onEdgeDragStarted(int edgeFlags, int pointerId) {
-                Log.i(TAG, "onEdgeDragStarted: edgeFlags="+edgeFlags+",pointerId="+pointerId);
+                Log.i(TAG, "onEdgeDragStarted: edgeFlags=" + edgeFlags + ",pointerId=" + pointerId);
                 //此处只是演示了在右边缘拖拽第二个子view
                 mViewDragHelper.captureChildView(getChildAt(1), pointerId);
             }
@@ -228,7 +228,7 @@ public class DragRelativeLayout extends RelativeLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        Log.i(TAG, "onTouchEvent: ");
-        if(mViewDragHelper.getCapturedView()==null){//没有拖拽view时不应该消费事件，否则会导致父布局无法响应点击事件
+        if (mViewDragHelper.getCapturedView() == null) {//没有拖拽view时不应该消费事件，否则会导致父布局无法响应点击事件
             return super.onTouchEvent(event);
         }
         mViewDragHelper.processTouchEvent(event);

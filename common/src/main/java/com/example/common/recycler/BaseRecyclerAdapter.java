@@ -30,6 +30,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     private BaseMultiRecyclerAdapter.OnItemClickListener<T> mOnItemClickLitener;
     private BaseMultiRecyclerAdapter.OnItemLongClickListener<T> mOnItemLongClickLitener;
+    //todo：如果不希望mList遭到外部修改，需要使用Collections.unmodifiableList
     protected List<T> mList = new ArrayList();
     protected T mSelectedItem;//当前选中项，如无选中则为null
 
@@ -263,6 +264,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
      * @return
      */
     public List<T> getData() {
+        //fixme:此处应该使用Collections.unmodifiableList来返回一个不可修改的视图数据
         return this.mList;
     }
 
@@ -276,6 +278,5 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             return;
         }
         this.mList = list;
-        notifyDataSetChanged();
     }
 }

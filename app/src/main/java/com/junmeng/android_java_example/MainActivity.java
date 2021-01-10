@@ -13,6 +13,7 @@ import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.audio.AudioActivity;
 import com.junmeng.android_java_example.constraintlayout.ConstraintActivity;
 import com.junmeng.android_java_example.dialog.DialogShowActivity;
+import com.junmeng.android_java_example.drawable.DrawableActivity;
 import com.junmeng.android_java_example.frags.FragContainerActivity;
 import com.junmeng.android_java_example.gesture.DragActivity;
 import com.junmeng.android_java_example.gesture.GestureActivity;
@@ -112,5 +113,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickMedia(View view) {
         gotoActivity(MediaTestActivity.class);
+    }
+
+    public void onClickDrawable(View view) {
+        gotoActivity(DrawableActivity.class);
     }
 }

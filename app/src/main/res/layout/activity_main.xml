@@ -130,6 +130,12 @@
             android:onClick="onClickMedia"
             android:textAllCaps="false"
             android:text="media" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickDrawable"
+            android:textAllCaps="false"
+            android:text="drawable" />
 
     </LinearLayout>
 
