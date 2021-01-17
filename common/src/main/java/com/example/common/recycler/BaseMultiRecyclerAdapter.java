@@ -46,6 +46,19 @@ public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
         setClickListener(holder);
     }
 
+    @Override
+    public void onViewRecycled(@NonNull RecyclerViewHolder holder) {
+        int pos = holder.getLayoutPosition();
+        if (pos == -1) {
+            return;
+        }
+        int type = getItemViewType(pos);
+        if (type == -1) {
+            return;
+        }
+        mRecyclerTypeManager.getBindView(type).onViewRecycled(holder);
+    }
+
     /**
      * 注册
      * 已过时，请使用{@link BaseMultiRecyclerAdapter#register(BaseBindView bindView)}

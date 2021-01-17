@@ -44,6 +44,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     @Override
     public abstract void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull List<Object> payloads);
 
+    @Override
+    public void onViewRecycled(@NonNull RecyclerViewHolder holder) {
+        super.onViewRecycled(holder);
+    }
+
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

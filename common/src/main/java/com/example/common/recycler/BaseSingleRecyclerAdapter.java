@@ -35,6 +35,11 @@ public abstract class BaseSingleRecyclerAdapter<T> extends BaseRecyclerAdapter<T
     public abstract void onBindView(RecyclerViewHolder holder, int position, T t, @NonNull List<Object> payloads);
 
     @Override
+    public void onViewRecycled(@NonNull RecyclerViewHolder holder) {
+        super.onViewRecycled(holder);
+    }
+
+    @Override
     public int getItemLayoutResId(int type) {
         return getItemLayoutResId();
     }

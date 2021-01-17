@@ -35,7 +35,36 @@ public abstract class BaseBindView<T> {
      * @param item
      * @param payloads 要size为0,表示全局刷新，如果不为0,则表示局部刷新
      */
-    public abstract void bindViewData(RecyclerViewHolder holder, int position, T item, @NonNull List<Object> payloads);
+    public void bindViewData(RecyclerViewHolder holder, int position, T item, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            bindViewDataWithFull(holder, position, item);
+        } else {
+            bindViewDataWithPartial(holder, position, item);
+        }
+    }
+
+    /**
+     * 全局刷新
+     *
+     * @param holder
+     * @param position
+     * @param item
+     */
+    public abstract void bindViewDataWithFull(RecyclerViewHolder holder, int position, T item);
+
+    public void onViewRecycled(@NonNull RecyclerViewHolder holder) {
+
+    }
+
+    /**
+     * 局部刷新
+     *
+     * @param holder
+     * @param position
+     * @param item
+     */
+    public void bindViewDataWithPartial(RecyclerViewHolder holder, int position, T item) {
+    }
 
     public Type getSuperclassTypeParameter(Class<?> subclass) {
         Type superclass = subclass.getGenericSuperclass();
