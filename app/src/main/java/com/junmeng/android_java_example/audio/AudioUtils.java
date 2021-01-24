@@ -77,15 +77,14 @@ public class AudioUtils {
         lastModel = audioManager.getMode();
     }
 
+    /**
+     * 一般在切换为其他音频输出设备之后，需要还原为normal模式
+     * @param context
+     */
     public static void changeToNomal(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setMode(AudioManager.MODE_NORMAL);
     }
-
-//    public static boolean isWiredHeadsetOn(Context context) {
-//        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//        return audioManager.isWiredHeadsetOn();
-//    }
 
     public static boolean isBluetoothA2dpOn(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

@@ -27,7 +27,10 @@ public class ColorUtil {
         return "#" + R + G + B;
     }
 
-
+    /**
+     * 获得随机颜色值
+     * @return
+     */
     public static @ColorInt int getRandColorInt(){
         return Color.parseColor(getRandColor());
     }
