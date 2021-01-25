@@ -20,7 +20,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前音频路由：" />
+            android:text="当前音频输出设备：" />
+
         <TextView
             android:id="@+id/tv_audio_route"
             android:layout_width="wrap_content"
@@ -75,13 +76,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickShowBTHeadset"
-        android:text="展示蓝牙耳机名称" />
+        android:text="展示已连接的蓝牙耳机名称" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickGetDevicesForStream"
-        android:text="获得当前音频路由" />
+        android:text="获得当前音频输出设备" />
 
 
 </LinearLayout>

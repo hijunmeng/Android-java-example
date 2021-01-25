@@ -21,7 +21,7 @@ public class AudioActivity extends BaseActivityDelegate {
 
     List<BluetoothDevice> mDevices;
 
-    private AudioRouteReceiver audioRouteReceiver;
+    private AudioStatusReceiver audioStatusReceiver;
 
     private TextView tvAudioRoute;
 
@@ -30,30 +30,30 @@ public class AudioActivity extends BaseActivityDelegate {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
         tvAudioRoute = findViewById(R.id.tv_audio_route);
-        audioRouteReceiver = new AudioRouteReceiver();
-        audioRouteReceiver.register(this);
+        audioStatusReceiver = new AudioStatusReceiver();
+        audioStatusReceiver.register(this);
 
-        audioRouteReceiver.setCallback(new AudioRouteReceiver.Callback() {
+        audioStatusReceiver.setCallback(new AudioStatusReceiver.Callback() {
             @Override
             public void onReceive(Intent intent, int status, Object data) {
                 Log.i(TAG, "音频连接状态(有线5拔4插，蓝牙6连7断，sco1连2断，noisy3)：" + status);
                 switch (status) {
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_SCO_CONNECTED:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_SCO_CONNECTED:
                         showDebugToast("蓝牙sco已连上");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_SCO_DISCONNECTED:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_SCO_DISCONNECTED:
                         showDebugToast("蓝牙sco已断开");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_BECOMING_NOISY:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_BECOMING_NOISY:
                         showDebugToast("音频BECOMING_NOISY");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_HEADSET_PLUG_OUT:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_HEADSET_PLUG_OUT:
                         showDebugToast("有线耳机拔出");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_HEADSET_PLUG_IN:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_HEADSET_PLUG_IN:
                         showDebugToast("有线耳机插入");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_BTHEADSET_CONNECTED:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_BTHEADSET_CONNECTED:
                         if (data != null && data instanceof BluetoothDevice) {
                             BluetoothDevice device = (BluetoothDevice) data;
                             showDebugToast("已连接蓝牙耳机：" + device.getName());
@@ -61,7 +61,7 @@ public class AudioActivity extends BaseActivityDelegate {
                             showDebugToast("已连接蓝牙耳机");
                         }
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_BTHEADSET_DISCONNECTED:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_BTHEADSET_DISCONNECTED:
                         if (data != null && data instanceof BluetoothDevice) {
                             BluetoothDevice device = (BluetoothDevice) data;
                             showDebugToast("已断开蓝牙耳机：" + device.getName());
@@ -69,36 +69,37 @@ public class AudioActivity extends BaseActivityDelegate {
                             showDebugToast("已断开蓝牙耳机");
                         }
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_BLUETOOTH_ON:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_BLUETOOTH_ON:
                         showDebugToast("蓝牙打开");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_BLUETOOTH_OFF:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_BLUETOOTH_OFF:
                         showDebugToast("蓝牙关闭");
                         break;
-                    case AudioRouteReceiver.AUDIO_ROUTE_STATUS_STREAM_DEVICE_CHANGE:
+                    case AudioStatusReceiver.AUDIO_ROUTE_STATUS_STREAM_DEVICE_CHANGE:
                         if (data != null) {
                             int streamDevice = (int) data;
                             Log.i(TAG, "stream device(DEVICE_OUT_EARPIECE=1,DEVICE_OUT_SPEAKER=2,DEVICE_OUT_WIRED_HEADSET=4,DEVICE_OUT_WIRED_HEADPHONE=8,DEVICE_OUT_BLUETOOTH_SCO=16,DEVICE_OUT_BLUETOOTH_A2DP=128):" + streamDevice);
-                            switch(streamDevice){
+                            switch (streamDevice) {
                                 case 1:
-                                    showDebugToast("切换到听筒");
+                                    tvAudioRoute.setText("听筒");
                                     break;
                                 case 2:
-                                    showDebugToast("切换到扬声器");
+                                    tvAudioRoute.setText("扬声器");
                                     break;
                                 case 4:
+                                    tvAudioRoute.setText("有线耳机(带麦克风)");
+                                    break;
                                 case 8:
-                                    showDebugToast("切换到有线耳机");
+                                    tvAudioRoute.setText("有线耳机(无麦克风)");
                                     break;
                                 case 16:
+                                    tvAudioRoute.setText("蓝牙sco");
+                                    break;
                                 case 128:
-                                    showDebugToast("切换到蓝牙耳机");
+                                    tvAudioRoute.setText("蓝牙a2dp");
                                     break;
                             }
-
                         }
-
-
                         break;
                 }
             }
@@ -109,8 +110,8 @@ public class AudioActivity extends BaseActivityDelegate {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (audioRouteReceiver != null) {
-            audioRouteReceiver.unregister(this);
+        if (audioStatusReceiver != null) {
+            audioStatusReceiver.unregister(this);
         }
     }
 
@@ -185,8 +186,8 @@ public class AudioActivity extends BaseActivityDelegate {
 
 
     public void onClickGetDevicesForStream(View view) {
-        int streamDevice= AudioRoutingUtil.getDevicesForStream(this, AudioManager.STREAM_MUSIC);
-        switch(streamDevice){
+        int streamDevice = AudioRoutingUtil.getDevicesForStream(this, AudioManager.STREAM_MUSIC);
+        switch (streamDevice) {
             case 1:
                 showDebugToast("当前是听筒");
                 break;

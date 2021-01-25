@@ -16,11 +16,12 @@ import androidx.annotation.IntDef;
 /**
  * 需要蓝牙权限
  */
-public class AudioRouteReceiver extends BroadcastReceiver {
+public class AudioStatusReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AudioRouteReceiver";
 
-    ///摘自android.media.AudioManager#STREAM_DEVICES_CHANGED_ACTION
+    //注意STREAM_DEVICES_CHANGED_ACTION是AudioManager的隐藏api,因此在生产环境中使用有一定风险
+    //摘自android.media.AudioManager#STREAM_DEVICES_CHANGED_ACTION
     public static final String STREAM_DEVICES_CHANGED_ACTION = "android.media.STREAM_DEVICES_CHANGED_ACTION";
     //The stream type for the volume changed intent.
     public static final String EXTRA_VOLUME_STREAM_TYPE = "android.media.EXTRA_VOLUME_STREAM_TYPE";
@@ -39,7 +40,7 @@ public class AudioRouteReceiver extends BroadcastReceiver {
     public static final int AUDIO_ROUTE_STATUS_BTHEADSET_DISCONNECTED = 7;
     public static final int AUDIO_ROUTE_STATUS_BLUETOOTH_ON = 8;
     public static final int AUDIO_ROUTE_STATUS_BLUETOOTH_OFF = 9;
-    public static final int AUDIO_ROUTE_STATUS_STREAM_DEVICE_CHANGE = 10; //音频路由发生变化
+    public static final int AUDIO_ROUTE_STATUS_STREAM_DEVICE_CHANGE = 10; //音频输出设备发生变化
 
     @IntDef({AUDIO_ROUTE_STATUS_SCO_CONNECTED, AUDIO_ROUTE_STATUS_SCO_DISCONNECTED, AUDIO_ROUTE_STATUS_BECOMING_NOISY,
             AUDIO_ROUTE_STATUS_HEADSET_PLUG_IN, AUDIO_ROUTE_STATUS_HEADSET_PLUG_OUT, AUDIO_ROUTE_STATUS_BTHEADSET_CONNECTED
@@ -132,16 +133,20 @@ public class AudioRouteReceiver extends BroadcastReceiver {
                 }
                 break;
 
-            case STREAM_DEVICES_CHANGED_ACTION://经测试，此广播并不靠谱，而且存在多次反复回调的问题
+            case STREAM_DEVICES_CHANGED_ACTION:
+                //经测试，此广播并不靠谱，而且存在多次反复回调的问题
+                //比如切换到蓝牙耳机时会经历128-130-128的阶段
+                //切换到有线耳机时有可能经历4-6-4阶段
                 int streamType = intent.getIntExtra(EXTRA_VOLUME_STREAM_TYPE, -1);//STREAM_
                 int streamDevice = intent.getIntExtra(EXTRA_VOLUME_STREAM_DEVICES, -1);//见DEVICE_OUT_
                 int preStreamDevice = intent.getIntExtra(EXTRA_PREV_VOLUME_STREAM_DEVICES, -1);//见DEVICE_OUT_
 
-                Log.i(TAG, "stream type(STREAM_VOICE_CALL=0,STREAM_MUSIC=3,STREAM_BLUETOOTH_SCO=6,STREAM_ACCESSIBILITY=10):" + streamType);
-                Log.i(TAG, "stream device(DEVICE_OUT_EARPIECE=1,DEVICE_OUT_SPEAKER=2,DEVICE_OUT_WIRED_HEADSET=4,DEVICE_OUT_WIRED_HEADPHONE=8,DEVICE_OUT_BLUETOOTH_SCO=16,DEVICE_OUT_BLUETOOTH_A2DP=128):" + streamDevice);
+                Log.i(TAG, "stream type:" + streamType + " (STREAM_VOICE_CALL=0,STREAM_MUSIC=3,STREAM_BLUETOOTH_SCO=6,STREAM_ACCESSIBILITY=10)");
+                Log.i(TAG, "stream device:" + streamDevice + " (DEVICE_OUT_EARPIECE=1,DEVICE_OUT_SPEAKER=2,DEVICE_OUT_WIRED_HEADSET=4,DEVICE_OUT_WIRED_HEADPHONE=8,DEVICE_OUT_BLUETOOTH_SCO=16,DEVICE_OUT_BLUETOOTH_A2DP=128)");
                 Log.i(TAG, "pre stream device:" + preStreamDevice);
 
-                if (currentStreamDevice != streamDevice) {
+                //130,18,6,10等都是目前找不到对应类型的
+                if (currentStreamDevice != streamDevice && streamDevice != 130 && streamDevice != 18 && streamDevice != 6 && streamDevice != 10) {
                     currentStreamDevice = streamDevice;
                     mCallback.onReceive(intent, AUDIO_ROUTE_STATUS_STREAM_DEVICE_CHANGE, currentStreamDevice);
                 }

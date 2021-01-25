@@ -8,7 +8,6 @@ import android.media.AudioManager;
 import android.media.MediaRouter;
 import android.os.Build;
 
-import static android.media.AudioManager.AUDIOFOCUS_GAIN;
 import static android.media.AudioManager.GET_DEVICES_OUTPUTS;
 
 /**
@@ -57,28 +56,9 @@ public class AudioUtils {
         }
     }
 
-
-    public static void dispose(Context context, AudioManager.OnAudioFocusChangeListener focusRequest) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setMode(lastModel);
-        if (audioManager.isBluetoothScoOn()) {
-            audioManager.setBluetoothScoOn(false);
-            audioManager.stopBluetoothSco();
-        }
-        audioManager.unloadSoundEffects();
-        if (null != focusRequest) {
-            audioManager.abandonAudioFocus(focusRequest);
-        }
-    }
-
-
-    public static void getModel(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        lastModel = audioManager.getMode();
-    }
-
     /**
      * 一般在切换为其他音频输出设备之后，需要还原为normal模式
+     *
      * @param context
      */
     public static void changeToNomal(Context context) {
@@ -91,26 +71,6 @@ public class AudioUtils {
         return audioManager.isBluetoothA2dpOn();
     }
 
-    /**
-     * context 传入的是MicroContext.getApplication()
-     *
-     * @param context
-     */
-    public static void choiceAudioModel(Context context) {
-        if (isWiredHeadsetOn(context)) {
-            changeToReceiver(context);
-        } else if (isBluetoothA2dpOn(context)) {
-            changeToHeadset(context);
-        } else {
-            changeToSpeaker(context);
-        }
-    }
-
-    public static void pauseMusic(Context context, AudioManager.OnAudioFocusChangeListener focusRequest) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.requestAudioFocus(focusRequest, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
-    }
-
 
     /**
      * 切换到蓝牙耳机
@@ -118,14 +78,17 @@ public class AudioUtils {
      * @param context
      */
     public static void toggleToBluetooth(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-//        audioManager.startBluetoothSco();
-//        audioManager.setBluetoothScoOn(true);
-//        audioManager.setSpeakerphoneOn(false);
-        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        audioManager.setSpeakerphoneOn(false);
-        audioManager.setBluetoothScoOn(true);
+        if (isBluetoothHeadsetOn(context)) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getMode() != AudioManager.MODE_NORMAL) {
+                audioManager.setMode(AudioManager.MODE_NORMAL);
+            }
+            audioManager.setSpeakerphoneOn(false);
+            if (audioManager.isBluetoothScoOn()) {
+                audioManager.startBluetoothSco();
+            }
+
+        }
 
     }
 
@@ -135,16 +98,13 @@ public class AudioUtils {
      * @param context
      */
     public static void toggleToWiredHeadset(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-//        if (audioManager.isBluetoothScoOn()) {
-//            audioManager.setBluetoothScoOn(false);
-//            audioManager.stopBluetoothSco();
-//        }
-//        audioManager.setSpeakerphoneOn(false);
-        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        audioManager.setSpeakerphoneOn(false);
-        audioManager.setBluetoothScoOn(false);
+        if (isWiredHeadsetOn(context)) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
+                audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            }
+            audioManager.setSpeakerphoneOn(false);
+        }
     }
 
     /**
@@ -155,15 +115,10 @@ public class AudioUtils {
     public static void toggleToSpeaker(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-//        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-//        if (audioManager.isBluetoothScoOn()) {
-//            audioManager.setBluetoothScoOn(false);
-//            audioManager.stopBluetoothSco();
-//        }
-//        audioManager.setSpeakerphoneOn(true);
-        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
+            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        }
         audioManager.setSpeakerphoneOn(true);
-        audioManager.setBluetoothScoOn(false);
     }
 
     /**
@@ -173,17 +128,11 @@ public class AudioUtils {
      */
     public static void toggleToEarpiece(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-//        } else {
-//            audioManager.setMode(AudioManager.MODE_IN_CALL);
-//        }
-//        audioManager.setSpeakerphoneOn(false);
-//        audioManager.setBluetoothScoOn(false);
 
-        audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
+            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+        }
         audioManager.setSpeakerphoneOn(false);
-        audioManager.setBluetoothScoOn(false);
     }
 
     /**
