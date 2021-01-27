@@ -11,6 +11,7 @@ import com.example.common.base.BaseActivityDelegate;
 import com.junmeng.android_java_example.alertwindow.AlertWindowActivity;
 import com.junmeng.android_java_example.anim.AnimListActivity;
 import com.junmeng.android_java_example.audio.AudioActivity;
+import com.junmeng.android_java_example.checkrom.CheckRomActivity;
 import com.junmeng.android_java_example.constraintlayout.ConstraintActivity;
 import com.junmeng.android_java_example.dialog.DialogShowActivity;
 import com.junmeng.android_java_example.drawable.DrawableActivity;
@@ -117,5 +118,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickDrawable(View view) {
         gotoActivity(DrawableActivity.class);
+    }
+
+    public void onClickCheckRom(View view) {
+        gotoActivity(CheckRomActivity.class);
     }
 }

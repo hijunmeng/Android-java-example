@@ -136,6 +136,12 @@
             android:onClick="onClickDrawable"
             android:textAllCaps="false"
             android:text="drawable" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickCheckRom"
+            android:textAllCaps="false"
+            android:text="check rom" />
 
     </LinearLayout>
 
