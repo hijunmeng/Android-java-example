@@ -15,29 +15,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickFrags"
-            android:textAllCaps="false"
-            android:text="fragments" />
+            android:text="fragments"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickLiveData"
-            android:textAllCaps="false"
-            android:text="livedata" />
+            android:text="livedata"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickGesture"
-            android:textAllCaps="false"
-            android:text="gesture" />
+            android:text="gesture"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickAnim"
-            android:textAllCaps="false"
-            android:text="animation" />
+            android:text="animation"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
@@ -55,22 +55,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickDrag"
-            android:textAllCaps="false"
-            android:text="ViewDragHelper" />
+            android:text="ViewDragHelper"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickRecycler"
-            android:textAllCaps="false"
-            android:text="Recycler view" />
+            android:text="Recycler view"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickAudio"
-            android:textAllCaps="false"
-            android:text="audio" />
+            android:text="audio"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
@@ -100,49 +100,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickPaging3"
-            android:textAllCaps="false"
-            android:text="paging3" />
+            android:text="paging3"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickConstraint"
-            android:textAllCaps="false"
-            android:text="ConstarintLayout" />
+            android:text="ConstarintLayout"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickDialog"
-            android:textAllCaps="false"
-            android:text="dialog" />
+            android:text="dialog"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickSensor"
-            android:textAllCaps="false"
-            android:text="sensor" />
+            android:text="sensor"
+            android:textAllCaps="false" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickMedia"
-            android:textAllCaps="false"
-            android:text="media" />
+            android:text="media"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickDrawable"
-            android:textAllCaps="false"
-            android:text="drawable" />
+            android:text="drawable"
+            android:textAllCaps="false" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCheckRom"
-            android:textAllCaps="false"
-            android:text="check rom" />
+            android:text="check rom"
+            android:textAllCaps="false" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickParticle"
+            android:text="particle effect"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </ScrollView>

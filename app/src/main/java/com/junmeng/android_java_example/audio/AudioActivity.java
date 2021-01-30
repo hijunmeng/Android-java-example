@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.common.base.BaseActivityDelegate;
 import com.example.common.utils.AudioRoutingUtil;
 import com.junmeng.android_java_example.R;
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.util.List;
 
@@ -182,6 +183,7 @@ public class AudioActivity extends BaseActivityDelegate {
     public void onClickBluetoothHeadsetConnected(View view) {
 
         showToast("蓝牙耳机是否连接：" + AudioUtils.isBluetoothHeadsetConnected());
+
     }
 
 

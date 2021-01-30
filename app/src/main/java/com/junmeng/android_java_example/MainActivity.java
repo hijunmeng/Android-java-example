@@ -22,6 +22,7 @@ import com.junmeng.android_java_example.livedata.LiveDataActivity;
 import com.junmeng.android_java_example.media.MediaTestActivity;
 import com.junmeng.android_java_example.mediaprojection.MediaProjectionActivity;
 import com.junmeng.android_java_example.notification.NotificationActivity;
+import com.junmeng.android_java_example.particle.ParticleActivity;
 import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
 import com.junmeng.android_java_example.sensor.SensorTestActivity;
@@ -122,5 +123,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickCheckRom(View view) {
         gotoActivity(CheckRomActivity.class);
+    }
+
+    public void onClickParticle(View view) {
+        gotoActivity(ParticleActivity.class);
     }
 }
