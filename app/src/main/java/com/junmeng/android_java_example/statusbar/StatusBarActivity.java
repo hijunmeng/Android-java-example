@@ -198,7 +198,7 @@ public class StatusBarActivity extends BaseActivityDelegate {
     }
 
     public void onClickGetContentHeight(View view) {
-        showToast("content height = " + SystemUiUtil.getContentHeight(this));
+        showToast("content height = " + SystemUiUtil.getContentVisibleHeight(this));
     }
 
     public void onClickCheckNotchScreen(View view) {

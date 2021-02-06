@@ -49,4 +49,35 @@ public class CalculateUtil {
     public static int sp2px(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, context.getResources().getDisplayMetrics());
     }
+
+    /**
+     * 计算InSampleSize，例如将2048x1536以InSampleSize为4进行解码，大概得到位图尺寸512x384
+     * https://developer.android.google.cn/topic/performance/graphics/load-bitmap
+     *
+     * @param sourceWidth  原图尺寸
+     * @param sourceHeight
+     * @param reqWidth     目标尺寸
+     * @param reqHeight
+     * @return
+     */
+    public static int calculateInSampleSize(int sourceWidth, int sourceHeight, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = sourceWidth;
+        final int width = sourceHeight;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
+    }
 }

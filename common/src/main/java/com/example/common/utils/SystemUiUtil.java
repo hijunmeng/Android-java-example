@@ -47,6 +47,8 @@ import static android.view.View.SYSTEM_UI_FLAG_VISIBLE;
  * }
  * }
  * });
+ *
+ * 屏幕主要分为3部分，分别是状态栏，内容区，导航栏
  */
 public class SystemUiUtil {
 
@@ -323,12 +325,12 @@ public class SystemUiUtil {
     }
 
     /**
-     * 获得当前应用区高度（会随着系统UI的可见性而变化）
+     * 获得当前内容区高度（会随着系统UI的可见性而变化，例如弹出输入法时，会相应减去输入法的高度）
      *
      * @param activity
      * @return
      */
-    public static int getContentHeight(@NonNull Activity activity) {
+    public static int getContentVisibleHeight(@NonNull Activity activity) {
         Rect outRect = new Rect();
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect);
         Log.i("123456", "left=" + outRect.left + ",top=" + outRect.top);
