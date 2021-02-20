@@ -4,25 +4,27 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-
-import com.example.common.HolderFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 权限处理器的抽象类，用户可继承此类实现自己需要的权限，可参考{@link ExamplePermissionHandler}
+ */
 public abstract class AbstractPermissionHandler implements IPermissionHandler {
 
     public static final int REQUEST_CODE_PERMISSION = 10088;
 
     private HolderFragment mHolderFragment;
-    private FragmentActivity mActivity;
+    public FragmentActivity mActivity;
+    private PermissionsCallback mPermissionsCallback;
 
     public AbstractPermissionHandler(@NonNull FragmentActivity activity) {
         mActivity = activity;
     }
-
 
     private HolderFragment.OnResultListener mOnResultListener = new HolderFragment.SimpleOnResultListener() {
         @Override
@@ -62,8 +64,11 @@ public abstract class AbstractPermissionHandler implements IPermissionHandler {
     };
 
     @Override
-    public boolean checkPermissions(String[] permissions, boolean isAutoRequestPermissionWhenUngranted) {
+    public boolean checkPermissions(boolean isAutoRequestPermissionWhenUngranted, @Nullable PermissionsCallback callback) {
+        mPermissionsCallback = callback;
+        String[] permissions = getRequestPermissions();
         if (permissions == null || permissions.length == 0) {
+            onAllGrantSuccess();
             return true;
         }
 
@@ -77,6 +82,7 @@ public abstract class AbstractPermissionHandler implements IPermissionHandler {
             }
         }
         if (isAllGranted) {
+            onAllGrantSuccess();
             return true;
         }
 
@@ -87,17 +93,19 @@ public abstract class AbstractPermissionHandler implements IPermissionHandler {
     }
 
     private void attachHolderFragment() {
+        if (mActivity == null) {
+            return;
+        }
         if (mHolderFragment == null) {
             mHolderFragment = HolderFragment.newInstance(mOnResultListener);
         }
-        HolderFragment.attachToActivity(mActivity, mHolderFragment);
+        mHolderFragment.attachToActivity(mActivity);
     }
 
     private void detachHolderFragment() {
-        if (mHolderFragment != null) {
-            HolderFragment.detachToActivity(mActivity, mHolderFragment);
+        if (mHolderFragment != null && mActivity != null) {
+            mHolderFragment.detachToActivity(mActivity);
         }
-
     }
 
     private boolean isPermissionGranted(Context context, String permission) {
@@ -113,11 +121,10 @@ public abstract class AbstractPermissionHandler implements IPermissionHandler {
         mHolderFragment.requestPermissions(array, REQUEST_CODE_PERMISSION);
     }
 
-    /**
-     * 获得要请求的权限
-     *
-     * @return
-     */
-    public abstract String[] getRequestPermissions();
-
+    @Override
+    public void onAllGrantSuccess() {
+        if (mPermissionsCallback != null) {
+            mPermissionsCallback.onAllGrantSuccess();
+        }
+    }
 }

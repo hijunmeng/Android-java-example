@@ -23,6 +23,7 @@ import com.junmeng.android_java_example.media.MediaTestActivity;
 import com.junmeng.android_java_example.mediaprojection.MediaProjectionActivity;
 import com.junmeng.android_java_example.notification.NotificationActivity;
 import com.junmeng.android_java_example.particle.ParticleActivity;
+import com.junmeng.android_java_example.permission.PermissionActivity;
 import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
 import com.junmeng.android_java_example.sensor.SensorTestActivity;
@@ -127,5 +128,9 @@ public class MainActivity extends BaseActivityDelegate {
 
     public void onClickParticle(View view) {
         gotoActivity(ParticleActivity.class);
+    }
+
+    public void onClickPermission(View view) {
+        gotoActivity(PermissionActivity.class);
     }
 }

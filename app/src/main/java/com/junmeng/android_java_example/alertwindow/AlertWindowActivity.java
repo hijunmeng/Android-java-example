@@ -32,10 +32,6 @@ public class AlertWindowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alert_window);
         textView=findViewById(R.id.tv_text);
         textView.setText("click count:"+clickCount);
-
-
-
-
     }
 
     public void onClickShow(View view) {

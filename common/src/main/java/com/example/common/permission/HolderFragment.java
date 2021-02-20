@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.common.permission;
 
 import android.content.Intent;
 
@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 /**
  * 可用于onRequestPermissionsResult和onActivityResult的回调监听
+ * 用法可以参考{@link AbstractPermissionHandler }
  */
 public class HolderFragment extends Fragment {
 
@@ -39,22 +40,40 @@ public class HolderFragment extends Fragment {
         return new HolderFragment(onResultListener);
     }
 
-    public static void attachToActivity(FragmentActivity activity, HolderFragment holderFragment) {
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        HolderFragment fragment = (HolderFragment) fragmentManager.findFragmentByTag(holderFragment.getClass().getSimpleName());
-        if (fragment != null) {
+    /**
+     * 需要监听result回调时调用此
+     * @param activity
+     */
+    public void attachToActivity(@NonNull FragmentActivity activity) {
+        HolderFragment fragment = getAttachHolderFragment(activity);
+        if (fragment == this) {
             return;
         }
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(holderFragment, holderFragment.getClass().getSimpleName())
+                .add(this, this.getClass().getSimpleName())
                 .commitNowAllowingStateLoss();
     }
 
-    public static void detachToActivity(FragmentActivity activity, HolderFragment holderFragment) {
+    @Nullable
+    public HolderFragment getAttachHolderFragment(@NonNull FragmentActivity activity) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .remove(holderFragment)
-                .commitNowAllowingStateLoss();
+        HolderFragment fragment = (HolderFragment) fragmentManager.findFragmentByTag(this.getClass().getSimpleName());
+        return fragment;
+    }
+
+    /**
+     * 不再需要监听result回调时调用此
+     * @param activity
+     */
+    public void detachToActivity(@NonNull FragmentActivity activity) {
+        HolderFragment fragment = getAttachHolderFragment(activity);
+        if (fragment == this) {
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .remove(this)
+                    .commitNowAllowingStateLoss();
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.common.permission;
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 public interface IPermissionHandler {
@@ -11,14 +13,28 @@ public interface IPermissionHandler {
         void onAgree();
     }
 
+    interface PermissionsCallback {
+        /**
+         * 请求权限都已授予
+         */
+        void onAllGrantSuccess();
+    }
+
     /**
      * 检查权限
      *
-     * @param permissions                          需要检查的权限
      * @param isAutoRequestPermissionWhenUngranted 当发现权限未授予时是否自动发起请求权限
+     * @param callback                             当权限授全部授予时会回调此
      * @return true--所有权限都已授予 false--未全部授予
      */
-    boolean checkPermissions(String[] permissions, boolean isAutoRequestPermissionWhenUngranted);
+    boolean checkPermissions(boolean isAutoRequestPermissionWhenUngranted, @Nullable PermissionsCallback callback);
+
+    /**
+     * 获得需要发起请求的权限
+     *
+     * @return
+     */
+    String[] getRequestPermissions();
 
     /**
      * 发起请求权限

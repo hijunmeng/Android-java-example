@@ -35,10 +35,9 @@ public class SystemSettingPageUtil {
      */
     public static void gotoAppDetailsSettingPage(@NonNull Context context) {
         Intent intent = new Intent();
-        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+        intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
         context.startActivity(intent);
     }
-
-
 }
