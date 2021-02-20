@@ -22,10 +22,6 @@ public class AudioRoutingUtil {
      */
     public static int getDevicesForStream(Context context, int streamType) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-//        int mode = audioManager.getMode();
-//        if (mode != AudioManager.MODE_NORMAL) {
-//            audioManager.setMode(AudioManager.MODE_NORMAL); //经验证，在normal模式下getDevicesForStream才能正常返回
-//        }
         try {
             Class ownerClass = audioManager.getClass();
             //public int getDevicesForStream(int streamType);
@@ -33,10 +29,6 @@ public class AudioRoutingUtil {
             return (int) method.invoke(audioManager, streamType);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-//            if (audioManager.getMode() != mode) {
-//                audioManager.setMode(mode);//还原为原来的模式
-//            }
         }
         return -1;
     }
