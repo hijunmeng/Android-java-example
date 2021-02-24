@@ -80,4 +80,66 @@ public class CalculateUtil {
         }
         return inSampleSize;
     }
+
+    /**
+     * 根据原尺寸计算在指定范围内的合适尺寸
+     *
+     * @param sourceWidth  原宽
+     * @param sourceHeight 原高
+     * @param minWidth     指定最小宽度
+     * @param minHeight    指定最小高度
+     * @param maxWidth     指定最大宽度
+     * @param maxHeight    指定最大高度
+     * @return 目标宽高
+     */
+    public static int[] getFitSize(int sourceWidth, int sourceHeight, int minWidth, int minHeight, int maxWidth, int maxHeight) {
+        int targetWidth = 0;
+        int targetHeight = 0;
+
+        if (sourceWidth < minWidth) {//原宽小于最小宽度
+            //先把宽度缩放为最小宽度
+            targetWidth = minWidth;
+            targetHeight = targetWidth * sourceHeight / sourceWidth;
+            if (targetHeight < minHeight) {
+                targetWidth = minWidth * minHeight / targetHeight;
+                targetWidth = Math.min(maxWidth, targetWidth);
+                targetHeight = minHeight;
+            } else if (targetHeight < maxHeight) {
+                //不用修改
+            } else {
+                targetWidth = minWidth;
+                targetHeight = maxHeight;
+            }
+        } else if (sourceWidth < maxWidth) {//原宽在最小宽度和最大宽度之间
+            if (sourceHeight < minHeight) {
+                //先把高度缩放为最小高度
+                targetHeight = minHeight;
+                targetWidth = targetHeight * sourceWidth / sourceHeight;
+                targetWidth = Math.min(maxWidth, targetWidth);
+            } else if (sourceHeight < maxHeight) {
+                targetWidth = sourceWidth;
+                targetHeight = sourceHeight;
+            } else {
+                //先把高度缩放为最大高度
+                targetHeight = maxHeight;
+                targetWidth = maxHeight * sourceWidth / sourceHeight;
+                targetWidth = Math.max(minWidth, targetWidth);
+            }
+        } else {//原宽大于最大宽度
+            //先把宽度缩放为最大宽度
+            targetWidth = maxWidth;
+            targetHeight = targetWidth * sourceHeight / sourceWidth;
+            if (targetHeight < minHeight) {
+                targetHeight = minHeight;
+                targetWidth = maxWidth;
+            } else if (targetHeight < maxHeight) {
+                //不用修改
+            } else {
+                targetWidth = maxHeight * minWidth / targetHeight;
+                targetHeight = maxHeight;
+                targetWidth = Math.max(targetWidth, minWidth);
+            }
+        }
+        return new int[]{targetWidth, targetHeight};
+    }
 }
