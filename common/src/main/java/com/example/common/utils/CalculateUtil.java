@@ -142,4 +142,26 @@ public class CalculateUtil {
         }
         return new int[]{targetWidth, targetHeight};
     }
+
+    /**
+     * 获得原尺寸在指定矩形内的等比例尺寸
+     * 例如要将一张图片等比例放置在指定矩形内，类似ImageView的fitCenter
+     *
+     * @param sourceWidth  原宽
+     * @param sourceHeight 原高
+     * @param inWidth      矩形宽
+     * @param inHeight     矩形高
+     * @return
+     */
+    public static int[] get(int sourceWidth, int sourceHeight, int inWidth, int inHeight) {
+        int targetWidth = 0;
+        int targetHeight = 0;
+        targetWidth = inWidth;
+        targetHeight = inWidth * sourceHeight / sourceWidth;
+        if (targetHeight > inHeight) {//说明需要按高度为基准
+            targetHeight = inHeight;
+            targetWidth = sourceWidth * inHeight / sourceHeight;
+        }
+        return new int[]{targetWidth, targetHeight};
+    }
 }
