@@ -1,6 +1,7 @@
 package com.junmeng.android_java_example.recycler;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.common.base.BaseActivityDelegate;
 import com.example.common.recycler.RecyclerItemClickListenerExt;
+import com.example.common.recycler.RecyclerItemListener;
 import com.junmeng.android_java_example.R;
 import com.junmeng.android_java_example.recycler.bean.Bean1;
 import com.junmeng.android_java_example.recycler.bean.Bean2;
@@ -87,6 +89,18 @@ public class RecyclerViewActivity extends BaseActivityDelegate {
             @Override
             public void onItemClick(View view, int position, Object item) {
                 showToast("onItemClick item123:" + item);
+            }
+        }));
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemListener(recyclerView, new RecyclerItemListener.SimpleOnItemClickListener() {
+            @Override
+            public void onItemClick(View view, MotionEvent e, int position) {
+                showToast("onItemClick item123:" +position);
+            }
+
+            @Override
+            public void onItemDoubleClick(View view, MotionEvent e, int position) {
+                showToast("onItemDoubleClick item123:" +position);
             }
         }));
 

@@ -18,7 +18,6 @@ public class Bean1BindView extends BaseBindView<Bean1> {
 
     @Override
     public void bindViewDataWithFull(RecyclerViewHolder holder, int position, Bean1 item) {
-
         holder.setOnClickListener(R.id.btn_test, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

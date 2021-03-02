@@ -374,6 +374,12 @@ public class CommonBottomSheetDialogFragment extends BottomSheetDialogFragment i
         }
 
         @Override
+        public Builder addButtons(List<ItemBean> btns) {
+            items.addAll(btns);
+            return this;
+        }
+
+        @Override
         public Builder backgroundTransparent(boolean isTransparent) {
             this.backgroundTransparent = isTransparent;
             return this;
@@ -413,6 +419,11 @@ public class CommonBottomSheetDialogFragment extends BottomSheetDialogFragment i
          */
         Builder addButton(@NonNull String text, int which, @ColorInt int color, @Nullable DialogInterface.OnClickListener onClickListener);
 
+        /**
+         * @param btns
+         * @return
+         */
+        Builder addButtons(List<ItemBean> btns);
 
         /**
          * 在点击时对话框是否自动消失，默认true

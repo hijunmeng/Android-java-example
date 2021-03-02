@@ -18,21 +18,55 @@ import java.util.List;
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
     public static final String FLAG_LOCAL_REFRESH = "FLAG_LOCAL_REFRESH";//局部刷新的标记，例如notifyItemChanged(1,BaseRecyclerAdapter.FLAG_LOCAL_REFRESH)
 
-    @Deprecated
     public interface OnItemClickListener<T> {
         void onItemClick(View v, int position, T t);
     }
 
-    @Deprecated
     public interface OnItemLongClickListener<T> {
         void onItemLongClick(View v, int position, T t);
     }
 
-    private BaseMultiRecyclerAdapter.OnItemClickListener<T> mOnItemClickLitener;
-    private BaseMultiRecyclerAdapter.OnItemLongClickListener<T> mOnItemLongClickLitener;
+    private OnItemClickListener<T> mOnItemClickLitener;
+    private OnItemLongClickListener<T> mOnItemLongClickLitener;
     //todo：如果不希望mList遭到外部修改，需要使用Collections.unmodifiableList
     protected List<T> mList = new ArrayList();
     protected T mSelectedItem;//当前选中项，如无选中则为null
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (mOnItemClickLitener == null) {
+                return;
+            }
+            if (v.getTag() == null) {
+                return;
+            }
+            if (!(v.getTag() instanceof RecyclerViewHolder)) {
+                return;
+            }
+            RecyclerViewHolder holder = ((RecyclerViewHolder) v.getTag());
+            int pos = holder.getAdapterPosition();
+            mOnItemClickLitener.onItemClick(holder.itemView, pos, getItem(pos));
+        }
+    };
+
+    private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (mOnItemLongClickLitener == null) {
+                return false;
+            }
+            if (v.getTag() == null) {
+                return false;
+            }
+            if (!(v.getTag() instanceof RecyclerViewHolder)) {
+                return false;
+            }
+            RecyclerViewHolder holder = ((RecyclerViewHolder) v.getTag());
+            int pos = holder.getAdapterPosition();
+            mOnItemLongClickLitener.onItemLongClick(holder.itemView, pos, getItem(pos));
+            return false;
+        }
+    };
 
     /**
      * 在此处根据类型返回item布局id
@@ -74,23 +108,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     protected void setClickListener(@NonNull final RecyclerViewHolder holder) {
         if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(holder.itemView, pos, getItem(pos));
-                }
-            });
+            holder.itemView.setTag(holder);
+            holder.itemView.setOnClickListener(onClickListener);
         }
         if (mOnItemLongClickLitener != null) {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemLongClickLitener.onItemLongClick(holder.itemView, pos, getItem(pos));
-                    return false;
-                }
-            });
+            holder.itemView.setTag(holder);
+            holder.itemView.setOnLongClickListener(onLongClickListener);
         }
     }
 
@@ -100,21 +123,19 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     /**
      * 设置监听器
      *
-     * @param mOnItemClickLitener
+     * @param onItemClickLitener
      */
-    @Deprecated //推荐用RecyclerItemClickListener
-    public void setOnItemClickLitener(BaseMultiRecyclerAdapter.OnItemClickListener<T> mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
+    public void setOnItemClickLitener(OnItemClickListener<T> onItemClickLitener) {
+        this.mOnItemClickLitener = onItemClickLitener;
     }
 
     /**
      * 设置监听器
      *
-     * @param mOnItemLongClickLitener
+     * @param onItemLongClickLitener
      */
-    @Deprecated //推荐用RecyclerItemClickListener
-    public void setOnItemLongClickListener(BaseMultiRecyclerAdapter.OnItemLongClickListener<T> mOnItemLongClickLitener) {
-        this.mOnItemLongClickLitener = mOnItemLongClickLitener;
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickLitener) {
+        this.mOnItemLongClickLitener = onItemLongClickLitener;
     }
 
     /**

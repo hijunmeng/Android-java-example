@@ -97,13 +97,15 @@ public class CalculateUtil {
         int targetHeight = 0;
 
         if (sourceWidth < minWidth) {//原宽小于最小宽度
-            //先把宽度缩放为最小宽度
+            //把宽度缩放为最小宽度
             targetWidth = minWidth;
             targetHeight = targetWidth * sourceHeight / sourceWidth;
             if (targetHeight < minHeight) {
-                targetWidth = minWidth * minHeight / targetHeight;
-                targetWidth = Math.min(maxWidth, targetWidth);
+                //把高度缩放为最小高度
                 targetHeight = minHeight;
+                targetWidth = sourceWidth * targetHeight / sourceHeight;
+                targetWidth = Math.min(maxWidth, targetWidth);
+
             } else if (targetHeight < maxHeight) {
                 //不用修改
             } else {
@@ -112,21 +114,23 @@ public class CalculateUtil {
             }
         } else if (sourceWidth < maxWidth) {//原宽在最小宽度和最大宽度之间
             if (sourceHeight < minHeight) {
-                //先把高度缩放为最小高度
+                //把高度缩放为最小高度
                 targetHeight = minHeight;
                 targetWidth = targetHeight * sourceWidth / sourceHeight;
+
                 targetWidth = Math.min(maxWidth, targetWidth);
             } else if (sourceHeight < maxHeight) {
                 targetWidth = sourceWidth;
                 targetHeight = sourceHeight;
             } else {
-                //先把高度缩放为最大高度
+                //把高度缩放为最大高度
                 targetHeight = maxHeight;
                 targetWidth = maxHeight * sourceWidth / sourceHeight;
+
                 targetWidth = Math.max(minWidth, targetWidth);
             }
         } else {//原宽大于最大宽度
-            //先把宽度缩放为最大宽度
+            //把宽度缩放为最大宽度
             targetWidth = maxWidth;
             targetHeight = targetWidth * sourceHeight / sourceWidth;
             if (targetHeight < minHeight) {
@@ -135,8 +139,10 @@ public class CalculateUtil {
             } else if (targetHeight < maxHeight) {
                 //不用修改
             } else {
-                targetWidth = maxHeight * minWidth / targetHeight;
+                //把高度缩放为最大高度
                 targetHeight = maxHeight;
+                targetWidth = targetHeight * sourceWidth / sourceHeight;
+
                 targetWidth = Math.max(targetWidth, minWidth);
             }
         }
