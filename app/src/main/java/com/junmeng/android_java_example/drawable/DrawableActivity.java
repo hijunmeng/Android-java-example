@@ -21,7 +21,7 @@ public class DrawableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDrawableBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.imageView2.setBackground(new CustomDrawable());
 
     }
 
