@@ -131,7 +131,7 @@ public class SlidablePopupWindow extends PopupWindow implements View.OnClickList
 //        RecyclerViewAnimUtil.closeDefaultAnimator(rvUsers);
         rvUsers.addOnItemTouchListener(new RecyclerItemClickListener(rvUsers, new RecyclerItemClickListener.SimpleOnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(MotionEvent e, View view, int position) {
 
 
             }

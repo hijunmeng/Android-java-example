@@ -7,30 +7,35 @@ import java.util.List;
 
 /**
  * 支持多类型的recyclerview适配器
+ * 此类适用于每个item又有多种布局的情况，例如聊天，每个item都需要有发送和接收两种布局
+ * 采用了以布局资源id作为getItemViewType的返回值
  * 用法示例：
  * <pre>
- *  BaseMultiRecyclerAdapter adapter= new BaseMultiRecyclerAdapter();
- *   adapter.register(new Bean1BindView());
- *   adapter.register(new Bean2BindView());
+ *  BaseMultiRecyclerAdapter2 adapter= new BaseMultiRecyclerAdapter2();
+ *   adapter.register(new Bean1BindView2());
+ *   adapter.register(new Bean2BindView2());
  *  recyclerView.setAdapter(adapter);
  * </pre>
  */
-public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
+public class BaseMultiRecyclerAdapter2 extends BaseRecyclerAdapter {
 
     private static final String TAG = "BaseMultiRecyclerAdapter";
-    protected IRecyclerTypeManager mRecyclerTypeManager = new SimpleRecyclerTypeManager();
+    protected IRecyclerTypeManager2 mRecyclerTypeManager = new SimpleRecyclerTypeManager2();
 
-    public BaseMultiRecyclerAdapter() {
+    public BaseMultiRecyclerAdapter2() {
     }
+
 
     /**
      * 在此处根据类型返回item布局id
      *
+     * @param type getItemViewType获得
      * @return
      */
     @Override
     public int getItemLayoutResId(int type) {
-        return mRecyclerTypeManager.getItemLayoutResId(type);
+        //由于getItemViewType返回的就是布局资源id,因此此处直接返回type即可
+        return type;
     }
 
     /**
@@ -52,23 +57,16 @@ public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
         if (pos == -1) {
             return;
         }
-        int type = getItemViewType(pos);
-        if (type == -1) {
+        Object item = getItem(pos);
+        if (item == null) {
             return;
         }
-        mRecyclerTypeManager.getBindView(type).onViewRecycled(holder);
-    }
-
-    /**
-     * 注册
-     * 已过时，请使用{@link BaseMultiRecyclerAdapter#register(BaseBindView bindView)}
-     *
-     * @param cls
-     * @param bindView
-     */
-    @Deprecated
-    public void register(Class cls, BaseBindView bindView) {
-        mRecyclerTypeManager.putBindView(cls.hashCode(), bindView);
+        int code = item.getClass().hashCode();
+        BaseBindView2 bindView = mRecyclerTypeManager.getBindView(code);
+        if (bindView == null) {
+            return;
+        }
+        bindView.onViewRecycled(holder);
     }
 
     /**
@@ -76,7 +74,7 @@ public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
      *
      * @param bindView
      */
-    public void register(BaseBindView bindView) {
+    public void register(BaseBindView2 bindView) {
         mRecyclerTypeManager.putBindView(bindView.mType.hashCode(), bindView);
     }
 
@@ -86,7 +84,7 @@ public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
      * @param holder
      */
     public void onBindViewHolderExtend(RecyclerViewHolder holder, int position, @NonNull List<Object> payloads) {
-        mRecyclerTypeManager.getBindView(getItemViewType(position)).bindViewData(holder, position, mList.get(position), payloads);
+        mRecyclerTypeManager.getBindView(getItem(position).getClass().hashCode()).bindViewData(holder, position, mList.get(position), payloads);
     }
 
     /**
@@ -97,7 +95,7 @@ public class BaseMultiRecyclerAdapter extends BaseRecyclerAdapter {
      */
     @Override
     public int getItemViewType(int position) {
-        return mList.get(position).getClass().hashCode();
+        return mRecyclerTypeManager.getItemViewType(mList.get(position));
     }
 
 }

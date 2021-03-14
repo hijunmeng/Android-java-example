@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -161,7 +162,7 @@ public class CommonBottomSheetDialogFragment extends BottomSheetDialogFragment i
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mRecyclerView, new RecyclerItemClickListener.SimpleOnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(MotionEvent e, View view, int position) {
                 try {
                     if (mBuilder.isAutoDismiss) {
                         dismiss();

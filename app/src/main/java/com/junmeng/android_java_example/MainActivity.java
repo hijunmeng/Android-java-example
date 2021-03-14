@@ -24,7 +24,7 @@ import com.junmeng.android_java_example.mediaprojection.MediaProjectionActivity;
 import com.junmeng.android_java_example.notification.NotificationActivity;
 import com.junmeng.android_java_example.particle.ParticleActivity;
 import com.junmeng.android_java_example.permission.PermissionActivity;
-import com.junmeng.android_java_example.recycler.RecyclerViewActivity;
+import com.junmeng.android_java_example.recycler.chat.ChatDemoActivity;
 import com.junmeng.android_java_example.round_layout.RoundLayoutActivity;
 import com.junmeng.android_java_example.sensor.SensorTestActivity;
 import com.junmeng.android_java_example.setting.SettingActivity;
@@ -75,7 +75,8 @@ public class MainActivity extends BaseActivityDelegate {
     }
 
     public void onClickRecycler(View view) {
-        gotoActivity(RecyclerViewActivity.class);
+//        gotoActivity(RecyclerViewActivity.class);
+        gotoActivity(ChatDemoActivity.class);
     }
 
     public void onClickAudio(View view) {

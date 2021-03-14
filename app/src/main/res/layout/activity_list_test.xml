@@ -11,9 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="演示ReveseLayout\n和StackFromEnd的效果" />
 
         <Button
             android:id="@+id/addItem"
@@ -33,16 +39,20 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ffff00"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/funs">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="ReveseLayout:false-StackFromEnd:true" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_wrap_1"
             android:layout_width="match_parent"
@@ -54,6 +64,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ffff00"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,16 +84,20 @@
 
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ff0000"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_5"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline_h_2">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="false-false" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_wrap_2"
             android:layout_width="match_parent"
@@ -93,6 +109,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ff0000"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,16 +128,20 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ff00ff"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_7"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline_h_5">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="true-true" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_wrap_3"
             android:layout_width="match_parent"
@@ -131,6 +153,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#88ff00ff"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_h_7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -148,6 +172,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#8800ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_5"
@@ -171,6 +197,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
         android:background="#8800ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

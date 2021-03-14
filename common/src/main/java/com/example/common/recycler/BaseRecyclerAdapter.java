@@ -1,5 +1,6 @@
 package com.example.common.recycler;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @param <T> item对应的bean类
  */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
@@ -71,6 +71,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     /**
      * 在此处根据类型返回item布局id
      *
+     * @param type 来自getItemViewType
      * @return
      */
     public abstract int getItemLayoutResId(int type);
@@ -83,9 +84,15 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         super.onViewRecycled(holder);
     }
 
+    /**
+     * @param parent
+     * @param viewType 来自getItemViewType
+     * @return
+     */
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i("123456", "" + viewType);
         int layoutResId = getItemLayoutResId(viewType);
         if (layoutResId == 0) {
             throw new IllegalArgumentException("layout res id can not be zero,you must set it correctly");
